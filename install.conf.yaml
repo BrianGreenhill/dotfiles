@@ -18,4 +18,6 @@
     ~/.bashrc: bashrc
     ~/.bash_profile: bash_profile
     ~/.aliases: bash_aliases
+    /etc/vconsole.conf: vconsole.conf
     ~/bin/screens: screens
+    ~/bin/i3exit: i3exit
