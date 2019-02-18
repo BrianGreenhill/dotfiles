@@ -1,0 +1,21 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.dotfiles: ''
+    ~/.tmux.conf: tmux.conf
+    ~/.vimrc: vimrc
+    ~/.xinitrc: xinitrc
+    ~/.gitconfig: gitconfig
+    ~/.gitignore_global: gitignore_global
+    ~/.config/compton.conf: compton
+    ~/.config/i3/config: i3
+    ~/.config/i3status/config: i3status
+    ~/.config/termite/config: termite
+    ~/.bashrc: bashrc
+    ~/.bash_profile: bash_profile
+    ~/.aliases: bash_aliases
+    ~/bin/screens: screens
