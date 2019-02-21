@@ -35,7 +35,7 @@ bindsym $mod+Return exec termite
 focus_follows_mouse no
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
@@ -203,9 +203,9 @@ for_window [class="sxiv"] floating enable
 hide_edge_borders smart
 
 # Gaps
-for_window [class="^.*"] border pixel 1
-gaps inner 4
-gaps outer 2
+for_window [class="^.*"] border pixel 2
+gaps inner 10
+gaps outer 4
 smart_borders no_gaps
 
 
@@ -242,24 +242,19 @@ bindsym shift+XF86MonBrightnessDown exec xbacklight -dec 1 # decrease screen bri
 # App shortcuts
 bindsym $mod+w exec "/usr/bin/firefox"
 bindsym $mod+n exec termite -e ranger
-bindsym $mod+c exec "/usr/bin/code"
-bindsym $mod+p exec "/usr/bin/KeeWeb"
 bindcode $mod+49 exec "networkmanager_dmenu"
 
 # Redirect sound to headphones
 bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
 # Autostart apps
-exec --no-startup-id i3-msg 'workspace 1:terminal; exec termite -e /usr/bin/htop'
-exec --no-startup-id i3-msg 'workspace 2:www; exec /usr/local/bin/firefox'
-exec --no-startup-id i3-msg 'workspace 10:pass; exec /usr/bin/KeeWeb'
-
 exec --no-startup-id redshift-gtk
 exec --no-startup-id "compton -cC"
-exec_always --no-startup-id "nitrogen --restore"
 exec --no-startup-id "sleep 2s && kalu"
 exec --no-startup-id "clipit"
-
+exec --no-startup-id "dropbox"
+exec --no-startup-id screens
+exec_always --no-startup-id "nitrogen --restore"
 client.focused #00b0ef #00b0ef #141414 #ff7066
 client.focused_inactive #141414 #141414 #00b0ef #472b2a
 client.unfocused #141414 #141414 #7d7d7d #141414
