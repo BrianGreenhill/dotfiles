@@ -2,11 +2,12 @@
 
 set -e
 
-MONITOR_STATUS=$(/usr/bin/xrandr | grep connected | grep DP1-2 | awk '{print $2}' )
+MONITOR_STATUS=$(/usr/bin/xrandr | grep " connected" | grep DP1- | awk '{print $2}')
+MONITOR=$(/usr/bin/xrandr | grep " connected" | grep DP1- | awk '{print $1}')
 
 if [ "connected" == "$MONITOR_STATUS" ]; then
-  /usr/bin/xrandr --output eDP1 --pos 5120x0 --output DP1-2 --auto --scale 1.5x1.5 --pos 0x0
+  /usr/bin/xrandr --output eDP1 --pos 5120x0 --output "$MONITOR" --auto --scale 1.5x1.5 --pos 0x0
 else
-  /usr/bin/xrandr --output DP1-2 --off
+  /usr/bin/xrandr --output "$MONITOR" --off
 fi
 
