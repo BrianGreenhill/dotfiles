@@ -1,5 +1,5 @@
-udiskie &
-#/usr/bin/setxkbmap -option "ctrl:nocaps"
-#/usr/bin/setxkbmap -device 20 -option "ctrl:nocaps"
+systemctl --user import-environment DISPLAY
+udiskie --no-notify --use-udisks2 &
 xrandr --output eDP1 --dpi 192
-exec i3
+screens
+i3

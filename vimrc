@@ -2,8 +2,21 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" ================ General Config ====================
 
+" ================ Vundle ====================
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'arcticicestudio/nord-vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+call vundle#end()
+
+" ================ General Config ====================
+colorscheme nord
 set number                      "Line numbers are good
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
@@ -26,6 +39,9 @@ syntax on
 " The mapleader has to be set before vundle starts loading all
 " the plugins.
 let mapleader=","
+
+" escape is so far away
+inoremap jk <esc>
 
 " ================ Turn Off Swap Files ==============
 
@@ -80,13 +96,30 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 set wildignore+=*vendor*
-"
+
+" ================ Airline Settings =======================
+set encoding=utf-8
+let g:arline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" ================ Ctrl-P Settings =======================
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+
+" ================ Completion =======================
+
+map <c-n> :NERDTreeToggle<CR>
+nnoremap <C-b> :bnext<CR>
+
 " ================ Scrolling ========================
 
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
-
-" ================ Powerline ==========================
-let g:powerline_pycmd="py3"
+set laststatus=2 " Always display the statusline in all windows
+set showtabline=2 " Always display the tabline, even if there is only one tab
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set t_Co=256

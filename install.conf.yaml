@@ -11,7 +11,7 @@
     ~/.xinitrc: xinitrc
     ~/.gitconfig: gitconfig
     ~/.gitignore_global: gitignore_global
-    ~/.config/compton.conf: compton
+    ~/.compton.conf: compton.conf
     ~/.config/i3/config: i3
     ~/.config/i3status/config: i3status
     ~/.config/termite/config: termite
@@ -21,3 +21,5 @@
     /etc/vconsole.conf: vconsole.conf
     ~/bin/screens: screens
     ~/bin/i3exit: i3exit
+    ~/bin/sshadd: ssh-add.sh
+    ~/bin/volume: volume.sh

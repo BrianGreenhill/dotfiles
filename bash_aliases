@@ -66,16 +66,10 @@ alias klog='kubectl logs -f'
 alias kahoy='kctx platform.ahoy-k8s.hellofresh.io'
 alias klive='kctx platform.live-k8s.hellofresh.io'
 alias kstaging='kctx platform.staging-k8s.hellofresh.io'
+alias kctx='kubectx'
+alias kns='kubens'
 
 # arch
-
-alias pacrepo='sudo reflector -l 20 -f 10 --save /etc/pacman.d/mirrorlist'
-alias pacman='sudo pacman'
-alias journalctl='sudo journalctl'
-alias pacu='sudo pacman -Syu --noconfirm'
-alias auru='yaourt -Syua --noconfirm'
-alias systemctl='sudo systemctl'
-alias se='ls /usr/bin | grep'
 
 export QT_STYLE_OVERRIDE=gtk
 export QT_SELECT=qt5
