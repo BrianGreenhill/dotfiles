@@ -1,5 +1,5 @@
 set $mod Mod4
-font pango:DejaVu Sans Mono, Icons 10
+font pango:DejaVu Sans Mono, FontAwesome 10
 floating_modifier $mod
 
 # start a terminal
@@ -97,7 +97,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+z exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # lock
-bindsym $mod+Shift+x exec i3lock --color 141414 --ignore-empty-password --show-failed-attempts
+bindsym $mod+Shift+x exec betterlockscreen -l dim
 
 # sleep
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
@@ -132,32 +132,14 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-
-# window colors
-# class                 border  backgr. text    indicator child border
-client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
-
-# Start i3bar to display a workspace bar (plus the system information i3status
 bar {
   status_command i3status
-  height 40
-  font pango:DejaVu Sans Mono, Icons 10
   position top
-  colors {
-    separator #7d7d7d
-    background #141414
-    statusline #00b0ef
-    focused_workspace #00b0ef #141414 #00b0ef
-    active_workspace #141414 #141414 #00b0ef
-    inactive_workspace #141414 #141414 #7d7d7d
-    urgent_workspace #ff7066 #141414 #ff7066
-  }
 }
 
 hide_edge_borders smart
 
 for_window [class="^.*"] border pixel 1
-for_window [class="Kalu"] floating enable
 for_window [class="sxiv"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
@@ -165,30 +147,23 @@ for_window [window_role="Preferences$"] floating enable
 for_window [floating] border pixel 1
 
 # Gaps
-gaps inner 8
-gaps outer -2
+gaps inner 10
+gaps outer 0
 smart_borders no_gaps
-
 
 ## Multimedia Keys
 
 # volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id volume 5dB+ unmute  #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id volume 5dB- unmute #lower sound volume
+bindsym $mod+F3 exec --no-startup-id volume 5dB+ unmute  #increase sound volume
+bindsym $mod+F2 exec --no-startup-id volume 5dB- unmute #lower sound volume
 
 
 # granular volume control
-bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id volume 2dB+ unmute
-bindsym Shift+XF86AudioLowerVolume exec --no-startup-id volume 2dB- unmute
+bindsym $mod+Shift+F3 exec --no-startup-id volume 2dB+ unmute
+bindsym $mod+Shift+F2 exec --no-startup-id volume 2dB- unmute
 
 # mute
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks #mute sound volume
-
-bindsym XF86AudioPlay exec mocp --toggle-pause
-bindsym XF86AudioPause exec mocp --toggle-pause
-bindsym XF86AudioStop exec mocp --togle-pause
-bindsym XF86AudioNext exec mocp --next
-bindsym XF86AudioPrev exec mocp --previous
+bindsym $mod+F1 exec pactl set-sink-mute @DEFAULT_SINK@ toggle #mute sound volume
 
 bindsym $mod+F5 exec mocp --toggle-pause
 bindsym $mod+F6 exec mocp --stop
@@ -196,11 +171,11 @@ bindsym $mod+F7 exec mocp --previous
 bindsym $mod+F8 exec mocp --next
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+bindsym $mod+F12 exec xbacklight -inc 5 # increase screen brightness
+bindsym $mod+F11 exec xbacklight -dec 5 # decrease screen brightness
 
-bindsym shift+XF86MonBrightnessUp exec xbacklight -inc 1 # increase screen brightness
-bindsym shift+XF86MonBrightnessDown exec xbacklight -dec 1 # decrease screen brightness
+bindsym $mod+shift+F12 exec xbacklight -inc 1 # increase screen brightness
+bindsym $mod+shift+F11 exec xbacklight -dec 1 # decrease screen brightness
 
 # App shortcuts
 bindsym $mod+w exec "/usr/bin/firefox"
@@ -211,14 +186,15 @@ bindsym --release $mod+z exec "scrot -s ~/screenshots/%b%d_%H%M%S.png"
 # Redirect sound to headphones
 bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
 
+# dmenu calculator
+bindsym $mod+equal exec =
+
 # Autostart apps
-exec --no-startup-id "clipit"
+exec --no-startup-id betterlockscreen -w dim
+exec --no-startup-id xset r rate 200 50
+exec --no-startup-id source ~/.fehbg
+exec --no-startup-id "clipit -n"
 exec --no-startup-id unclutter
 exec --no-startup-id compton --backend glx --glx-no-stencil --xrender-sync-fence --blur-background -i 0.9 -f -D 3 --inactive-dim 0.2
-exec_always --no-startup-id feh --bg-scale ~/wallpaper.jpg
 exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunst"
 
-client.focused #00b0ef #00b0ef #141414 #ff7066
-client.focused_inactive #141414 #141414 #00b0ef #472b2a
-client.unfocused #141414 #141414 #7d7d7d #141414
-client.urgent #ff7066 #ff7066 #141414 #ff7066

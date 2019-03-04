@@ -13,6 +13,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'arcticicestudio/nord-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'xuhdev/vim-latex-live-preview'
 call vundle#end()
 
 " ================ General Config ====================
@@ -107,6 +108,9 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
+
+" ================ LaTeX Settings =======================
+let g:livepreview_previewer = 'zathura'
 
 " ================ Completion =======================
 

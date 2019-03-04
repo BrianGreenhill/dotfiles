@@ -1,20 +1,21 @@
 general {
-    interval = 1
-    colors = true
-    color_good = '#88b090'
-    color_degraded = '#ccdc90'
-    color_bad = '#e89393'
+    interval = 3
+    separator = ""
+    colors = false
+    color_good = "#a3be8c"
+    color_degraded = "#ebcb8b"
+    color_bad = "#bf616a"
 }
 
 order += "volume master"
 order += "wireless wlp58s0"
+order += "battery 0"
 order += "ethernet enp57s0u1u2"
 order += "path_exists VPN"
-order += "battery 0"
-order += "tztime local"
+order += "tztime_local"
 
 wireless wlp58s0 {
-    format_up = ""
+    format_up = " "
     format_down = ""
 }
 
@@ -24,33 +25,31 @@ ethernet enp57s0u1u2 {
 }
 
 battery 0 {
-    format = "%status"
+    format = "%status %percentage"
     format_down = "no battery"
+    low_threshold = 30
+    threshold_type = percentage
     last_full_capacity = true
     integer_battery_capacity = true
-    low_threshold = 20
-    threshold_type = percentage
-    hide_seconds = true
-    status_chr = "⚡"
-    status_bat = ""
+    status_chr = ""
+    status_bat = " "
     status_unk = ""
     status_full = ""
 }
 
 path_exists VPN {
     format = ""
-    format_down = ""
+    format_down = ""
     path = "/proc/sys/net/ipv4/conf/tun0"
 }
 
-#%Y-%m-%d %H:%M:%S'
 tztime local {
-    format = "[W%V] %d.%m.%Y  %H:%M"
+    format = " %a %B%e, %Y  %H:%M"
 }
 
 volume master {
     format = ""
-    format_muted = "mute"
+    format_muted = ""
     device = "default"
     mixer = "Master"
     mixer_idx = 0
