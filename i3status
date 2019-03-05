@@ -11,6 +11,7 @@ order += "volume master"
 order += "wireless wlp58s0"
 order += "battery 0"
 order += "ethernet enp57s0u1u2"
+order += "ethernet enp0s20f0u1"
 order += "path_exists VPN"
 order += "tztime_local"
 
@@ -24,6 +25,10 @@ ethernet enp57s0u1u2 {
     format_down = ""
 }
 
+ethernet enp0s20f0u1 {
+    format_up = ""
+    format_down = ""
+}
 battery 0 {
     format = "%status %percentage"
     format_down = "no battery"

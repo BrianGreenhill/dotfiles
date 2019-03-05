@@ -1,11 +1,11 @@
 [options]
 font = Droid Sans Mono 22
 scrollback_lines = -1
+cursor_blink = off
 
 [colors]
 cursor = #d8dee9
 cursor_foreground = #2e3440
-
 foreground = #d8dee9
 foreground_bold = #d8dee9
 background = #2e3440

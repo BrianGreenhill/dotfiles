@@ -191,10 +191,10 @@ bindsym $mod+equal exec =
 
 # Autostart apps
 exec --no-startup-id betterlockscreen -w dim
-exec --no-startup-id xset r rate 200 50
+exec --no-startup-id xset r rate 200 6666660
 exec --no-startup-id source ~/.fehbg
 exec --no-startup-id "clipit -n"
 exec --no-startup-id unclutter
-exec --no-startup-id compton --backend glx --glx-no-stencil --xrender-sync-fence --blur-background -i 0.9 -f -D 3 --inactive-dim 0.2
+exec --no-startup-id compton --backend glx --glx-no-stencil --xrender-sync-fence
 exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunst"
 
