@@ -2,6 +2,12 @@
 font = Droid Sans Mono 22
 scrollback_lines = -1
 cursor_blink = off
+clickable_url = true
+browser = firefox
+visible_bell = false
+audible_bell = false
+allow_bold = true
+allow_italic = true
 
 [colors]
 cursor = #d8dee9

@@ -139,7 +139,7 @@ bar {
 
 hide_edge_borders smart
 
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 3
 for_window [class="sxiv"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
@@ -147,9 +147,14 @@ for_window [window_role="Preferences$"] floating enable
 for_window [floating] border pixel 1
 
 # Gaps
-gaps inner 10
+gaps inner 5
 gaps outer 0
 smart_borders no_gaps
+
+bindsym $mod+plus		gaps outer current plus 5
+bindsym $mod+Shift+plus gaps inner current plus 5
+bindsym $mod+minus gaps inner current minus 5
+bindsym $mod+Shift+minus gaps outer current minus 5
 
 ## Multimedia Keys
 
@@ -191,10 +196,10 @@ bindsym $mod+equal exec =
 
 # Autostart apps
 exec --no-startup-id betterlockscreen -w dim
-exec --no-startup-id xset r rate 200 6666660
-exec --no-startup-id source ~/.fehbg
+exec --no-startup-id xset r rate 200 60
+exec_always --no-startup-id feh --bg-scale ~/wallpaper.jpg
 exec --no-startup-id "clipit -n"
 exec --no-startup-id unclutter
 exec --no-startup-id compton --backend glx --glx-no-stencil --xrender-sync-fence
-exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunst"
+exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunstrc"
 
