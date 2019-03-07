@@ -1,0 +1,8 @@
+primary=$(xrandr -q | grep "\sconnected" | awk '{print $1}' | dmenu -i -p "Select primary display: ")
+
+if [[ "$primary" == *"e"* ]]; then
+  `xrandr --output $primary --dpi 192 --primary --mode 3200x1800 --output DP1-3 --off --output DP1-2 --off --output --DP1-1 --off --output DP2 --off 2> /dev/null`
+else
+  echo "$primary" does not contain e
+fi
+feh --bg-scale ~/wallpaper.jpg

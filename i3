@@ -141,6 +141,7 @@ hide_edge_borders smart
 
 for_window [class="^.*"] border pixel 3
 for_window [class="sxiv"] floating enable
+for_window [class="KeeWeb"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences$"] floating enable
@@ -161,7 +162,6 @@ bindsym $mod+Shift+minus gaps outer current minus 5
 # volume
 bindsym $mod+F3 exec --no-startup-id volume 5dB+ unmute  #increase sound volume
 bindsym $mod+F2 exec --no-startup-id volume 5dB- unmute #lower sound volume
-
 
 # granular volume control
 bindsym $mod+Shift+F3 exec --no-startup-id volume 2dB+ unmute
@@ -187,12 +187,13 @@ bindsym $mod+w exec "/usr/bin/firefox"
 bindsym $mod+n exec termite -e ranger
 bindcode $mod+49 exec "networkmanager_dmenu"
 bindsym --release $mod+z exec "scrot -s ~/screenshots/%b%d_%H%M%S.png"
-
-# Redirect sound to headphones
-bindsym $mod+m exec "/usr/local/bin/switch-audio-port"
+bindsym $mod+p exec KeeWeb
 
 # dmenu calculator
 bindsym $mod+equal exec =
+
+# dmenu screen selector
+bindsym $mod+m exec i3screens
 
 # Autostart apps
 exec --no-startup-id betterlockscreen -w dim

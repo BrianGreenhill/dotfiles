@@ -19,6 +19,7 @@
     ~/.bash_profile: bash_profile
     ~/.aliases: bash_aliases
     /etc/vconsole.conf: vconsole.conf
+    ~/bin/i3screens: i3screens
     ~/bin/screens: screens
     ~/bin/i3exit: i3exit
     ~/bin/sshadd: ssh-add.sh
