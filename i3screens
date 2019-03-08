@@ -1,8 +1,35 @@
+#!/bin/sh
+set -ex
 primary=$(xrandr -q | grep "\sconnected" | awk '{print $1}' | dmenu -i -p "Select primary display: ")
+dpi=$(printf "yes\nno" | dmenu -i -p "Is this a high dpi display?")
+otherMonitorOff="--output $(xrandr -q | grep "\sconnected" | grep -v $primary | awk '{print $1}') --off"
+multi=$(printf "yes\nno" | dmenu -i -p "Do you multi monitor?")
 
-if [[ "$primary" == *"e"* ]]; then
-  `xrandr --output $primary --dpi 192 --primary --mode 3200x1800 --output DP1-3 --off --output DP1-2 --off --output --DP1-1 --off --output DP2 --off 2> /dev/null`
-else
-  echo "$primary" does not contain e
+if [[ "$dpi" == "yes" ]]; then
+  dpiVal="--dpi 192 --scale 1.0x1.0"
 fi
+
+if [[ "$dpi" == "no" ]]; then
+  dpiVal="--scale 1.5x1.5"
+fi
+
+if [[ "$multi" == "yes" ]]; then
+  secondary=$(xrandr -q | grep -v $primary | grep "\sconnected" | awk '{print $1}')
+  side=$(printf "left\nright" | dmenu -i -p "Which side of ${primary} is ${secondary}?")
+
+  if [[ "$side" == "left" ]]; then
+    startingPosition="--pos $(xrandr -q | grep "*" | awk '{print $1}' | cut -dx -f 1 | head -n 1)x0"
+    `xrandr --output $primary $dpiVal $startingPosition --primary --auto --output $secondary --auto --pos 0x0 2> /dev/null`
+  fi
+
+  if [[ "$side" == "right" ]]; then
+    startingPosition="--pos $(xrandr -q | grep "*" | awk '{print $1}' | cut -dx -f 2 | awk '{s+=$1} END {print s}')x0"
+    `xrandr --output $primary $dpiVal --primary --auto --pos 0x0 --output $secondary --auto $startingPosition 2> /dev/null`
+  fi
+
+else
+  `xrandr --output $primary $dpiVal --primary --auto $otherMonitorOff 2> /dev/null`
+fi
+
+
 feh --bg-scale ~/wallpaper.jpg
