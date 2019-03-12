@@ -2,22 +2,35 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-
 " ================ Vundle ====================
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'arcticicestudio/nord-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'xuhdev/vim-latex-live-preview'
+Plugin 'morhetz/gruvbox'
 call vundle#end()
 
+" ================ Theme =============================
+set t_Co=256
+let g:gruvbox_italic=1
+colorscheme gruvbox
+set background=dark
+set termguicolors
+nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
+nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
+nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
+
+nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
+nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
+nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
+
 " ================ General Config ====================
-colorscheme nord
 set number                      "Line numbers are good
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
@@ -100,7 +113,8 @@ set wildignore+=*vendor*
 
 " ================ Airline Settings =======================
 set encoding=utf-8
-let g:arline_powerline_fonts = 1
+let g:airline_theme='gruvbox'
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
@@ -126,4 +140,3 @@ set sidescroll=1
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2 " Always display the tabline, even if there is only one tab
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set t_Co=256

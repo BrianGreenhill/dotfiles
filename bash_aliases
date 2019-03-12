@@ -95,4 +95,4 @@ alias gco='git checkout'
 alias gcom='git checkout master'
 alias gcb='git checkout -b'
 alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
-
+alias gb="git branch"

@@ -1,5 +1,5 @@
 set $mod Mod4
-font pango:DejaVu Sans Mono, FontAwesome 10
+font pango:Source Code Pro SemiBold, FontAwesome 10
 floating_modifier $mod
 
 # start a terminal
@@ -97,7 +97,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+z exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # lock
-bindsym $mod+Shift+x exec i3lock -e -f -c 000000
+bindsym $mod+Shift+x exec --no-startup-id i3exit lock
 
 # sleep
 set $mode_system System (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
@@ -131,14 +131,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bar {
-  status_command i3status
-  position top
-}
-
 hide_edge_borders smart
 
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 1
 for_window [class="sxiv"] floating enable
 for_window [class="KeeWeb"] floating enable
 for_window [window_role="pop-up"] floating enable
@@ -203,3 +198,47 @@ exec --no-startup-id unclutter
 exec --no-startup-id compton --backend glx --glx-no-stencil --xrender-sync-fence
 exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunstrc"
 
+# Theme
+
+# set primary gruvbox colorscheme colors
+set $bg #282828
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $darkgray #1d2021
+
+bar {
+  status_command i3status
+  position top
+  colors {
+    # bar background color
+    background $bg
+    # text color used for blocks that do not have a color specified.
+    statusline $yellow
+    # workspaces section
+    #                    border  backgr. text
+    focused_workspace    $aqua $aqua $darkgray
+    inactive_workspace   $darkgray $darkgray $yellow
+    active_workspace     $darkgray $darkgray $yellow
+    urgent_workspace     $red $red $bg
+  }
+}
+
+
+# green gruvbox
+# class                 border|backgr|text|indicator|child_border
+#client.focused          $green $green $darkgray $purple $darkgray
+#client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
+#client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
+#client.urgent           $red $red $white $red $red
+
+# blue gruvbox
+# class                 border|backgr|text|indicator|child_border
+client.focused          $blue $blue $darkgray $purple $darkgray
+client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
+client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
+client.urgent $red $red $white $red $red
