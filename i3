@@ -184,7 +184,7 @@ bindsym --release $mod+z exec "scrot -s ~/screenshots/%b%d_%H%M%S.png"
 bindsym $mod+p exec KeeWeb
 
 # dmenu calculator
-bindsym $mod+equal exec =
+bindsym $mod+c exec =
 
 # dmenu screen selector
 bindsym $mod+m exec i3screens
