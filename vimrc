@@ -22,6 +22,7 @@ let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
 set termguicolors
+set guicursor=                  "Sets guicursor to empty to avoid cursor styling
 nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
 nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
 nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
@@ -130,6 +131,7 @@ let g:livepreview_previewer = 'zathura'
 
 map <c-n> :NERDTreeToggle<CR>
 nnoremap <C-b> :bnext<CR>
+nnoremap <C-x> :bdelete<CR>
 
 " ================ Scrolling ========================
 

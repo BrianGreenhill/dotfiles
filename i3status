@@ -8,10 +8,10 @@ general {
 }
 
 order += "volume master"
-order += "wireless wlp58s0"
 order += "battery 0"
 order += "ethernet enp57s0u1u2"
 order += "ethernet enp0s20f0u1"
+order += "wireless wlp58s0"
 order += "path_exists VPN"
 order += "tztime_local"
 

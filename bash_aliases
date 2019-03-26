@@ -10,6 +10,7 @@ alias prettyjson='python -m json.tool'
 alias decrypt='ansible-vault decrypt'
 alias encrypt='ansible-vault encrypt'
 alias ll='ls -al'
+alias vim='nvim'
 
 function getstagingkey {
  curl -X POST \
