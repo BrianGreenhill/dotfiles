@@ -154,27 +154,13 @@ bindsym $mod+Shift+minus gaps outer current minus 5
 ## Multimedia Keys
 
 # volume
-bindsym $mod+F3 exec --no-startup-id volume 5dB+ unmute  #increase sound volume
-bindsym $mod+F2 exec --no-startup-id volume 5dB- unmute #lower sound volume
-
-# granular volume control
-bindsym $mod+Shift+F3 exec --no-startup-id volume 2dB+ unmute
-bindsym $mod+Shift+F2 exec --no-startup-id volume 2dB- unmute
-
-# mute
-bindsym $mod+F1 exec pactl set-sink-mute @DEFAULT_SINK@ toggle #mute sound volume
-
-bindsym $mod+F5 exec mocp --toggle-pause
-bindsym $mod+F6 exec mocp --stop
-bindsym $mod+F7 exec mocp --previous
-bindsym $mod+F8 exec mocp --next
+bindsym $mod+F1 exec --no-startup-id volume 0
+bindsym $mod+F2 exec --no-startup-id volume -5%
+bindsym $mod+F3 exec --no-startup-id volume +5%
 
 # Screen brightness controls
-bindsym $mod+F12 exec xbacklight -inc 5 # increase screen brightness
-bindsym $mod+F11 exec xbacklight -dec 5 # decrease screen brightness
-
-bindsym $mod+shift+F12 exec xbacklight -inc 1 # increase screen brightness
-bindsym $mod+shift+F11 exec xbacklight -dec 1 # decrease screen brightness
+bindsym $mod+F12 exec --no-startup-id brightness -inc 5
+bindsym $mod+F11 exec --no-startup-id brightness -dec 5
 
 # App shortcuts
 bindsym $mod+w exec "/usr/bin/firefox"

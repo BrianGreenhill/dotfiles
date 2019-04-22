@@ -23,4 +23,5 @@
     ~/bin/i3exit: i3exit
     ~/bin/sshadd: ssh-add.sh
     ~/bin/volume: volume.sh
+    ~/bin/brightness: brightness.sh
     ~/.ssh/config: ssh-config

@@ -25,6 +25,7 @@ export GDK_SCALE=2
 export VAULT_ADDR=https://vault.hellofresh.io/
 #kubectx and kubens
 export PATH=~/.kubectx:$PATH
+export KUBECONFIG=/home/brian/.kube/config:/home/brian/.kube/eksconfig
 
 function _update_ps1() {
     PS1=$(powerline-shell $?)

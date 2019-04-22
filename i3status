@@ -57,9 +57,7 @@ tztime local {
 }
 
 volume master {
-    format = ""
-    format_muted = ""
-    device = "default"
-    mixer = "Master"
-    mixer_idx = 0
+    format = " %volume"
+    format_muted = " 0%%"
+    device = "pulse"
 }
