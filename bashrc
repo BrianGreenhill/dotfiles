@@ -14,7 +14,6 @@ export PS1='[\u@\h \W]\$ '
 
 export BROWSER=/usr/bin/firefox
 export EDITOR=/usr/bin/vim
-export GITHUB_TOKEN=94c39002f2ceeb88c59438f954630eeddd5c1b87
 export HISTSIZE=99999999999
 export ANSIBLE_VAULT_PASSWORD_FILE=/home/brian/.vpass
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
