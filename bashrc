@@ -23,8 +23,9 @@ export QT_SCALE_FACTOR=1.5
 export GDK_SCALE=2
 export VAULT_ADDR=https://vault.hellofresh.io/
 #kubectx and kubens
-export PATH=~/.kubectx:$PATH
+export PATH=/snap/bin/:~/.kubectx:$PATH
 export KUBECONFIG=/home/brian/.kube/config:/home/brian/.kube/eksconfig
+export TERM=xterm
 
 function _update_ps1() {
     PS1=$(powerline-shell $?)

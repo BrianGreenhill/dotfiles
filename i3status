@@ -48,13 +48,13 @@ path_exists VPN {
     path = "/proc/sys/net/ipv4/conf/tun0"
 }
 
-#tztime local {
-#    format = " %a %B %e, %Y  %H:%M "
-#}
-
 tztime local {
-  format = " %H:%M "
+    format = " %a %d.%m.%y  %H:%M "
 }
+
+#tztime local {
+#  format = " %H:%M "
+#}
 
 volume master {
     format = " %volume"

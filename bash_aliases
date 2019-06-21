@@ -1,7 +1,7 @@
 alias dc='docker-compose'
 alias hosts='sudo vim /etc/hosts'
 alias please='sudo'
-alias clipboard='xclip -selection clipboard'
+alias pbcopy='xclip -selection clipboard'
 alias grep='grep --color=auto'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 alias ls='ls --color=auto'

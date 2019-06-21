@@ -14,6 +14,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'morhetz/gruvbox'
+Plugin 'dyng/ctrlsf.vim'
 call vundle#end()
 
 " ================ Theme =============================
@@ -123,18 +124,17 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|venv)$'
 
 " ================ LaTeX Settings =======================
 let g:livepreview_previewer = 'zathura'
 
 " ================ Completion =======================
-
 map <c-n> :NERDTreeToggle<CR>
 nnoremap <C-b> :bnext<CR>
 nnoremap <C-x> :bdelete<CR>
 
 " ================ Scrolling ========================
-
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
@@ -142,3 +142,7 @@ set sidescroll=1
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2 " Always display the tabline, even if there is only one tab
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
