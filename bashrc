@@ -11,6 +11,7 @@ export PS1='[\u@\h \W]\$ '
 . ~/.aliases
 . ~/bin/z.sh
 . ~/.fzf-keybindings
+. ~/bin/kube-ps1.sh
 
 export BROWSER=/usr/bin/firefox
 export EDITOR=/usr/bin/vim
@@ -27,10 +28,4 @@ export PATH=/snap/bin/:~/.kubectx:$PATH
 export KUBECONFIG=/home/brian/.kube/config:/home/brian/.kube/eksconfig
 export TERM=xterm
 
-function _update_ps1() {
-    PS1=$(powerline-shell $?)
-}
-
-if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
+. ~/.prompt

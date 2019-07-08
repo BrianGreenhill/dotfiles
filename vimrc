@@ -6,15 +6,17 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'morhetz/gruvbox'
 Plugin 'dyng/ctrlsf.vim'
+Plugin 'fatih/vim-go'
 call vundle#end()
 
 " ================ Theme =============================

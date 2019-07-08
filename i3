@@ -1,5 +1,5 @@
 set $mod Mod4
-font pango:Source Code Pro SemiBold, FontAwesome 10
+font pango:Source Code Pro SemiBold 10
 floating_modifier $mod
 
 # start a terminal

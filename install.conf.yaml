@@ -25,3 +25,5 @@
     ~/bin/volume: volume.sh
     ~/bin/brightness: brightness.sh
     ~/.ssh/config: ssh-config
+    ~/bin/kube-ps1.sh: kube-ps1
+    ~/.prompt: prompt
