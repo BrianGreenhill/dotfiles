@@ -1,5 +1,5 @@
 [options]
-font = Source Code Pro SemiBold 20
+font = Source Code Pro SemiBold 10
 scrollback_lines = -1
 cursor_blink = off
 clickable_url = true

@@ -17,6 +17,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'morhetz/gruvbox'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'fatih/vim-go'
+Plugin 'SirVer/ultisnips'
 call vundle#end()
 
 " ================ Theme =============================
@@ -43,6 +44,7 @@ set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
+set autowrite                   "Writes the content of the file automatically
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -136,6 +138,8 @@ map <c-n> :NERDTreeToggle<CR>
 nnoremap <C-b> :bnext<CR>
 nnoremap <C-x> :bdelete<CR>
 
+map <leader>w :w<CR>
+map <leader>q :q<CR>
 " ================ Scrolling ========================
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
@@ -148,3 +152,25 @@ set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusl
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
+" ================ Ultisnips ========================
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" ================ GO ===============================
+let g:go_fmt_command = "goimports" " overwrite go fmt command with goimports
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
