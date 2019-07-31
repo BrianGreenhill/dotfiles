@@ -11,6 +11,8 @@ alias decrypt='ansible-vault decrypt'
 alias encrypt='ansible-vault encrypt'
 alias ll='ls -al'
 alias vim='nvim'
+alias vi='vim'
+alias tmux='tmux -2'
 
 function getstagingkey {
  curl -X POST \
