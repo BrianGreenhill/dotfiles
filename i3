@@ -1,5 +1,5 @@
 set $mod Mod4
-font pango:Source Code Pro SemiBold 10
+font pango:Source Code Pro SemiBold 12
 floating_modifier $mod
 
 # start a terminal
@@ -167,7 +167,7 @@ bindsym $mod+w exec "/usr/bin/firefox"
 bindsym $mod+n exec termite -e ranger
 bindcode $mod+49 exec "networkmanager_dmenu"
 bindsym --release $mod+z exec "scrot -s ~/screenshots/%b%d_%H%M%S.png"
-bindsym $mod+p exec KeeWeb
+bindsym $mod+p exec keeweb
 
 # dmenu calculator
 bindsym $mod+c exec =

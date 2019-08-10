@@ -1,27 +1,3 @@
 [user]
-	email = bg@hellofresh.com
+	email = brian.greenhill@ecosia.org
 	name = Brian Greenhill
-[push]
-	default = simple
-[http "https://gopkg.in"]
-	followRedirects = true
-	followRedirects = true
-	followRedirects = true
-	followRedirects = true
-	followRedirects = true
-	followRedirects = true
-	followRedirects = true
-	followRedirects = true
-[url "https://dfa0d818fc61de73421e02a3268e00bcc3c53191@github.com/hellofresh/"]
-	insteadOf = https://github.com/hellofresh/
-[url "https://dfa0d818fc61de73421e02a3268e00bcc3c53191@github.com/everyplate/"]
-	insteadOf = https://github.com/hellofresh/
-[core]
-	excludesfile = /home/brian/.gitignore_global
-[url "https://dfa0d818fc61de73421e02a3268e00bcc3c53191@github.com/bghellofresh/"]
-	insteadOf = https://github.com/hellofresh/
-	insteadOf = https://github.com/hellofresh/
-	insteadOf = https://github.com/hellofresh/
-	insteadOf = https://github.com/hellofresh/
-	insteadOf = https://github.com/hellofresh/
-	insteadOf = https://github.com/hellofresh/

@@ -61,7 +61,7 @@ syntax on
 let mapleader=","
 
 " escape is so far away
-inoremap jk <esc>
+inoremap jj <esc>
 
 " ================ Turn Off Swap Files ==============
 

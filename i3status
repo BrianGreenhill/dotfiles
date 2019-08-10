@@ -1,5 +1,5 @@
 general {
-    interval = 3
+    interval = 5
     separator = ""
     colors = false
     color_good = "#a3be8c"
@@ -9,26 +9,15 @@ general {
 
 order += "volume master"
 order += "battery 0"
-order += "ethernet enp57s0u1u2"
-order += "ethernet enp0s20f0u1"
-order += "wireless wlp58s0"
+order += "wireless wlp2s0"
 order += "path_exists VPN"
 order += "tztime_local"
 
-wireless wlp58s0 {
-    format_up = " "
+wireless wlp2s0 {
+    format_up = " %essid"
     format_down = ""
 }
 
-ethernet enp57s0u1u2 {
-    format_up = ""
-    format_down = ""
-}
-
-ethernet enp0s20f0u1 {
-    format_up = ""
-    format_down = ""
-}
 battery 0 {
     format = "%status %percentage"
     format_down = "no battery"
@@ -37,7 +26,7 @@ battery 0 {
     last_full_capacity = true
     integer_battery_capacity = true
     status_chr = ""
-    status_bat = " "
+    status_bat = ""
     status_unk = ""
     status_full = ""
 }
@@ -49,12 +38,8 @@ path_exists VPN {
 }
 
 tztime local {
-    format = " %a %d.%m.%y  %H:%M "
+    format = " %a %-d %b %H:%M "
 }
-
-#tztime local {
-#  format = " %H:%M "
-#}
 
 volume master {
     format = " %volume"

@@ -14,40 +14,6 @@ alias vim='nvim'
 alias vi='vim'
 alias tmux='tmux -2'
 
-function getstagingkey {
- curl -X POST \
-  https://gw-staging.hellofresh.com/auth/token \
-  -H 'Cache-Control: no-cache' \
-  -H 'Content-Type: application/json' \
-  -d '{
-            "username": "core_services_admin",
-            "password": "xxxx",
-            "grant_type": "password",
-            "client_id": "1234",
-            "client_secret": "aabbccdd",
-            "country": "us"
-	}'
-}
-
-
-alias stagingkey='getstagingkey'
-
-function getlivekey {
-  curl -X POST \
-   https://gw.hellofresh.com/auth/token \
-   -H 'Cache-Control: no-cache' \
-   -H 'Content-Type: application/json' \
-   -d '{
-            "username": "brian.greenhill",
-            "password": "xxx",
-            "grant_type": "password",
-            "client_id": "xxx",
-            "client_secret": "xxxx",
-            "country": "us"
-   }'
-}
-
-alias livekey='getlivekey'
 alias res='setres'
 
 # terraform
@@ -99,3 +65,10 @@ alias gcom='git checkout master'
 alias gcb='git checkout -b'
 alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
 alias gb="git branch"
+
+krr() {
+    if [[ $2 ]]; then type=$2; else type="deployment"; fi
+
+    kubectl patch $type $1 -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"rolling-restart\":\"`date +'%s'`\"}}}}}"
+    kubectl rollout status $type/$1
+}
