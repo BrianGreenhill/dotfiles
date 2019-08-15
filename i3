@@ -141,6 +141,12 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences$"] floating enable
 for_window [floating] border pixel 1
 
+# Specific Workspace Assignments
+assign [class="firefox"] 2
+for_window [class="Spotify"] move to workspace 10
+assign [class="Signal"] 4
+assign [class="Slack"] 3
+
 # Gaps
 gaps inner 5
 gaps outer 0
