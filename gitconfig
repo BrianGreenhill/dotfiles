@@ -1,3 +1,5 @@
 [user]
 	email = brian.greenhill@ecosia.org
 	name = Brian Greenhill
+[url "ssh://git@github.com:"]
+	insteadOf = https://github.com
