@@ -148,8 +148,8 @@ assign [class="Signal"] 4
 assign [class="Slack"] 3
 
 # Gaps
-gaps inner 5
-gaps outer 0
+gaps inner 30
+gaps outer 10
 smart_borders no_gaps
 
 bindsym $mod+plus		gaps outer current plus 5
@@ -184,7 +184,7 @@ bindsym $mod+m exec i3screens
 # Autostart apps
 exec --no-startup-id betterlockscreen -w dim
 exec --no-startup-id xset r rate 200 60
-exec_always --no-startup-id feh --bg-scale ~/wallpaper.jpg
+exec_always --no-startup-id feh --bg-scale ~/wallpaper-day.jpg
 exec --no-startup-id "clipit -n"
 exec --no-startup-id unclutter
 exec --no-startup-id compton --backend glx --glx-no-stencil --xrender-sync-fence
