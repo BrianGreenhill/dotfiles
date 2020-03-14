@@ -17,7 +17,10 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'morhetz/gruvbox'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'fatih/vim-go'
-Plugin 'SirVer/ultisnips'
+Plugin 'valloric/youcompleteme'
+Plugin 'psf/black'
+Plugin 'dense-analysis/ale'
+Plugin 'zchee/deoplete-jedi'
 call vundle#end()
 
 " ================ Theme =============================
@@ -59,6 +62,7 @@ syntax on
 " The mapleader has to be set before vundle starts loading all
 " the plugins.
 let mapleader=","
+set clipboard+=unnamedplus
 
 " escape is so far away
 inoremap jj <esc>
@@ -97,12 +101,6 @@ set list listchars=tab:\ \ ,trail:·
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 
-" ================ Folds ============================
-
-set foldmethod=indent   "fold based on indent
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
-
 " ================ Completion =======================
 
 set wildmode=list:longest
@@ -116,6 +114,7 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 set wildignore+=*vendor*
+set wildignore+=.git/**
 
 " ================ Airline Settings =======================
 set encoding=utf-8
@@ -125,10 +124,22 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " ================ Ctrl-P Settings =======================
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|venv)$'
+let g:ag_working_path_mode="r"
+" ag items.  I need the silent ag.
+if executable('ag')
+  " Use ag over grep "
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore "
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache "
+  let g:ctrlp_use_caching = 0
+endif
 
 " ================ LaTeX Settings =======================
 let g:livepreview_previewer = 'zathura'
@@ -140,6 +151,12 @@ nnoremap <C-x> :bdelete<CR>
 
 map <leader>w :w<CR>
 map <leader>q :q<CR>
+
+" ================ NERDTree =======================
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+
+
 " ================ Scrolling ========================
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
@@ -156,6 +173,25 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" ================ Python =======================
+" Figure out the system Python for Neovim.
+if exists("$VIRTUAL_ENV")
+    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
+else
+    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
+endif
+let g:python_host_prog=''
+autocmd BufWritePost *.py silent! execute ':Black'
+let python_highlight_all=1
+let g:ale_linters = {
+  \ 'python': ['pylint'],
+  \}
+let g:ale_fixers = {
+      \ 'python': ['black'],
+      \}
+let g:ale_fix_on_save = 1
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " ================ GO ===============================
 let g:go_fmt_command = "goimports" " overwrite go fmt command with goimports
@@ -174,3 +210,6 @@ endfunction
 
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
+packloadall
+silent! helptags ALL

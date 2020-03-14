@@ -1,1 +1,12 @@
 ForwardAgent yes
+Host bastion
+  HostName 18.185.248.40
+  User core
+  Port 22
+  IdentityFile ~/.ssh/ecosia-eu-central.pem
+
+Host docker-builder
+  HostName 172.20.7.231
+  User core
+  IdentityFile ~/.ssh/ecosia-eu-central.pem
+  ProxyJump bastion

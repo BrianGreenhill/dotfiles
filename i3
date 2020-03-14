@@ -135,7 +135,6 @@ hide_edge_borders smart
 
 for_window [class="^.*"] border pixel 1
 for_window [class="sxiv"] floating enable
-for_window [class="KeeWeb"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences$"] floating enable
@@ -148,8 +147,8 @@ assign [class="Signal"] 4
 assign [class="Slack"] 3
 
 # Gaps
-gaps inner 30
-gaps outer 10
+gaps inner 6
+gaps outer 2
 smart_borders no_gaps
 
 bindsym $mod+plus		gaps outer current plus 5
@@ -160,9 +159,9 @@ bindsym $mod+Shift+minus gaps outer current minus 5
 ## Multimedia Keys
 
 # volume
-bindsym $mod+F1 exec --no-startup-id volume 0
-bindsym $mod+F2 exec --no-startup-id volume -5%
-bindsym $mod+F3 exec --no-startup-id volume +5%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Screen brightness controls
 bindsym $mod+F12 exec --no-startup-id brightness -inc 5
@@ -173,21 +172,20 @@ bindsym $mod+w exec "/usr/bin/firefox"
 bindsym $mod+n exec termite -e ranger
 bindcode $mod+49 exec "networkmanager_dmenu"
 bindsym --release $mod+z exec "scrot -s ~/screenshots/%b%d_%H%M%S.png"
-bindsym $mod+p exec keeweb
 
 # dmenu calculator
-bindsym $mod+c exec =
+bindsym $mod+c exec = --dmenu=dmenu
 
 # dmenu screen selector
-bindsym $mod+m exec i3screens
+# bindsym $mod+m exec i3screens
 
 # Autostart apps
 exec --no-startup-id betterlockscreen -w dim
-exec --no-startup-id xset r rate 200 60
-exec_always --no-startup-id feh --bg-scale ~/wallpaper-day.jpg
+exec_always --no-startup-id xset r rate 200 60
+exec_always --no-startup-id feh --bg-scale ~/wallpaper.jpg
 exec --no-startup-id "clipit -n"
 exec --no-startup-id unclutter
-exec --no-startup-id compton --backend glx --glx-no-stencil --xrender-sync-fence
+exec_always --no-startup-id "picom -b"
 exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunstrc"
 
 # Theme
@@ -203,34 +201,36 @@ set $aqua #689d68
 set $gray #a89984
 set $darkgray #1d2021
 
-bar {
-  status_command i3status
-  position top
-  colors {
-    # bar background color
-    background $bg
-    # text color used for blocks that do not have a color specified.
-    statusline $yellow
-    # workspaces section
-    #                    border  backgr. text
-    focused_workspace    $aqua $aqua $darkgray
-    inactive_workspace   $darkgray $darkgray $yellow
-    active_workspace     $darkgray $darkgray $yellow
-    urgent_workspace     $red $red $bg
-  }
-}
+# bar {
+  # i3bar_command $HOME/.config/polybar/launch.sh
+  #status_command i3status
+  # position top
+  # colors {
+  #   # bar background color
+  #   background $bg
+  #   # text color used for blocks that do not have a color specified.
+  #   statusline $yellow
+  #   # workspaces section
+  #   #                    border  backgr. text
+  #   focused_workspace    $aqua $aqua $darkgray
+  #   inactive_workspace   $darkgray $darkgray $yellow
+  #   active_workspace     $darkgray $darkgray $yellow
+  #   urgent_workspace     $red $red $bg
+  # }
+# }
 
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # green gruvbox
 # class                 border|backgr|text|indicator|child_border
-#client.focused          $green $green $darkgray $purple $darkgray
-#client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
-#client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
-#client.urgent           $red $red $white $red $red
+client.focused          $green $green $darkgray $purple $darkgray
+client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
+client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
+client.urgent           $red $red $white $red $red
 
 # blue gruvbox
 # class                 border|backgr|text|indicator|child_border
-client.focused          $blue $blue $darkgray $purple $darkgray
-client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
-client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
-client.urgent $red $red $white $red $red
+# client.focused          $blue $blue $darkgray $purple $darkgray
+# client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
+# client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
+# client.urgent $red $red $white $red $red

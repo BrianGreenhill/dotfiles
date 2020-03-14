@@ -1,10 +1,19 @@
 #
 # ~/.bashrc
 #
+export NPM_TOKEN=a028105e-ecac-4576-8114-9cc4b927c489
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
 
+setxkbmap -option "ctrl:nocaps"
 export PS1='[\u@\h \W]\$ '
 
 . ~/.aliases
@@ -23,6 +32,7 @@ export GOPATH=/home/brian/go
 export PATH=/snap/bin/:~/.kubectx:$GOPATH/bin:$PATH
 export KUBECONFIG=/home/brian/.kube/config:/home/brian/.kube/eksconfig
 export TERM=xterm
-
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
-setxkbmap -option "ctrl:nocaps"
+export HISTCONTROL=ignoreboth:erasedups
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
