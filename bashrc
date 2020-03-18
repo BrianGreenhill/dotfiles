@@ -14,13 +14,17 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 setxkbmap -option "ctrl:nocaps"
+xmodmap -e "keycode 112 = Left"
+xmodmap -e "keycode 117 = Right"
 export PS1='[\u@\h \W]\$ '
 
 . ~/.aliases
-. ~/.fzf-keybindings
 . ~/bin/kube-ps1.sh
 . ~/.prompt
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 export BROWSER=/usr/bin/firefox
 export EDITOR=/usr/bin/vim
 export HISTSIZE=99999999999
@@ -29,10 +33,12 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export PATH=~/.local/bin:~/bin:$PATH:~/go/bin
 #kubectx and kubens
 export GOPATH=/home/brian/go
-export PATH=/snap/bin/:~/.kubectx:$GOPATH/bin:$PATH
+export PATH=/snap/bin/:~/.kubectx:$GOPATH/bin:~/.local/bin:$PATH
 export KUBECONFIG=/home/brian/.kube/config:/home/brian/.kube/eksconfig
 export TERM=xterm
 export HISTCONTROL=ignoreboth:erasedups
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

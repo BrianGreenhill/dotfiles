@@ -159,9 +159,9 @@ bindsym $mod+Shift+minus gaps outer current minus 5
 ## Multimedia Keys
 
 # volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --down
+bindsym XF86AudioMute exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --togmute
 
 # Screen brightness controls
 bindsym $mod+F12 exec --no-startup-id brightness -inc 5

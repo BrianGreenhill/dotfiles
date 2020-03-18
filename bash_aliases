@@ -79,3 +79,8 @@ aws_export() {
 }
 
 alias awsexport=aws_export
+
+
+# grpc
+
+alias grpc_cli='docker run -v `pwd`:/defs --rm -it namely/grpc-cli'
