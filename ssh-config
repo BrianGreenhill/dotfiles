@@ -10,3 +10,7 @@ Host docker-builder
   User core
   IdentityFile ~/.ssh/ecosia-eu-central.pem
   ProxyJump bastion
+
+Host eatt
+  HostName 142.93.105.156
+  User root

@@ -2,7 +2,14 @@ set $mod Mod4
 font pango:Source Code Pro SemiBold 12
 floating_modifier $mod
 
-# start a terminal
+set $ws_1 "1: terminal"
+set $ws_2 "2: web"
+set $ws_3 "3: slack"
+set $ws_10 "10: spotify"
+
+#i3-msg 'workspace $ws_1 exec termite; workspace $ws_2 exec /usr/bin/firefox'
+
+# start a termina
 bindsym $mod+Return exec termite
 
 # focus follows mouse
@@ -58,34 +65,34 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+#bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
+bindsym $mod+1 workspace $ws_1
+bindsym $mod+2 workspace $ws_2
+bindsym $mod+3 workspace $ws_3
 bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+0 workspace $ws_10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+1 move container to workspace $ws_1
+bindsym $mod+Shift+2 move container to workspace $ws_2
+bindsym $mod+Shift+3 move container to workspace $ws_3
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+0 move container to workspace $ws_10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -141,10 +148,10 @@ for_window [window_role="Preferences$"] floating enable
 for_window [floating] border pixel 1
 
 # Specific Workspace Assignments
-assign [class="firefox"] 2
-for_window [class="Spotify"] move to workspace 10
+assign [class="firefox"] $ws_2
+for_window [class="Spotify"] move to workspace $ws_10
 assign [class="Signal"] 4
-assign [class="Slack"] 3
+assign [class="Slack"] $ws_3
 
 # Gaps
 gaps inner 6
@@ -171,6 +178,7 @@ bindsym $mod+F11 exec --no-startup-id brightness -dec 5
 bindsym $mod+w exec "/usr/bin/firefox"
 bindsym $mod+n exec termite -e ranger
 bindcode $mod+49 exec "networkmanager_dmenu"
+bindcode $mod+t exec "/usr/bin/slack"
 bindsym --release $mod+z exec "scrot -s ~/screenshots/%b%d_%H%M%S.png"
 
 # dmenu calculator

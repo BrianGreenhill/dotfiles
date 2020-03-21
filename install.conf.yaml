@@ -28,3 +28,4 @@
     ~/bin/kube-ps1.sh: kube-ps1
     ~/.prompt: prompt
     ~/.config/polybar: polybar
+    ~/.config/dunstrc: dunstrc

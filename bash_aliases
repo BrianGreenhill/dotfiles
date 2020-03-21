@@ -28,24 +28,18 @@ alias tfi='terraform init'
 source <(kubectl completion bash)
 
 alias k='kubectl'
-alias kgp='kubectl get pods'
+alias kg='kubectl get'
+alias kgp='kubectl get pod'
+alias kd='kubectl describe'
 alias kdp='kubectl describe pod'
 alias kexec='kubectl exec -it'
 alias klog='kubectl logs -f'
-alias kahoy='kctx platform.ahoy-k8s.hellofresh.io'
-alias klive='kctx platform.live-k8s.hellofresh.io'
-alias kstaging='kctx platform.staging-k8s.hellofresh.io'
+alias kdev='kctx dev-cluster.ecosia.org.k8s.local'
+alias kstaging='kctx dev-cluster.ecosia.org.k8s.local'
+alias kprod='kctx prod-eu-central-1.ecosia.org.k8s.local'
+alias kprodus='kctx prod-us-east-1.ecosia.org.k8s.local'
 alias kctx='kubectx'
 alias kns='kubens'
-
-# arch
-
-export QT_STYLE_OVERRIDE=gtk
-export QT_SELECT=qt5
-
-if [[ $LANG = '' ]]; then
-	export LANG=en_US.UTF-8
-fi
 
 # git
 
@@ -79,7 +73,6 @@ aws_export() {
 }
 
 alias awsexport=aws_export
-
 
 # grpc
 
