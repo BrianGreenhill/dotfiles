@@ -1,5 +1,6 @@
 [options]
-font = Source Code Pro SemiBold 12
+# font = Source Code Pro SemiBold 12
+font = IBM Plex Mono 12
 scrollback_lines = -1
 cursor_blink = off
 clickable_url = true

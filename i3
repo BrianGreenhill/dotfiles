@@ -1,11 +1,11 @@
 set $mod Mod4
-font pango:Source Code Pro SemiBold 12
+font pango:IBM Plex Mono 10
 floating_modifier $mod
 
-set $ws_1 "1: terminal"
-set $ws_2 "2: web"
-set $ws_3 "3: slack"
-set $ws_10 "10: spotify"
+set $ws_1 "1"
+set $ws_2 "2"
+set $ws_3 "3"
+set $ws_10 "10"
 
 #i3-msg 'workspace $ws_1 exec termite; workspace $ws_2 exec /usr/bin/firefox'
 
@@ -150,12 +150,14 @@ for_window [floating] border pixel 1
 # Specific Workspace Assignments
 assign [class="firefox"] $ws_2
 for_window [class="Spotify"] move to workspace $ws_10
-assign [class="Signal"] 4
+assign [class="Signal"] $ws_3
+assign [class="Telegram"] $ws_3
 assign [class="Slack"] $ws_3
+assign [class="KeePassXC"] 4
 
 # Gaps
-gaps inner 6
-gaps outer 2
+#gaps inner 6
+#gaps outer 2
 smart_borders no_gaps
 
 bindsym $mod+plus		gaps outer current plus 5
@@ -177,29 +179,30 @@ bindsym $mod+F11 exec --no-startup-id brightness -dec 5
 # App shortcuts
 bindsym $mod+w exec "/usr/bin/firefox"
 bindsym $mod+n exec termite -e ranger
+bindsym $mod+p exec keepassxc
 bindcode $mod+49 exec "networkmanager_dmenu"
-bindcode $mod+t exec "/usr/bin/slack"
+bindsym $mod+t exec "/usr/bin/slack"
 bindsym --release $mod+z exec "scrot -s ~/screenshots/%b%d_%H%M%S.png"
 
-# dmenu calculator
+# dmenu shortcuts
 bindsym $mod+c exec = --dmenu=dmenu
-
-# dmenu screen selector
+# outputs clipboard manager to dmenu and copies selection to clipboard
+bindsym $mod+b exec CM_LAUNCHER=rofi clipmenu
 # bindsym $mod+m exec i3screens
 
 # Autostart apps
 exec --no-startup-id betterlockscreen -w dim
 exec_always --no-startup-id xset r rate 200 60
 exec_always --no-startup-id feh --bg-scale ~/wallpaper.jpg
-exec --no-startup-id "clipit -n"
+exec --no-startup-id "clipmenud"
 exec --no-startup-id unclutter
-exec_always --no-startup-id "picom -b"
+exec_always --no-startup-id "compton -b --respect-prop-shadow"
 exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunstrc"
 
 # Theme
 
 # set primary gruvbox colorscheme colors
-set $bg #282828
+set $bg #000000
 set $red #cc241d
 set $green #98971a
 set $yellow #d79921
@@ -209,25 +212,20 @@ set $aqua #689d68
 set $gray #a89984
 set $darkgray #1d2021
 
-# bar {
-  # i3bar_command $HOME/.config/polybar/launch.sh
-  #status_command i3status
-  # position top
-  # colors {
-  #   # bar background color
-  #   background $bg
-  #   # text color used for blocks that do not have a color specified.
-  #   statusline $yellow
-  #   # workspaces section
-  #   #                    border  backgr. text
-  #   focused_workspace    $aqua $aqua $darkgray
-  #   inactive_workspace   $darkgray $darkgray $yellow
-  #   active_workspace     $darkgray $darkgray $yellow
-  #   urgent_workspace     $red $red $bg
-  # }
-# }
+bar {
+  status_command i3status
+  position top
+  colors {
+    background $bg
+    statusline $yellow
+    focused_workspace    $bg $aqua $bg
+    inactive_workspace   $bg $bg $gray
+    active_workspace     $bg $darkgray $green
+    urgent_workspace     $red $red $bg
+  }
+}
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # green gruvbox
 # class                 border|backgr|text|indicator|child_border

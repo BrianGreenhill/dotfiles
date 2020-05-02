@@ -26,6 +26,8 @@ alias tfi='terraform init'
 # kube
 
 source <(kubectl completion bash)
+# complete on the k alias as well
+complete -F __start_kubectl k
 
 alias k='kubectl'
 alias kg='kubectl get'
@@ -34,16 +36,20 @@ alias kd='kubectl describe'
 alias kdp='kubectl describe pod'
 alias kexec='kubectl exec -it'
 alias klog='kubectl logs -f'
+alias kpf='kubectl port-forward'
+alias kpfprom='kubectl port-forward svc/monitoring-prometheus-server 9090:80 -n monitoring'
 alias kdev='kctx dev-cluster.ecosia.org.k8s.local'
 alias kstaging='kctx dev-cluster.ecosia.org.k8s.local'
 alias kprod='kctx prod-eu-central-1.ecosia.org.k8s.local'
 alias kprodus='kctx prod-us-east-1.ecosia.org.k8s.local'
 alias kctx='kubectx'
 alias kns='kubens'
+alias allmanifests='find . -type f -name "Makefile" -printf "%h\n" | grep -v \{\{ | grep -v ingress | grep -v system | xargs -I{} make ECOSIA_ENV=prod REGION=ca-central-1 -s -C {} manifest > manifest.yaml'
 
 # git
 
 alias git='hub'
+alias g='git'
 alias gcl='git clone'
 alias gap='git add -p'
 alias gpristine='git reset --hard && git clean -dfx'
@@ -68,12 +74,53 @@ krr() {
 }
 
 aws_export() {
+    export AWS_PROFILE=default
     export AWS_ACCESS_KEY_ID=$(aws configure get default.aws_access_key_id)
     export AWS_SECRET_ACCESS_KEY=$(aws configure get default.aws_secret_access_key)
+    export AWS_DEFAULT_REGION=eu-central-1
+}
+
+aws_export_do() {
+    export AWS_PROFILE=digitalocean
+    export AWS_ACCESS_KEY_ID=$(aws configure get digitalocean.aws_access_key_id)
+    export AWS_SECRET_ACCESS_KEY=$(aws configure get digitalocean.aws_secret_access_key)
+    export AWS_DEFAULT_REGION=eu-central-1
+}
+
+aws_export_cg() {
+    export AWS_PROFILE=corona_app
+    export AWS_ACCESS_KEY_ID=$(aws configure get corona_app.aws_access_key_id)
+    export AWS_SECRET_ACCESS_KEY=$(aws configure get corona_app.aws_secret_access_key)
+    export AWS_DEFAULT_REGION=ap-south-1
+}
+
+aws_export_ca() {
+    export AWS_PROFILE=default
+    export AWS_ACCESS_KEY_ID=$(aws configure get default.aws_access_key_id)
+    export AWS_SECRET_ACCESS_KEY=$(aws configure get default.aws_secret_access_key)
+    export AWS_DEFAULT_REGION=ca-central-1
+}
+
+aws_export_cs() {
+    export AWS_PROFILE=cabinscape
+    export AWS_ACCESS_KEY_ID=$(aws configure get cabinscape.aws_access_key_id)
+    export AWS_SECRET_ACCESS_KEY=$(aws configure get cabinscape.aws_secret_access_key)
+    export AWS_DEFAULT_REGION=us-east-1
 }
 
 alias awsexport=aws_export
+alias awsexportdo=aws_export_do
+alias awsexportcg=aws_export_cg
+alias awsexportca=aws_export_ca
+alias awsexportcs=aws_export_cs
 
 # grpc
 
 alias grpc_cli='docker run -v `pwd`:/defs --rm -it namely/grpc-cli'
+
+make_corona_api_call() {
+  uri=$1
+  curl https://api.covid19api.com/$uri -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Referer: https://covid19api.com/' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Upgrade-Insecure-Requests: 1' -H 'Cache-Control: max-age=0'
+}
+
+alias coronapi=make_corona_api_call

@@ -30,7 +30,7 @@ export EDITOR=/usr/bin/vim
 export HISTSIZE=99999999999
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-export PATH=~/.local/bin:~/bin:$PATH:~/go/bin:${KREW_ROOT:-$HOME/.krew}/bin
+export PATH=~/.local/bin:~/bin:$PATH:~/go/bin:${KREW_ROOT:-$HOME/.krew}/bin:/home/brian/.cargo/bin
 #kubectx and kubens
 export GOPATH=/home/brian/go
 export PATH=/snap/bin/:~/.kubectx:$GOPATH/bin:~/.local/bin:$PATH

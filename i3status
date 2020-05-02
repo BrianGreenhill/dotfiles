@@ -7,15 +7,15 @@ general {
     color_bad = "#bf616a"
 }
 
-order += "volume master"
+/* order += "volume master" */
 order += "battery 0"
 order += "wireless wlp2s0"
 order += "path_exists VPN"
 order += "tztime_local"
 
 wireless wlp2s0 {
-    format_up = " %essid"
-    format_down = ""
+    format_up = ""
+    format_down = "not connected"
 }
 
 battery 0 {
@@ -38,7 +38,7 @@ path_exists VPN {
 }
 
 tztime local {
-    format = " %a %-d %b %H:%M "
+    format = "%a %-d %b %H:%M "
 }
 
 volume master {

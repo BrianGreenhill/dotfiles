@@ -5,6 +5,12 @@ Host bastion
   Port 22
   IdentityFile ~/.ssh/ecosia-eu-central.pem
 
+Host stagingbastion
+  HostName 54.93.80.0
+  User core
+  Port 22
+  IdentityFile ~/.ssh/ecosia-eu-central.pem
+
 Host docker-builder
   HostName 172.20.7.231
   User core

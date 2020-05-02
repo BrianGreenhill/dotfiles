@@ -4,7 +4,7 @@ function parse_git_branch() {
 	if [ ! "${BRANCH}" == "" ]
 	then
 		STAT=`parse_git_dirty`
-		echo "[${BRANCH}${STAT}]"
+		echo "${BRANCH}${STAT}"
 	else
 		echo ""
 	fi
@@ -44,5 +44,14 @@ function parse_git_dirty {
 		echo ""
 	fi
 }
+export PS1_YELLOW="\[\e[33m\]"
+export PS1_CYAN="\[\e[36m\]"
+export PS1_COLOUR_END="\[\e[m\]"
 
 export PS1="\[\e[36m\]\t\[\e[m\] \[\e[32m\][\[\e[m\]\[\e[37m\]\u\[\e[m\]@\[\e[37m\]\h\[\e[m\]:\w\[\e[32m\]]\[\e[m\]\[\e[35m\]\`parse_git_branch\`\[\e[m\]\[\e[32m\] \`kube_ps1\` \[\e[m\]\n\$ "
+export USER_HOST_PATH="\u@\h:\W"
+export GIT_STATUS="(${PS1_CYAN}𖣂 \`parse_git_branch\`${PS1_COLOUR_END})"
+export KUBE_STATUS="\`kube_ps1\`"
+export TIME_STAMP="\t"
+export PS1="${KUBE_STATUS} ${GIT_STATUS}\n${TIME_STAMP} ${USER_HOST_PATH} $ "
+
