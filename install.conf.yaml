@@ -18,14 +18,11 @@
     ~/.bashrc: bashrc
     ~/.bash_profile: bash_profile
     ~/.aliases: bash_aliases
-    /etc/vconsole.conf: vconsole.conf
     ~/bin/i3screens: i3screens
     ~/bin/i3exit: i3exit
-    ~/bin/sshadd: ssh-add.sh
     ~/bin/volume: volume.sh
     ~/bin/brightness: brightness.sh
     ~/.ssh/config: ssh-config
     ~/bin/kube-ps1.sh: kube-ps1
     ~/.prompt: prompt
-    ~/.config/polybar: polybar
     ~/.config/dunstrc: dunstrc
