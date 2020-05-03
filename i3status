@@ -1,13 +1,13 @@
 general {
-    interval = 5
-    separator = ""
-    colors = false
-    color_good = "#a3be8c"
-    color_degraded = "#ebcb8b"
-    color_bad = "#bf616a"
+    separator=""
+    colors = true
+    color_good = "#98971a"
+    color_bad = "#cc241d"
+    color_degraded = "#fabd2f"
+    interval = 2
 }
 
-/* order += "volume master" */
+#order += "volume master"
 order += "battery 0"
 order += "wireless wlp2s0"
 order += "path_exists VPN"
@@ -42,7 +42,7 @@ tztime local {
 }
 
 volume master {
-    format = " %volume"
-    format_muted = " 0%%"
+    format = "🔊 %volume"
+    format_muted = "muted"
     device = "pulse"
 }

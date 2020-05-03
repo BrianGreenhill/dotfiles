@@ -156,8 +156,8 @@ assign [class="Slack"] $ws_3
 assign [class="KeePassXC"] 4
 
 # Gaps
-#gaps inner 6
-#gaps outer 2
+gaps inner 0
+gaps outer 0
 smart_borders no_gaps
 
 bindsym $mod+plus		gaps outer current plus 5
@@ -199,44 +199,26 @@ exec --no-startup-id unclutter
 exec_always --no-startup-id "compton -b --respect-prop-shadow"
 exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunstrc"
 
-# Theme
-
-# set primary gruvbox colorscheme colors
-set $bg #000000
-set $red #cc241d
-set $green #98971a
-set $yellow #d79921
-set $blue #458588
-set $purple #b16286
-set $aqua #689d68
-set $gray #a89984
-set $darkgray #1d2021
-
 bar {
   status_command i3status
-  position top
+  position bottom
   colors {
-    background $bg
-    statusline $yellow
-    focused_workspace    $bg $aqua $bg
-    inactive_workspace   $bg $bg $gray
-    active_workspace     $bg $darkgray $green
-    urgent_workspace     $red $red $bg
+      background #3c3836
+      statusline #ebdbb2
+      separator  #666666
+      focused_workspace  #458588 #458588 #ebdbb2
+      active_workspace   #83a598 #83a598 #ebdbb2
+      inactive_workspace #504945 #504945 #ebdbb2
+      urgent_workspace   #cc241d #cc241d #504945
   }
 }
 
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-# green gruvbox
-# class                 border|backgr|text|indicator|child_border
-client.focused          $green $green $darkgray $purple $darkgray
-client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
-client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
-client.urgent           $red $red $white $red $red
+client.focused          #665c54 #665c54 #eddbb2 #2e9ef4   #665c54
+client.focused_inactive #282828 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #3c3836 #3c3836 #a89984 #292d2e   #222222
+client.urgent           #cc241d #cc241d #ebdbb2 #cc241d   #cc241d
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
-# blue gruvbox
-# class                 border|backgr|text|indicator|child_border
-# client.focused          $blue $blue $darkgray $purple $darkgray
-# client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
-# client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
-# client.urgent $red $red $white $red $red
+client.background       #ffffff

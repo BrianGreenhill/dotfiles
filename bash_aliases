@@ -12,6 +12,8 @@ alias encrypt='ansible-vault encrypt'
 alias ll='ls -al'
 alias vim='nvim'
 alias vi='vim'
+alias evrc='vim ~/.vimrc'
+alias ei3c='vim ~/.config/i3/config'
 alias tmux='tmux -2'
 
 alias res='setres'
