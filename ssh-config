@@ -17,6 +17,27 @@ Host docker-builder
   IdentityFile ~/.ssh/ecosia-eu-central.pem
   ProxyJump bastion
 
-Host eatt
-  HostName 142.93.105.156
-  User root
+Host maxvagrant
+  HostName 78.55.187.125
+  User brian
+  Port 2323
+
+Host avi
+  HostName 192.168.50.3
+  User vagrant
+  ProxyJump maxvagrant
+
+Host john
+  HostName 192.168.60.2
+  User vagrant
+  ProxyJump maxvagrant
+
+Host tombstone
+  HostName 10.10.2.2
+  User vagrant
+  ProxyJump maxvagrant
+
+Host router
+  HostName 10.10.2.6
+  User vagrant
+  ProxyJump maxvagrant

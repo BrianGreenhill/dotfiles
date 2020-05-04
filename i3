@@ -150,14 +150,14 @@ for_window [floating] border pixel 1
 # Specific Workspace Assignments
 assign [class="firefox"] $ws_2
 for_window [class="Spotify"] move to workspace $ws_10
-assign [class="Signal"] $ws_3
-assign [class="Telegram"] $ws_3
-assign [class="Slack"] $ws_3
+assign [class="Signal"] 5
+assign [class="Telegram"] 5
+assign [class="Slack"] 5
 assign [class="KeePassXC"] 4
 
 # Gaps
-gaps inner 0
-gaps outer 0
+gaps inner 1
+gaps outer 1
 smart_borders no_gaps
 
 bindsym $mod+plus		gaps outer current plus 5
@@ -168,9 +168,9 @@ bindsym $mod+Shift+minus gaps outer current minus 5
 ## Multimedia Keys
 
 # volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --up
-bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --down
-bindsym XF86AudioMute exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --togmute
+bindsym $mod+F1 exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --togmute
+bindsym $mod+F2 exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --down
+bindsym $mod+F3 exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --up
 
 # Screen brightness controls
 bindsym $mod+F12 exec --no-startup-id brightness -inc 5
@@ -188,7 +188,6 @@ bindsym --release $mod+z exec "scrot -s ~/screenshots/%b%d_%H%M%S.png"
 bindsym $mod+c exec = --dmenu=dmenu
 # outputs clipboard manager to dmenu and copies selection to clipboard
 bindsym $mod+b exec CM_LAUNCHER=rofi clipmenu
-# bindsym $mod+m exec i3screens
 
 # Autostart apps
 exec --no-startup-id betterlockscreen -w dim
@@ -199,21 +198,21 @@ exec --no-startup-id unclutter
 exec_always --no-startup-id "compton -b --respect-prop-shadow"
 exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunstrc"
 
-bar {
-  status_command i3status
-  position bottom
-  colors {
-      background #3c3836
-      statusline #ebdbb2
-      separator  #666666
-      focused_workspace  #458588 #458588 #ebdbb2
-      active_workspace   #83a598 #83a598 #ebdbb2
-      inactive_workspace #504945 #504945 #ebdbb2
-      urgent_workspace   #cc241d #cc241d #504945
-  }
-}
+#bar {
+#  status_command i3status
+#  position bottom
+#  colors {
+#      background #3c3836
+#      statusline #ebdbb2
+#      separator  #666666
+#      focused_workspace  #458588 #458588 #ebdbb2
+#      active_workspace   #83a598 #83a598 #ebdbb2
+#      inactive_workspace #504945 #504945 #ebdbb2
+#      urgent_workspace   #cc241d #cc241d #504945
+#  }
+#}
 
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 client.focused          #665c54 #665c54 #eddbb2 #2e9ef4   #665c54
 client.focused_inactive #282828 #5f676a #ffffff #484e50   #5f676a

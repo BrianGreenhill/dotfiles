@@ -14,10 +14,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox'
-  let g:gruvbox_contrast_dark = 'soft'
 Plug 'jremmen/vim-ripgrep'
 Plug 'mbbill/undotree', {'branch': 'master'}
-  nnoremap <C-a> :Rg
+    nnoremap <C-a> :Rg
 call plug#end()
 
 set guicursor=
@@ -40,21 +39,15 @@ set undofile
 set incsearch
 set termguicolors
 set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
 set updatetime=50
-
-" Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 colorscheme gruvbox
 set background=dark
 hi Normal guibg=NONE ctermbg=NONE
 
-let mapleader=","
+let mapleader="\<space>"
 if executable('rg')
     let g:rg_derive_root='true'
 endif

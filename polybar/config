@@ -21,14 +21,15 @@
 background = #50010101
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
-foreground = #000
+foreground = #fff
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
-[bar/top]
+[bar/bottom]
 ;monitor = ${env:MONITOR:HDMI-1}
+bottom = true
 width = 100%
 height = 36
 offset-x = 2.5%
@@ -53,8 +54,8 @@ font-0 = IBM Plex Mono:medium:size=10;3
 font-1 = FontAwesome5Free:style=Solid:size=10;3
 font-2 = unifont:size=10;3
 
-modules-left = i3 spotify
-modules-right = wireless-network sep cpu sep memory sep battery sep date
+modules-left = i3
+modules-right = pulseaudio-control sep wireless-network sep cpu sep memory sep battery sep date
 
 tray-position = right
 tray-padding = 0
@@ -69,6 +70,20 @@ tray-maxsize = 16
 tray-transparent = false
 dpi-x = 96
 dpi-y = 96
+
+[module/pulseaudio-control]
+type = custom/script
+tail = true
+label = %output%
+
+exec = ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --listen
+click-right = exec pavucontrol &
+click-left = ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --togmute
+click-middle = ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --change
+scroll-up = ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --up
+scroll-down = ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --down
+label-padding = 0
+label-foreground = #0066cc
 
 [module/filesystem]
 type = internal/fs
@@ -324,54 +339,6 @@ animation-discharging-4 = 
 animation-discharging-foreground = #fd971f
 ; Framerate in milliseconds
 animation-discharging-framerate = 500
-
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
-
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
-
-[module/powermenu]
-type = custom/menu
-
-expand-right = true
-
-format-spacing = 1
-
-label-open = 
-label-open-foreground = ${colors.secondary}
-label-close =  cancel
-label-close-foreground = ${colors.secondary}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
 
 [settings]
 screenchange-reload = true
