@@ -1,5 +1,5 @@
 [global]
-    font = Droid Sans 12
+    font = FiraMono Nerd Font 12
 
     # Allow a small subset of html markup:
     #   <b>bold</b>

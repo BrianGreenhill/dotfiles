@@ -76,45 +76,18 @@ krr() {
 }
 
 aws_export() {
-    export AWS_PROFILE=default
-    export AWS_ACCESS_KEY_ID=$(aws configure get default.aws_access_key_id)
-    export AWS_SECRET_ACCESS_KEY=$(aws configure get default.aws_secret_access_key)
-    export AWS_DEFAULT_REGION=eu-central-1
+    export AWS_PROFILE=$1
+    export AWS_ACCESS_KEY_ID=$(aws configure get ${AWS_PROFILE}.aws_access_key_id)
+    export AWS_SECRET_ACCESS_KEY=$(aws configure get ${AWS_PROFILE}.aws_secret_access_key)
+    export AWS_DEFAULT_REGION=$2
 }
 
-aws_export_do() {
-    export AWS_PROFILE=digitalocean
-    export AWS_ACCESS_KEY_ID=$(aws configure get digitalocean.aws_access_key_id)
-    export AWS_SECRET_ACCESS_KEY=$(aws configure get digitalocean.aws_secret_access_key)
-    export AWS_DEFAULT_REGION=eu-central-1
-}
-
-aws_export_cg() {
-    export AWS_PROFILE=corona_app
-    export AWS_ACCESS_KEY_ID=$(aws configure get corona_app.aws_access_key_id)
-    export AWS_SECRET_ACCESS_KEY=$(aws configure get corona_app.aws_secret_access_key)
-    export AWS_DEFAULT_REGION=ap-south-1
-}
-
-aws_export_ca() {
-    export AWS_PROFILE=default
-    export AWS_ACCESS_KEY_ID=$(aws configure get default.aws_access_key_id)
-    export AWS_SECRET_ACCESS_KEY=$(aws configure get default.aws_secret_access_key)
-    export AWS_DEFAULT_REGION=ca-central-1
-}
-
-aws_export_cs() {
-    export AWS_PROFILE=cabinscape
-    export AWS_ACCESS_KEY_ID=$(aws configure get cabinscape.aws_access_key_id)
-    export AWS_SECRET_ACCESS_KEY=$(aws configure get cabinscape.aws_secret_access_key)
-    export AWS_DEFAULT_REGION=us-east-1
-}
-
-alias awsexport=aws_export
-alias awsexportdo=aws_export_do
-alias awsexportcg=aws_export_cg
-alias awsexportca=aws_export_ca
-alias awsexportcs=aws_export_cs
+alias awsex='aws_export'
+alias awsexport='aws_export default eu-central-1'
+alias awsexportdo='aws_export digitalocean eu-central-1'
+alias awsexportca='aws_export default ca-central-1'
+alias awsexportcs='aws_export cabinscape us-east-2'
+alias awsexportdev='aws_export developer ca-central-1'
 
 # grpc
 

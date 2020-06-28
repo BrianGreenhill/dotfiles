@@ -3,3 +3,5 @@
 	name = Brian Greenhill
 [url "ssh://git@github.com:"]
 	insteadof = https://github.com
+[pull]
+	rebase = false

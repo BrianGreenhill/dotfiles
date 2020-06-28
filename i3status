@@ -5,9 +5,10 @@ general {
     color_bad = "#cc241d"
     color_degraded = "#fabd2f"
     interval = 2
+    markup = "pango"
 }
 
-#order += "volume master"
+order += "volume master"
 order += "battery 0"
 order += "wireless wlp2s0"
 order += "path_exists VPN"

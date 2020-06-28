@@ -1,5 +1,5 @@
 set $mod Mod4
-font pango:IBM Plex Mono 10
+font pango:FiraMono Nerd Font Mono 10
 floating_modifier $mod
 
 set $ws_1 "1"
@@ -18,7 +18,8 @@ focus_follows_mouse no
 # kill focused window
 bindsym $mod+q kill
 
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec rofi -show drun
 
 # change focus
 bindsym $mod+h focus left
@@ -64,12 +65,6 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
-#bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
-
 # switch to workspace
 bindsym $mod+1 workspace $ws_1
 bindsym $mod+2 workspace $ws_2
@@ -105,6 +100,8 @@ bindsym $mod+Shift+z exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # lock
 bindsym $mod+Shift+x exec --no-startup-id i3exit lock
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
 
 # sleep
 set $mode_system System (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
@@ -150,14 +147,15 @@ for_window [floating] border pixel 1
 # Specific Workspace Assignments
 assign [class="firefox"] $ws_2
 for_window [class="Spotify"] move to workspace $ws_10
-assign [class="Signal"] 5
-assign [class="Telegram"] 5
-assign [class="Slack"] 5
+assign [class="Signal"] $ws_3
+assign [class="Telegram"] $ws_3
+assign [class="Slack"] $ws_3
 assign [class="KeePassXC"] 4
 
 # Gaps
-gaps inner 1
-gaps outer 1
+gaps top 30
+gaps bottom 30
+gaps inner 5
 smart_borders no_gaps
 
 bindsym $mod+plus		gaps outer current plus 5
@@ -168,9 +166,9 @@ bindsym $mod+Shift+minus gaps outer current minus 5
 ## Multimedia Keys
 
 # volume
-bindsym $mod+F1 exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --togmute
-bindsym $mod+F2 exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --down
-bindsym $mod+F3 exec --no-startup-id ~/.config/polybar/polybar-pulseaudio-control/pulseaudio-control.bash --up
+bindsym $mod+F1 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym $mod+F2 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+F3 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 
 # Screen brightness controls
 bindsym $mod+F12 exec --no-startup-id brightness -inc 5
@@ -199,17 +197,17 @@ exec_always --no-startup-id "compton -b --respect-prop-shadow"
 exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunstrc"
 
 #bar {
-#  status_command i3status
-#  position bottom
-#  colors {
-#      background #3c3836
-#      statusline #ebdbb2
-#      separator  #666666
-#      focused_workspace  #458588 #458588 #ebdbb2
-#      active_workspace   #83a598 #83a598 #ebdbb2
-#      inactive_workspace #504945 #504945 #ebdbb2
-#      urgent_workspace   #cc241d #cc241d #504945
-#  }
+#    status_command i3status
+#    position bottom
+#    colors {
+#        background #3c3836
+#        statusline #ebdbb2
+#        separator  #666666
+#        focused_workspace  #458588 #458588 #ebdbb2
+#        active_workspace   #83a598 #83a598 #ebdbb2
+#        inactive_workspace #504945 #504945 #ebdbb2
+#        urgent_workspace   #cc241d #cc241d #504945
+#    }
 #}
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
