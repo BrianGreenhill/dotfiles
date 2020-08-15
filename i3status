@@ -10,7 +10,7 @@ general {
 
 order += "volume master"
 order += "battery 0"
-order += "wireless wlp2s0"
+#order += "wireless wlp2s0"
 order += "path_exists VPN"
 order += "tztime_local"
 
@@ -39,7 +39,7 @@ path_exists VPN {
 }
 
 tztime local {
-    format = "%a %-d %b %H:%M "
+    format = "%a %-d %b %H:%M:%S "
 }
 
 volume master {

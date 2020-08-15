@@ -85,6 +85,7 @@ autocmd BufWritePost *.*sonnet !jsonnetfmt -i --string-style d --no-pad-arrays %
 let g:terraform_fmt_on_save=1
 autocmd FileType make setlocal noexpandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd BufRead,BufNewFile *.md setlocal textwidth=80
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :

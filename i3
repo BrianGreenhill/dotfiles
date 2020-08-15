@@ -101,7 +101,7 @@ bindsym $mod+Shift+z exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # lock
 bindsym $mod+Shift+x exec --no-startup-id i3exit lock
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec --no-startup-id nm-applet
+exec_always --no-startup-id nm-applet
 
 # sleep
 set $mode_system System (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
@@ -153,8 +153,8 @@ assign [class="Slack"] $ws_3
 assign [class="KeePassXC"] 4
 
 # Gaps
-gaps top 30
-gaps bottom 30
+gaps top 10
+gaps bottom 10
 gaps inner 5
 smart_borders no_gaps
 
@@ -190,27 +190,27 @@ bindsym $mod+b exec CM_LAUNCHER=rofi clipmenu
 # Autostart apps
 exec --no-startup-id betterlockscreen -w dim
 exec_always --no-startup-id xset r rate 200 60
-exec_always --no-startup-id feh --bg-scale ~/wallpaper.jpg
+exec_always --no-startup-id feh --randomize --bg-scale ~/wallpapers/*
 exec --no-startup-id "clipmenud"
 exec --no-startup-id unclutter
 exec_always --no-startup-id "compton -b --respect-prop-shadow"
-exec --no-startup-id "sleep 5s && dunst -config ~/.config/dunstrc"
+exec_always --no-startup-id "sleep 5s && dunst -config ~/.config/dunstrc"
 
-#bar {
-#    status_command i3status
-#    position bottom
-#    colors {
-#        background #3c3836
-#        statusline #ebdbb2
-#        separator  #666666
-#        focused_workspace  #458588 #458588 #ebdbb2
-#        active_workspace   #83a598 #83a598 #ebdbb2
-#        inactive_workspace #504945 #504945 #ebdbb2
-#        urgent_workspace   #cc241d #cc241d #504945
-#    }
-#}
+bar {
+    status_command i3status
+    position bottom
+    colors {
+        background #222222
+        statusline #ebdbb2
+        separator  #666666
+        focused_workspace  #458588 #458588 #222222
+        active_workspace   #83a598 #83a598 #ebdbb2
+        inactive_workspace #222222 #222222 #ebdbb2
+        urgent_workspace   #cc241d #cc241d #504945
+    }
+}
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 client.focused          #665c54 #665c54 #eddbb2 #2e9ef4   #665c54
 client.focused_inactive #282828 #5f676a #ffffff #484e50   #5f676a

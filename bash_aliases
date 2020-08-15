@@ -39,14 +39,15 @@ alias kdp='kubectl describe pod'
 alias kexec='kubectl exec -it'
 alias klog='kubectl logs -f'
 alias kpf='kubectl port-forward'
-alias kpfprom='kubectl port-forward svc/monitoring-prometheus-server 9090:80 -n monitoring'
+alias kpfprom='kubectl port-forward svc/prometheus-server 9090:80 -n monitoring'
 alias kdev='kctx dev-cluster.ecosia.org.k8s.local'
-alias kstaging='kctx dev-cluster.ecosia.org.k8s.local'
-alias kprod='kctx prod-eu-central-1.ecosia.org.k8s.local'
-alias kprodus='kctx prod-us-east-1.ecosia.org.k8s.local'
+alias kprod='kctx prod-eu-central-1'
+alias kprodca='kctx prod-ca-central-1'
 alias kctx='kubectx'
 alias kns='kubens'
-alias allmanifests='find . -type f -name "Makefile" -printf "%h\n" | grep -v \{\{ | grep -v ingress | grep -v system | xargs -I{} make ECOSIA_ENV=prod REGION=ca-central-1 -s -C {} manifest > manifest.yaml'
+
+# get all manifests
+alias allmanifests_staging='find . -type f -name "Makefile" -printf "%h\n" | grep -v \{\{ | grep -v ingress | grep -v system | xargs -I{} make ECOSIA_ENV=staging REGION=eu-central-1 -s -C {} manifest > manifest.yaml'
 
 # git
 
@@ -84,18 +85,5 @@ aws_export() {
 
 alias awsex='aws_export'
 alias awsexport='aws_export default eu-central-1'
-alias awsexportdo='aws_export digitalocean eu-central-1'
-alias awsexportca='aws_export default ca-central-1'
-alias awsexportcs='aws_export cabinscape us-east-2'
-alias awsexportdev='aws_export developer ca-central-1'
 
-# grpc
-
-alias grpc_cli='docker run -v `pwd`:/defs --rm -it namely/grpc-cli'
-
-make_corona_api_call() {
-  uri=$1
-  curl https://api.covid19api.com/$uri -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Referer: https://covid19api.com/' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Upgrade-Insecure-Requests: 1' -H 'Cache-Control: max-age=0'
-}
-
-alias coronapi=make_corona_api_call
+alias killvault="ps aux | grep vault | awk '{print $2}' | head -n 1 |xargs kill"
