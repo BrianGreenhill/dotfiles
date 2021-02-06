@@ -24,3 +24,4 @@ make linux
 - aliases: aliases to reduce toil (~/.aliases)
 - zshrc: zshrc for shell config (~/.zshrc)
 - zprofile: zprofile as an entrypoint to zshrc mostly for nvim (~/.zprofile)
+- alacritty: alacritty configuration (~/.config/alacritty/alacritty.yml)

@@ -6,13 +6,16 @@ scrolling:
   history: 100000
 font:
   normal:
-    family: Hack
+    family: "Hack"
   size: 16.0
   offset:
-    y: 0
+    x: 0
+    # same as font size
+    y: 16
   glyph_offset:
    x: 0
-   y: 0
+   # half of font size
+   y: 8
   use_thin_strokes: false
 
 colors:
@@ -29,16 +32,6 @@ colors:
     magenta: '#b16286'
     cyan:    '#689d6a'
     white:   '#a89984'
-
-  bright:
-    black:   '#928374'
-    red:     '#fb4934'
-    green:   '#b8bb26'
-    yellow:  '#fabd2f'
-    blue:    '#83a598'
-    magenta: '#d3869b'
-    cyan:    '#8ec07c'
-    white:   '#ebdbb2'
 
 background_opacity: 1
 live_config_reload: true
