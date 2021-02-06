@@ -20,6 +20,7 @@ copyTheDots() {
   ln -sf $(pwd)/macos/.gitignore $HOME/.gitignore
   ln -sf $(pwd)/macos/.zshrc $HOME/.zshrc
   ln -sf $(pwd)/macos/.zprofile $HOME/.zprofile
+  ln -sf $(pwd)/macos/alacritty.yml $HOME/.config/alacritty/alacritty.yml
 }
 
 doTheBrew
