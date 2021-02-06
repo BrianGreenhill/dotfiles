@@ -39,15 +39,8 @@ alias kdp='kubectl describe pod'
 alias kexec='kubectl exec -it'
 alias klog='kubectl logs -f'
 alias kpf='kubectl port-forward'
-alias kpfprom='kubectl port-forward svc/prometheus-server 9090:80 -n monitoring'
-alias kdev='kctx dev-cluster.ecosia.org.k8s.local'
-alias kprod='kctx prod-eu-central-1'
-alias kprodca='kctx prod-ca-central-1'
 alias kctx='kubectx'
 alias kns='kubens'
-
-# get all manifests
-alias allmanifests_staging='find . -type f -name "Makefile" -printf "%h\n" | grep -v \{\{ | grep -v ingress | grep -v system | xargs -I{} make ECOSIA_ENV=staging REGION=eu-central-1 -s -C {} manifest > manifest.yaml'
 
 # git
 
@@ -84,6 +77,3 @@ aws_export() {
 }
 
 alias awsex='aws_export'
-alias awsexport='aws_export default eu-central-1'
-
-alias killvault="ps aux | grep vault | awk '{print $2}' | head -n 1 |xargs kill"
