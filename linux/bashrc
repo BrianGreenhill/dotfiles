@@ -1,0 +1,31 @@
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+
+setxkbmap -option "ctrl:nocaps"
+xmodmap -e "keycode 112 = Left"
+xmodmap -e "keycode 117 = Right"
+
+. ~/.aliases
+. ~/bin/kube-ps1.sh
+. ~/.prompt
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export BROWSER=/usr/bin/firefox
+export TERMINAL=termite
+export EDITOR=/usr/bin/vim
+export HISTSIZE=99999999999
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export TERM=xterm
+export HISTCONTROL=ignoreboth:erasedups
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+export FZF_DEFAULT_OPTS='--layout=reverse --height 40%'
+
+export PATH=~/.local/bin:~/bin:~/go/bin:$PATH

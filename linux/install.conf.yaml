@@ -1,0 +1,26 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.dotfiles: ''
+    ~/.tmux.conf: tmux.conf
+    ~/.vimrc: vimrc
+    ~/.xinitrc: xinitrc
+    ~/.gitignore_global: gitignore_global
+    ~/compton.conf: compton.conf
+    ~/.config/i3/config: i3
+    ~/.config/i3status/config: i3status
+    ~/.config/termite/config: termite
+    ~/.bashrc: bashrc
+    ~/.bash_profile: bash_profile
+    ~/.aliases: bash_aliases
+    ~/bin/i3screens: i3screens
+    ~/bin/i3exit: i3exit
+    ~/bin/volume: volume.sh
+    ~/bin/brightness: brightness.sh
+    ~/bin/kube-ps1.sh: kube-ps1
+    ~/.prompt: prompt
+    ~/.config/dunstrc: dunstrc

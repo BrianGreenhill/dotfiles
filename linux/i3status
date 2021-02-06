@@ -1,0 +1,49 @@
+general {
+    separator=""
+    colors = true
+    color_good = "#98971a"
+    color_bad = "#cc241d"
+    color_degraded = "#fabd2f"
+    interval = 2
+    markup = "pango"
+}
+
+order += "volume master"
+order += "battery 0"
+#order += "wireless wlp2s0"
+order += "path_exists VPN"
+order += "tztime_local"
+
+wireless wlp2s0 {
+    format_up = ""
+    format_down = "not connected"
+}
+
+battery 0 {
+    format = "%status %percentage"
+    format_down = "no battery"
+    low_threshold = 30
+    threshold_type = percentage
+    last_full_capacity = true
+    integer_battery_capacity = true
+    status_chr = ""
+    status_bat = ""
+    status_unk = ""
+    status_full = ""
+}
+
+path_exists VPN {
+    format = ""
+    format_down = ""
+    path = "/proc/sys/net/ipv4/conf/tun0"
+}
+
+tztime local {
+    format = "%a %-d %b %H:%M:%S "
+}
+
+volume master {
+    format = "🔊 %volume"
+    format_muted = "muted"
+    device = "pulse"
+}
