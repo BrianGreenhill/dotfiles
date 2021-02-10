@@ -56,6 +56,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'dense-analysis/ale'
 Plug 'morhetz/gruvbox'
 Plug 'szw/vim-maximizer'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'jparise/vim-graphql'
 
 if executable('rg')
     let g:rg_derive_root='true'
@@ -69,7 +72,8 @@ autocmd VimEnter * hi Normal ctermbg=none
 let mapleader="\<space>"
 
 nnoremap <C-a> :Rg<CR>
-nnoremap <C-p> :Files<CR>
+nnoremap <C-p> :GFiles<CR>
+nnoremap <C-g> :GFiles?<CR>
 nnoremap <leader>gs :Gitstatus<Cr>
 nnoremap <leader>ga :Git fetch --all<CR>
 nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
@@ -90,7 +94,8 @@ vnoremap K :m '<-2<CR>gv=gv
 
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
-nnoremap <leader>gc :GBranches<CR>
+nnoremap <leader>gb :GBranches<CR>
+nnoremap <leader>gf :Gfetch<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 nnoremap <silent> <leader>f :NERDTreeFind<CR>

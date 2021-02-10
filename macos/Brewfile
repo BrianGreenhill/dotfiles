@@ -17,6 +17,7 @@ brew "mockery"
 brew "rbenv"
 brew "python3"
 brew "tmux"
+brew "gh"
 
 tap "neovim/neovim"
 brew "neovim"

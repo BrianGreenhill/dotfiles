@@ -7,7 +7,7 @@ scrolling:
 font:
   normal:
     family: "Hack"
-  size: 16.0
+  size: 18.0
   offset:
     x: 0
     # same as font size
