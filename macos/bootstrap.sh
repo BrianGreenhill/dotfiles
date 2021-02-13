@@ -15,12 +15,14 @@ doTheBrew() {
 copyTheDots() {
   echo "syncing dotfiles..."
   ln -sf $(pwd)/macos/.aliases $HOME/.aliases
-  ln -sf $(pwd)/macos/.vimrc $HOME/.config/nvim/init.vim
-  ln -sf $(pwd)/macos/.tmux.conf $HOME/.tmux.conf
-  ln -sf $(pwd)/macos/.gitignore $HOME/.gitignore
   ln -sf $(pwd)/macos/.zshrc $HOME/.zshrc
   ln -sf $(pwd)/macos/.zprofile $HOME/.zprofile
+  ln -sf $(pwd)/macos/.gitignore $HOME/.gitignore
+  echo "syncing terminal and editor configs..."
   ln -sf $(pwd)/macos/alacritty.yml $HOME/.config/alacritty/alacritty.yml
+  ln -sf $(pwd)/macos/.vimrc $HOME/.config/nvim/init.vim
+  ln -sf $(pwd)/macos/nvim/plugin $HOME/.config/nvim/
+  ln -sf $(pwd)/macos/.tmux.conf $HOME/.tmux.conf
 }
 
 doTheBrew

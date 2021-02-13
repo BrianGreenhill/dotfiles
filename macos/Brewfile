@@ -20,7 +20,7 @@ brew "tmux"
 brew "gh"
 
 tap "neovim/neovim"
-brew "neovim"
+brew "neovim", args: ["HEAD"]
 
 cask "alfred"
 cask "zoom"
