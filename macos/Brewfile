@@ -19,6 +19,9 @@ brew "python3"
 brew "tmux"
 brew "gh"
 
+tap "homebrew/cask-fonts"
+cask "font-hack-nerd-font"
+
 tap "neovim/neovim"
 brew "neovim", args: ["HEAD"]
 

@@ -1,4 +1,3 @@
-set encoding=utf-8 " utf8 encoding default
 set tabstop=2 softtabstop=2 shiftwidth=2 " default tabs of 4 spaces
 set expandtab " tabs to spaces
 set smartindent " best effort indenting

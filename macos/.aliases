@@ -7,7 +7,7 @@ alias ls='grc -es ls'
 alias ll='ls -al'
 alias vim='nvim'
 alias vi='vim'
-alias evrc='vim ~/.vimrc'
+alias evrc='vim ~/.config/nvim/init.vim'
 alias tmux='tmux -2'
 
 # terraform
