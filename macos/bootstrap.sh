@@ -22,6 +22,7 @@ copyTheDots() {
   ln -sf $(pwd)/macos/alacritty.yml $HOME/.config/alacritty/alacritty.yml
   ln -sf $(pwd)/macos/.vimrc $HOME/.config/nvim/init.vim
   ln -sf $(pwd)/macos/nvim/plugin $HOME/.config/nvim/
+  ln -sf $(pwd)/macos/nvim/UltiSnips $HOME/.config/nvim/
   ln -sf $(pwd)/macos/.tmux.conf $HOME/.tmux.conf
 }
 

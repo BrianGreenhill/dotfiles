@@ -12,6 +12,12 @@ require('telescope').setup {
         ["<C-q>"] = actions.send_to_qflist,
       },
     },
+    file_ignore_patters = {
+      '.git/*',
+      'node_modules/*',
+      '.DS_Store',
+      'vendor/*'
+    }
   }
 }
 EOF

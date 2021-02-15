@@ -16,45 +16,54 @@ nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>vsd :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
+autocmd FileType go setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
 lua <<EOF
+-- go
   lspconfig = require "lspconfig"
+
   lspconfig.gopls.setup {
     on_attach = require'completion'.on_attach,
     cmd = {"gopls", "serve"},
+    filetypes = {"go"},
     settings = {
       gopls = {
         analyses = {
           unusedparams = true,
+          unreachable = true,
         },
+        usePlaceholders = true,
+        completeUnimported = true,
+        deepCompletion = true,
         staticcheck = true,
       },
     },
   }
+
+-- php
+  lspconfig.intelephense.setup {
+    settings = {
+      stubs = {"wordpress"}
+    },
+    on_attach=require'completion'.on_attach
+  }
+
+-- typescript
+  lspconfig.tsserver.setup {
+    on_attach = require'completion'.on_attach,
+    cmd = {"typescript-language-server", "--stdio"},
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx"
+    },
+    root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git")
+  }
+
+-- ruby
+  lspconfig.solargraph.setup{ on_attach=require'completion'.on_attach }
 EOF
-lua <<EOF
-  function goimports(timeoutms)
-    local context = { source = { organizeImports = true } }
-    vim.validate { context = { context, "t", true } }
 
-    local params = vim.lsp.util.make_range_params()
-    params.context = context
-
-    local method = "textDocument/codeAction"
-    local resp = vim.lsp.buf_request_sync(0, method, params, timeoutms)
-    if resp and resp[1] then
-      local result = resp[1].result
-      if result and result[1] then
-        local edit = result[1].edit
-        vim.lsp.util.apply_workspace_edit(edit)
-      end
-    end
-
-    vim.lsp.buf.formatting()
-  end
-EOF
-
-autocmd BufWritePre *.go lua goimports(1000)
-autocmd FileType go setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-lua require'lspconfig'.solargraph.setup{ on_attach=require'completion'.on_attach }
-lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }

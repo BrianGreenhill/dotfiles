@@ -6,12 +6,12 @@ scrolling:
   history: 100000
 font:
   normal:
-    family: "Hack"
+    family: "Hack Nerd Font Mono"
   size: 18.0
   offset:
     x: 0
     # same as font size
-    y: 16
+    y: 18
   glyph_offset:
    x: 0
    # half of font size
@@ -33,7 +33,7 @@ colors:
     cyan:    '#689d6a'
     white:   '#a89984'
 
-background_opacity: 1
+background_opacity: 0.9
 live_config_reload: true
 shell:
   program: /bin/zsh
