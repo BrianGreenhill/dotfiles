@@ -21,6 +21,8 @@ require('formatter').setup({
     javascriptreact = {prettierConfig},
     typescriptreact = {prettierConfig},
     typescript = {prettierConfig},
+    ts = {prettierConfig},
+    json = {prettierConfig},
     go = {formatter_goimports}
   }
 })

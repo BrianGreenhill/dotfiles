@@ -1,12 +1,21 @@
 window:
   dynamic_padding: true
   decorations: none
-  startup_mode: Maximized
 scrolling:
   history: 100000
 font:
   normal:
-    family: "Hack Nerd Font Mono"
+    family: Iosevka Nerd Font Mono
+    style: Regular
+  bold:
+    family: Iosevka Nerd Font Mono
+    style: Bold
+  italic:
+    family: Iosevka Nerd Font Mono
+    style: Italic
+  bold_italic:
+    family: Iosevka Nerd Font Mono
+    style: Bold Italic
   size: 18.0
   offset:
     x: 0
@@ -15,7 +24,7 @@ font:
   glyph_offset:
    x: 0
    # half of font size
-   y: 8
+   y: 9
   use_thin_strokes: false
 
 colors:
@@ -33,7 +42,7 @@ colors:
     cyan:    '#689d6a'
     white:   '#a89984'
 
-background_opacity: 0.9
+background_opacity: 1
 live_config_reload: true
 shell:
   program: /bin/zsh
