@@ -52,5 +52,5 @@ augroup BRIAN
 augroup END
 
 exec 'luafile' . expand("~/.config/nvim/plugin/lsp.lua")
-exec 'luafile' . expand("~/.config/nvim/plugin/telescope.lua")
+" exec 'luafile' . expand("~/.config/nvim/plugin/telescope.lua")
 exec 'luafile' . expand("~/.config/nvim/plugin/formatting.lua")
