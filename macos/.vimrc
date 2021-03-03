@@ -1,8 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'gruvbox-community/gruvbox'
 Plug 'honza/vim-snippets'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'mbbill/undotree', {'branch': 'master'} " visual undo history
 Plug 'mhartington/formatter.nvim'
@@ -18,7 +16,7 @@ Plug 'nvim-treesitter/playground'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'RishabhRD/popfix'
 Plug 'RishabhRD/nvim-lsputils'
-Plug 'sbdchd/neoformat' " formatting
+Plug 'sebdah/vim-delve' " go debugging
 Plug 'SirVer/ultisnips' " snippet management engine
 Plug 'tjdevries/complextras.nvim' " completion extras
 Plug 'tjdevries/nlua.nvim'
@@ -30,19 +28,11 @@ Plug 'tpope/vim-rails' " ruby rails navigation with gf
 Plug 'tpope/vim-rhubarb' " :Gbrowse! to copy github URL to clipboard
 Plug 'tpope/vim-surround' " change surrounding things to other things with cs<thing><otherthing>
 Plug 'tpope/vim-vinegar' " netrw enhancements
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
-lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
-
 let mapleader="\<space>"
-
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-nnoremap <C-n> :NERDTreeToggle<CR>
+let g:airline_theme='gruvbox'
 
 lua << EOF
 require'nvim-web-devicons'.setup {default = true;}
@@ -61,4 +51,6 @@ augroup BRIAN
     autocmd BufWritePre * :call TrimWhitespace()
 augroup END
 
+exec 'luafile' . expand("~/.config/nvim/plugin/lsp.lua")
+exec 'luafile' . expand("~/.config/nvim/plugin/telescope.lua")
 exec 'luafile' . expand("~/.config/nvim/plugin/formatting.lua")

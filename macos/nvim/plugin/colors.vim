@@ -6,6 +6,6 @@ fun! ColorMyVim()
     highlight ColorColumn ctermbg=0 guibg=grey
     highlight LineNr guifg=#5eacd3
     highlight qfFileName guifg=#aed75f
-    hi TelescopeBorder guifg=#5eacd
+    highlight TelescopeBorder guifg=#5eacd
 endfun
 call ColorMyVim()

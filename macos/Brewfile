@@ -16,18 +16,20 @@ brew "go"
 brew "mockery"
 brew "rbenv"
 brew "python3"
+brew "asdf"
 brew "tmux"
 brew "gh"
 
 tap "homebrew/cask-fonts"
 cask "font-hack-nerd-font"
+cask "font-iosevka-nerd-font"
 
 tap "neovim/neovim"
 brew "neovim", args: ["HEAD"]
 
 cask "alfred"
 cask "zoom"
-cask "alacritty"
+cask "kitty"
 cask "spotify"
 cask "telegram"
 cask "google-chrome"

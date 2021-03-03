@@ -20,3 +20,8 @@ set colorcolumn=80 " add column for 80 character max line length prompt
 set updatetime=50 " makes vim a bit snappier
 set shortmess+=c " dont pass messages to |ins-completion-menu|
 set mouse=a " mouse even when running in tmux
+set completeopt=menuone,noinsert,noselect
+
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_enable_snippet = 'UltiSnips'
+let g:UltiSnipsExpandTrigger="<C-s>"

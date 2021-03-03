@@ -1,7 +1,15 @@
+local pythonConfig = function()
+  return {
+    exe = "black",
+    args = {"-"},
+    stdin = true
+  }
+end
+
 local prettierConfig = function()
   return {
     exe = "prettier",
-    args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
+    args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote", "--ext .ts,.tsx,.js,.jsx"},
     stdin = true
   }
 end
@@ -17,6 +25,8 @@ end
 require('formatter').setup({
   logging = true,
   filetype = {
+    python = {pythonConfig},
+    py = {pythonConfig},
     javascript = {prettierConfig},
     javascriptreact = {prettierConfig},
     typescriptreact = {prettierConfig},
@@ -30,6 +40,6 @@ require('formatter').setup({
 vim.api.nvim_exec([[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.js,*.jsx,*.ts,*.json,*.tsx,*.go FormatWrite
+  autocmd BufWritePost *.py,*.js,*.jsx,*.ts,*.json,*.tsx,*.go FormatWrite
 augroup END
 ]], true)
