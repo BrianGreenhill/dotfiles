@@ -3,12 +3,24 @@ alias hosts='sudo vim /etc/hosts'
 alias grep='grep --color=auto'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 alias prettyjson='python -m json.tool'
-alias ls='grc -es ls'
-alias ll='ls -al'
-alias vim='nvim'
-alias vi='vim'
-alias evrc='vim ~/.vimrc'
+alias ls='ls -G'
+alias ll='ls -G -l'
+alias lh='ls -G -lh'
 alias tmux='tmux -2'
+alias tma='tmux a -t'
+
+# vim
+
+if which nvim &> /dev/null; then
+  alias vim='nvim'
+  export EDITOR='nvim'
+  export GIT_EDITOR='nvim'
+else
+  export EDITOR="vim"
+  export GIT_EDITOR="vim"
+fi
+
+alias evrc='vim ~/.config/nvim/init.vim'
 
 # terraform
 
@@ -46,7 +58,7 @@ alias branch="git branch | grep \* | cut -d ' ' -f2"
 alias gd='git diff'
 alias gcm='git commit -v -m'
 alias gco='git checkout'
-alias gcom='git checkout master'
+alias gcom='git checkout main'
 alias gcb='git checkout -b'
 alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
 alias gb="git branch"

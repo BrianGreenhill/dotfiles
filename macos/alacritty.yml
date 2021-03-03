@@ -1,21 +1,30 @@
 window:
   dynamic_padding: true
   decorations: none
-  startup_mode: Maximized
 scrolling:
   history: 100000
 font:
   normal:
-    family: "Hack"
+    family: Iosevka Nerd Font Mono
+    style: Regular
+  bold:
+    family: Iosevka Nerd Font Mono
+    style: Bold
+  italic:
+    family: Iosevka Nerd Font Mono
+    style: Italic
+  bold_italic:
+    family: Iosevka Nerd Font Mono
+    style: Bold Italic
   size: 18.0
   offset:
     x: 0
     # same as font size
-    y: 16
+    y: 18
   glyph_offset:
    x: 0
    # half of font size
-   y: 8
+   y: 9
   use_thin_strokes: false
 
 colors:
