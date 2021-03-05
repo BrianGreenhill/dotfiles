@@ -1,4 +1,7 @@
 local actions = require('telescope.actions')
+
+require'nvim-web-devicons'.setup {default = true;}
+
 require('telescope').setup {
   defaults = {
     file_sorter = require('telescope.sorters').get_fzy_sorter,

@@ -8,6 +8,7 @@ alias ll='ls -G -l'
 alias lh='ls -G -lh'
 alias tmux='tmux -2'
 alias tma='tmux a -t'
+alias cat='bat'
 
 # vim
 
