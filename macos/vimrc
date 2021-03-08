@@ -1,5 +1,4 @@
 call plug#begin('~/.vim/plugged')
-Plug 'beauwilliams/statusline.lua'
 Plug 'gruvbox-community/gruvbox'
 Plug 'honza/vim-snippets'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -27,7 +26,6 @@ Plug 'tpope/vim-fugitive' " git integration
 Plug 'tpope/vim-rails' " ruby rails navigation with gf
 Plug 'tpope/vim-rhubarb' " :Gbrowse! to copy github URL to clipboard
 Plug 'tpope/vim-surround' " change surrounding things to other things with cs<thing><otherthing>
-Plug 'tpope/vim-vinegar' " netrw enhancements
 call plug#end()
 let mapleader="\<space>"
 
