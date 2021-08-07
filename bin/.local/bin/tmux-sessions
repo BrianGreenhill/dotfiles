@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+STATUS="~/Work/status"
+ISP="~/Work/internal-statuspage"
+CAT="~/Work/cat"
+DOT="~/dotfiles"
+
+createWindow() {
+    session=$1
+    window=$2
+    shift
+    shift
+    hasWindow=$(tmux list-windows -t $session | grep "$window")
+    if [ -z "$hasWindow" ]; then
+        cmd="tmux neww -t $session: -n $window -d"
+        if [ $# -gt 0 ]; then
+            cmd="$cmd $@"
+        fi
+        echo "Creating Window(\"$hasWindow\"): $cmd"
+        eval $cmd
+    fi
+}
+
+createSession() {
+    session=$1
+    window=$2
+    shift
+    shift
+    cmd="tmux new -s $session -d -n $window $@ > /dev/null 2>&1"
+
+    echo "Creating Session: $cmd"
+    eval $cmd
+}
+
+while [ "$#" -gt 0 ]; do
+    curr=$1
+    shift
+
+    case "$curr" in
+    "-s")
+      createSession status status_vim -c $STATUS
+      createWindow status status_term -c $STATUS
+      ;;
+    "-isp")
+      createSession internal-statuspage isp_vim -c $ISP
+      createWindow internal-statuspage isp_term -c $ISP
+      ;;
+    "-cat")
+      createSession service-catalog cat_vim -c $CAT
+      createWindow service-catalog cat_term -c $CAT
+      ;;
+    *) echo "Unavailable command... $curr"
+    esac
+done

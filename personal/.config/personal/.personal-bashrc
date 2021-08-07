@@ -1,0 +1,10 @@
+[[ -e ~/.config/personal/alias ]] && source ~/.config/personal/alias
+plugins=(asdf)
+eval "$(fastly --completion-script-zsh)"
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export GOPATH=$(go env GOPATH)
+export PATH=$HOME/bin:$GOPATH/bin:/usr/local/sbin:/usr/local/bin:$PATH
+
+. /usr/local/opt/asdf/asdf.sh

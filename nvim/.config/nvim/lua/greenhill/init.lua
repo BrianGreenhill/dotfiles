@@ -1,0 +1,5 @@
+require ("greenhill.telescope")
+require ("greenhill.lsp")
+require ("greenhill.formatting")
+require('lualine').setup({theme='gruvbox'})
+-- require ("greenhill.statusline")
