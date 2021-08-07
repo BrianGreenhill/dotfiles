@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
-set -ex
+set -e
+
+. ~/.config/personal/env
 
 pushd $DOTFILES
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")

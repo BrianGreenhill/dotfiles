@@ -24,6 +24,7 @@ setopt inc_append_history
 setopt share_history
 
 [[ -e ~/.config/personal/.personal-bashrc ]] && source ~/.config/personal/.personal-bashrc
+[[ -e ~/.config/github/.personal-bashrc ]] && source ~/.config/github/.personal-bashrc
 [[ -e ~/.fzf.zsh ]] && source ~/.fzf.zsh
 [[ -e ~/bin/z.sh ]] && source ~/bin/z.sh
 

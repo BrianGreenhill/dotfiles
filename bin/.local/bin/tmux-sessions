@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-STATUS="~/Work/status"
-ISP="~/Work/internal-statuspage"
-CAT="~/Work/cat"
-DOT="~/dotfiles"
+STATUS="~/work/status"
+ISP="~/work/internal-statuspage"
+CAT="~/work/cat"
 
 createWindow() {
     session=$1

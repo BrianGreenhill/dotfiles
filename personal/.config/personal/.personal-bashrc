@@ -1,4 +1,5 @@
 [[ -e ~/.config/personal/alias ]] && source ~/.config/personal/alias
+[[ -e ~/.config/github/ghalias ]] && source ~/.config/github/ghalias
 plugins=(asdf)
 
 export LC_ALL=en_US.UTF-8
