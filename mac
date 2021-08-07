@@ -31,4 +31,10 @@ do
 done
 popd
 
+read "brave? Do you want to run brew bundle? (y/n)"
+if [[ "$brave" =~ ^[Yy]$ ]]
+then
+  brew bundle --file=~/.Brewfile
+fi
+
 echo "${green}==> done${reset}"

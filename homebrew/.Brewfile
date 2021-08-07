@@ -1,0 +1,33 @@
+#   `brew tap Homebrew/bundle`
+#   `brew bundle --file=~/.dotfiles/homebrew/.Brewfile`
+brew "coreutils"
+brew "moreutils"
+brew "findutils"
+brew "z"
+brew "git"
+brew "zsh"
+brew "tree"
+brew "watch"
+brew "htop"
+brew "iftop"
+brew "stow"
+brew "telnet"
+brew "fzf"
+brew "rg"
+
+# brew "gpg"
+# brew "gpg2"
+brew "go"
+brew "mockery"
+brew "rbenv"
+brew "python3"
+brew "tmux"
+
+tap "neovim/neovim"
+brew "neovim"
+
+cask "alfred"
+cask "zoom"
+cask "spotify"
+cask "telegram"
+cask "slack"
