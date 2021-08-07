@@ -5,6 +5,7 @@ prompt pure
 export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 export EDITOR='vim'
+export DOTFILES=$HOME/.dotfiles
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=50000
@@ -22,6 +23,7 @@ setopt HIST_SAVE_NO_DUPS         # Dont write duplicate entries in the history f
 setopt inc_append_history
 setopt share_history
 
+[[ -e ~/.config/personal/.personal-bashrc ]] && source ~/.config/personal/.personal-bashrc
 [[ -e ~/.fzf.zsh ]] && source ~/.fzf.zsh
 [[ -e ~/bin/z.sh ]] && source ~/bin/z.sh
 

@@ -14,11 +14,6 @@ alias ll='ls -G -l'
 alias lh='ls -G -lh'
 alias tt='tmux2'
 
-# project shortcuts
-alias status='tmux-sessions -s'
-alias isp='tmux-sessions -isp'
-alias catalog='tmux-sessions -cat'
-
 # vim
 
 if which nvim &> /dev/null; then
@@ -29,8 +24,6 @@ else
   export EDITOR="vim"
   export GIT_EDITOR="vim"
 fi
-
-alias evrc='vim ~/.config/nvim/init.vim'
 
 # terraform
 
@@ -52,7 +45,6 @@ alias kpf='kubectl port-forward'
 alias kctx='kubectx'
 alias kns='kubens'
 
-
 # git
 
 alias git='hub'
@@ -72,12 +64,3 @@ alias gcom='git checkout main'
 alias gcb='git checkout -b'
 alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
 alias gb="git branch"
-
-aws_export() {
-    export AWS_PROFILE=$1
-    export AWS_ACCESS_KEY_ID=$(aws configure get ${AWS_PROFILE}.aws_access_key_id)
-    export AWS_SECRET_ACCESS_KEY=$(aws configure get ${AWS_PROFILE}.aws_secret_access_key)
-    export AWS_DEFAULT_REGION=$2
-}
-
-alias awsex='aws_export'

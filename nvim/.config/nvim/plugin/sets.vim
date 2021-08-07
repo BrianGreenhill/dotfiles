@@ -12,7 +12,7 @@ set noerrorbells " less cowbell
 set nowrap " dont wrap code
 set noswapfile " dont like swap files
 set nobackup " dont make backup files
-set undodir=~/.config/nvim/undodir
+set undodir=~/.vim/undodir
 set undofile
 set scrolloff=8 " leave an 8 line offset to the top and bottom when scrolling
 set signcolumn=yes " add column to the left for linting feedback
