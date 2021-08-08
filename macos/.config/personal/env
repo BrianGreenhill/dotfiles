@@ -1,3 +1,16 @@
 #!/usr/bin/env zsh
 
+commitDotFiles() {
+    pushd $DOTFILES
+    pushd personal
+    git add .
+    git commit -m "another dotfiles commit..."
+    git push origin main
+    popd
+    git add .
+    git commit -m "another dotfiles commit..."
+    git push origin main
+    popd
+}
+
 export STOW_FOLDERS="bin,nvim,tmux,macos,github,personal,zsh,homebrew"
