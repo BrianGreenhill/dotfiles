@@ -1,5 +1,5 @@
 [[ -e ~/.config/personal/alias ]] && source ~/.config/personal/alias
-[[ -e ~/.config/github/ghalias ]] && source ~/.config/github/ghalias
+[[ -e ~/.config/personal/env ]] && source ~/.config/personal/env
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
