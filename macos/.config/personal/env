@@ -2,11 +2,10 @@
 
 commitDotFiles() {
     pushd $DOTFILES
-    pushd personal
     git add .
     git commit -m "another dotfiles commit..."
     git push origin main
-    popd
+    pushd github
     git add .
     git commit -m "another dotfiles commit..."
     git push origin main
