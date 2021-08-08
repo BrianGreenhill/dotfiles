@@ -1,10 +1,7 @@
 [[ -e ~/.config/personal/alias ]] && source ~/.config/personal/alias
 [[ -e ~/.config/github/ghalias ]] && source ~/.config/github/ghalias
-plugins=(asdf)
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export GOPATH=$(go env GOPATH)
-export PATH=$HOME/bin:$HOME/.local/bin:$GOPATH/bin:/usr/local/sbin:/usr/local/bin:$PATH
-
-. /usr/local/opt/asdf/asdf.sh
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/opt/ruby/bin:$GOPATH/bin:/usr/local/sbin:/usr/local/bin:$PATH

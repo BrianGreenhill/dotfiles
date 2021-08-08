@@ -31,6 +31,7 @@ nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>Y gg"+yG
+nnoremap <leader>pv :Ex<CR>
 
 " Y yanks to end of line from cursor position
 nnoremap Y y$

@@ -15,6 +15,7 @@ require'lspconfig'.gopls.setup {on_attach=on_attach}
 require'lspconfig'.intelephense.setup {on_attach=on_attach}
 require'lspconfig'.tsserver.setup {on_attach=on_attach}
 require'lspconfig'.bashls.setup {on_attach=on_attach}
+require'lspconfig'.svelte.setup {on_attach=on_attach}
 require'lspconfig'.yamlls.setup{on_attach=on_attach}
 require'lspconfig'.solargraph.setup{
   on_attach=on_attach,

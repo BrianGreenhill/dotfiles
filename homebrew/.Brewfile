@@ -17,6 +17,7 @@ brew "rg"
 
 # brew "gpg"
 # brew "gpg2"
+brew "node"
 brew "go"
 brew "mockery"
 brew "rbenv"
