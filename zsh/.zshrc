@@ -1,11 +1,16 @@
-# https://github.com/sindresorhus/pure
-autoload -U promptinit; promptinit
-prompt pure
+# # https://github.com/sindresorhus/pure
+# autoload -U promptinit; promptinit
+# prompt pure
 
+DISABLE_MAGIC_FUNCTIONS=true
 export ZSH="$HOME/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
-export EDITOR='vim'
 export DOTFILES=$HOME/.dotfiles
+export EDITOR='vim'
+
+ZSH_THEME="robbyrussell"
+
+plugins=(zsh-autosuggestions)
+source $ZSH/oh-my-zsh.sh
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=50000

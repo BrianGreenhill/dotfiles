@@ -8,4 +8,4 @@ commitDotFiles() {
     popd
 }
 
-export STOW_FOLDERS="bin,nvim,tmux,macos,github,personal,zsh,homebrew"
+export STOW_FOLDERS="bin,nvim,tmux,macos,github,personal,zsh,homebrew,git"

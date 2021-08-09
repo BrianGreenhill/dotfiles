@@ -9,10 +9,12 @@ reset=`tput sgr0`
 echo "${green}==> installing dotfiles${reset}"
 
 if [[ -z "${STOW_FOLDERS}" ]]; then
+  echo
   echo "${green}==> STOW_FOLDERS was not set so using defaults${reset}"
   . ~/.config/personal/env
 fi
 
+echo
 echo "${green}==> checking if stow is installed${reset}"
 if ! command -v stow &> /dev/null
 then
@@ -21,6 +23,7 @@ else
   echo "found stow"
 fi
 
+echo
 echo "${green}==> running stow on folders:${reset} ${yellow}${STOW_FOLDERS}${reset}"
 
 pushd $DOTFILES
@@ -31,10 +34,16 @@ do
 done
 popd
 
-read "brave? Do you want to run brew bundle? (y/n)"
+echo "symlinks updated"
+
+echo
+read "brave?${green}Do you want to run brew bundle? (y/n)${reset}"
 if [[ "$brave" =~ ^[Yy]$ ]]
 then
+  echo
+  echo "${green}==> installing brew packages from brewfile${reset}"
   brew bundle --file=~/.Brewfile
 fi
 
-echo "${green}==> done${reset}"
+echo
+echo "${green}done!${reset}"

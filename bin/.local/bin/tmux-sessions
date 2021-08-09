@@ -37,16 +37,13 @@ while [ "$#" -gt 0 ]; do
 
     case "$curr" in
     "-s")
-      createSession status status_vim -c $STATUS
-      createWindow status status_term -c $STATUS
+      createSession status status -c $STATUS
       ;;
     "-isp")
-      createSession internal-statuspage isp_vim -c $ISP
-      createWindow internal-statuspage isp_term -c $ISP
+      createSession internal-statuspage internalstatuspage -c $ISP
       ;;
     "-cat")
-      createSession service-catalog cat_vim -c $CAT
-      createWindow service-catalog cat_term -c $CAT
+      createSession service-catalog catalog -c $CAT
       ;;
     *) echo "Unavailable command... $curr"
     esac
