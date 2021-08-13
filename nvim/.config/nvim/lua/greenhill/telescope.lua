@@ -20,7 +20,9 @@ require('telescope').setup {
       '.git/*',
       'node_modules/*',
       '.DS_Store',
-      'vendor/*'
+      'vendor/*',
+      'coverage/*',
+      '**/*.pb.go'
     }
   },
   extensions = {

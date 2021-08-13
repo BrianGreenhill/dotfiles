@@ -1,6 +1,7 @@
 nnoremap <leader>ps :lua require('telescope.builtin').grep_string({search = vim.fn.input("Grep for > ")})<CR>
 nnoremap <C-p> :lua require('telescope.builtin').git_files()<CR>
 nnoremap <C-b> :lua require('telescope.builtin').buffers()<CR>
+nnoremap <leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
 nnoremap <leader>pl :lua require('telescope.builtin').live_grep()<CR>
 nnoremap <leader>fs :lua require('telescope.builtin').current_buffer_fuzzy_find { }<CR>
 nnoremap <leader>vs :lua require('telescope.builtin').lsp_document_symbols()<CR>
