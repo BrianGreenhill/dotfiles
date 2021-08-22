@@ -36,14 +36,14 @@ popd
 
 echo "symlinks updated"
 
-echo
-read "brave?${green}Do you want to run brew bundle? (y/n)${reset}"
-if [[ "$brave" =~ ^[Yy]$ ]]
-then
-  echo
-  echo "${green}==> installing brew packages from brewfile${reset}"
-  brew bundle --file=~/.Brewfile
-fi
+# echo
+# read "brave?${green}Do you want to run brew bundle? (y/n)${reset}"
+# if [[ "$brave" =~ ^[Yy]$ ]]
+# then
+#   echo
+#   echo "${green}==> installing brew packages from brewfile${reset}"
+#   brew bundle --file=~/.Brewfile
+# fi
 
 echo
 echo "${green}done!${reset}"
