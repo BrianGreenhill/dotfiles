@@ -9,10 +9,37 @@ else
 fi
 
 dirname=`basename $selected`
+echo $dirname
 
-tmux switch-client -t $dirname
-if [[ $? -eq 0 ]]; then
-    exit 0
+tmux has-session -t $dirname
+if [ $? != 0 ]
+  then
+    # create a new session with an editor window, then detach
+    tmux new-session -s $dirname -n editor -d
+
+    # change directory to the devproject
+    tmux send-keys -t $dirname "cd ${selected}" C-m
+
+    # open vim
+    tmux send-keys -t $dirname 'nvim' C-m
+
+    # split the window to make a vertical stack
+    tmux split-window -v -p 25 -t $dirname
+
+    # send keys to window 1, pane 2 (:1.2) to change directories
+    tmux send-keys -t $dirname:1.2 "cd ${selected}" C-m
+
+    tmux new-window -n console -t $dirname
+    tmux send-keys -t $dirname:2 "cd ${selected}" C-m
+  else
+    tmux new -c $selected -A -s $dirname
 fi
 
-tmux new-session -c $selected -d -s $dirname && tmux switch-client -t $dirname || tmux new -c $selected -A -s $dirname
+tmux attach -t $dirname:1.1
+
+# tmux switch-client -t $dirname
+# if [[ $? -eq 0 ]]; then
+#     exit 0
+# fi
+
+# tmux new-session -c $selected -d -s $dirname && tmux switch-client -t $dirname || tmux new -c $selected -A -s $dirname

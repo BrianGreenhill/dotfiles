@@ -19,7 +19,6 @@ Plug 'sebdah/vim-delve' " go debugging
 Plug 'tpope/vim-commentary' " comment stuff out with gcc
 Plug 'tpope/vim-fugitive' " git integration
 Plug 'tpope/vim-rhubarb' " :Gbrowse! to copy github URL to clipboard
-Plug 'tjdevries/green_light.nvim'
 call plug#end()
 let mapleader="\<space>"
 

@@ -38,3 +38,4 @@ if type fzf &> /dev/null && type rg &> /dev/null; then
   export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!vendor/*"'
   export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
+eval "$(rbenv init -)"

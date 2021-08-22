@@ -24,3 +24,7 @@ set cmdheight=1
 set completeopt=menuone,noinsert,noselect
 
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:vimwiki_list = [{ 'path': '~/personal/notes/',
+       \ 'syntax':'markdown', 'ext': '.md' }]
+
+ :nmap <Leader>nw <Plug>VimwikiIndex

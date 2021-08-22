@@ -10,8 +10,7 @@ alias grep='grep --color=auto'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 alias prettyjson='python -m json.tool'
 alias ls='ls -G'
-alias ll='ls -G -l'
-alias lh='ls -G -lh'
+alias ll='ls -Galh'
 alias tt='tmux2'
 
 # vim
