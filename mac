@@ -1,30 +1,9 @@
 #!/usr/bin/env zsh
 set -e
 
-red=`tput setaf 1`
-green=`tput setaf 2`
-yellow=`tput setaf 3`
-reset=`tput sgr0`
-
-echo "${green}==> installing dotfiles${reset}"
-
 if [[ -z "${STOW_FOLDERS}" ]]; then
-  echo
-  echo "${green}==> STOW_FOLDERS was not set so using defaults${reset}"
   . ~/.config/personal/env
 fi
-
-echo
-echo "${green}==> checking if stow is installed${reset}"
-if ! command -v stow &> /dev/null
-then
-  brew install stow
-else
-  echo "found stow"
-fi
-
-echo
-echo "${green}==> running stow on folders:${reset} ${yellow}${STOW_FOLDERS}${reset}"
 
 pushd $DOTFILES
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
@@ -33,17 +12,3 @@ do
     stow $folder
 done
 popd
-
-echo "symlinks updated"
-
-# echo
-# read "brave?${green}Do you want to run brew bundle? (y/n)${reset}"
-# if [[ "$brave" =~ ^[Yy]$ ]]
-# then
-#   echo
-#   echo "${green}==> installing brew packages from brewfile${reset}"
-#   brew bundle --file=~/.Brewfile
-# fi
-
-echo
-echo "${green}done!${reset}"
