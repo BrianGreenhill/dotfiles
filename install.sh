@@ -23,6 +23,6 @@ ln -s $(pwd)/zsh/.zprofile $HOME/.zprofile
 curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-nvim -Es -u $HOME/.config/nvim/init.vim -c "PlugInstall | qa"
+nvim --headless +PlugInstall +q
 
 sudo chsh -s "$(which zsh)" "$(whoami)"
