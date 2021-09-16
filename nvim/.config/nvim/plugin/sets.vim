@@ -15,6 +15,7 @@ set nobackup " dont make backup files
 set undodir=~/.vim/undodir
 set undofile
 set scrolloff=8 " leave an 8 line offset to the top and bottom when scrolling
+set sidescrolloff=4 " leave 4 character offset to the sides when scrolling
 set signcolumn=yes " add column to the left for linting feedback
 set colorcolumn=80 " add column for 80 character max line length prompt
 set updatetime=50 " makes vim a bit snappier

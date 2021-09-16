@@ -21,7 +21,6 @@ require('telescope').setup {
       'node_modules/*',
       '.DS_Store',
       'vendor/*',
-      'coverage/*',
       '**/*.pb.go'
     }
   },
