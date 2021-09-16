@@ -7,10 +7,14 @@ set -x
 
 mkdir -p $HOME/.config
 
-sudo apt update -y && sudo apt install -y neovim
+# install nvim
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+./nvim.appimage --appimage-extract
+sudo mv squashfs-root / && sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 
 ln -s $(pwd)/tmux/.tmux.conf $HOME/.tmux.conf
-ln -s $(pwd)/nvim $HOME/.config/nvim
+ln -s $(pwd)/nvim/.config/nvim $HOME/.config/nvim
 ln -s $(pwd)/zsh/.zshrc $HOME/.zshrc
 ln -s $(pwd)/zsh/.zprofile $HOME/.zprofile
 
