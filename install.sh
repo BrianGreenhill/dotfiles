@@ -14,7 +14,7 @@ chmod u+x nvim.appimage
 sudo mv squashfs-root / && sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 
 # install tmux
-sudo apt install tmux
+sudo apt install -y tmux
 
 ln -s $(pwd)/tmux/.tmux.conf $HOME/.tmux.conf
 ln -s $(pwd)/nvim/.config/nvim $HOME/.config/nvim
