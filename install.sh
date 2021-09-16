@@ -15,7 +15,9 @@ sudo mv squashfs-root / && sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 
 ln -s $(pwd)/tmux/.tmux.conf $HOME/.tmux.conf
 ln -s $(pwd)/nvim/.config/nvim $HOME/.config/nvim
+rm -f $HOME/.zshrc
 ln -s $(pwd)/zsh/.zshrc $HOME/.zshrc
+rm -f $HOME/.zprofile
 ln -s $(pwd)/zsh/.zprofile $HOME/.zprofile
 
 curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
