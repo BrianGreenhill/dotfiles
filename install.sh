@@ -16,6 +16,10 @@ sudo mv squashfs-root / && sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 # install tmux
 sudo apt install -y tmux
 
+# make sure we're using zsh
+sudo chsh -s "$(which zsh)" "$(whoami)"
+export PS1="(codespaces) ${PS1}"
+
 ln -s $(pwd)/tmux/.tmux.conf $HOME/.tmux.conf
 ln -s $(pwd)/nvim/.config/nvim $HOME/.config/nvim
 rm -f $HOME/.zshrc
@@ -31,4 +35,3 @@ curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
 
 nvim --headless +PlugInstall +q
 
-sudo chsh -s "$(which zsh)" "$(whoami)"
