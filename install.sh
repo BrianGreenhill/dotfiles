@@ -23,6 +23,8 @@ ln -s $(pwd)/zsh/.zshrc $HOME/.zshrc
 rm -f $HOME/.zprofile
 ln -s $(pwd)/zsh/.zprofile $HOME/.zprofile
 ln -s $(pwd)/personal/.config/personal/.personal-bashrc $HOME/.config/personal/.personal-bashrc
+ln -s $(pwd)/macos/.config/personal/alias $HOME/.config/personal/alias
+ln -s $(pwd)/macos/.config/personal/env $HOME/.config/personal/env
 
 curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
