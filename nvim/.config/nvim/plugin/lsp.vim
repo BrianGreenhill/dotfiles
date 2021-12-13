@@ -11,6 +11,10 @@ nnoremap <leader>vsd :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <leader>L :lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <leader>l :lua vim.lsp.diagnostic.goto_next()<CR>
 
+set completeopt=menu,menuone,noselect
+
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+
 let g:compe = {}
 let g:compe.enabled = v:true
 let g:compe.autocomplete = v:true
@@ -31,6 +35,3 @@ let g:compe.source.buffer = v:true
 let g:compe.source.calc = v:true
 let g:compe.source.nvim_lsp = v:true
 let g:compe.source.nvim_lua = v:true
-let g:compe.source.vsnip = v:true
-
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')

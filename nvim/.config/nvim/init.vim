@@ -6,7 +6,12 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'mbbill/undotree', {'branch': 'master'} " visual undo history
 Plug 'mhartington/formatter.nvim'
 Plug 'neovim/nvim-lspconfig' " vim language server protocol
-Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim' " fuzzy finder in lua
@@ -15,7 +20,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'pwntester/octo.nvim'
+Plug 'rafamadriz/friendly-snippets' " preconfigured snippets
 Plug 'sebdah/vim-delve' " go debugging
+Plug 'ThePrimeagen/harpoon' " file navigation helper
 Plug 'tpope/vim-commentary' " comment stuff out with gcc
 Plug 'tpope/vim-fugitive' " git integration
 Plug 'tpope/vim-rhubarb' " :Gbrowse! to copy github URL to clipboard
