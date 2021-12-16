@@ -54,8 +54,8 @@ ln -s $(pwd)/macos/.config/personal/env $HOME/.config/personal/env
 curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+vim +PlugInstall +qall
 nvim +'PlugInstall --sync' +qa
-vim -Es -u $HOME/.vimrc -c "PlugInstall | qa"
 
 sudo chsh -s "$(which zsh)" "$(whoami)"
 
