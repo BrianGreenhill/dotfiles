@@ -1,16 +1,27 @@
 #!/usr/bin/env bash
 
-echo "==> this script is only for codespaces"
+if [[ -z "${CODESPACES}" ]]; then
+  echo "==> this script is only for codespaces"
+  exit 1
+else
+  echo "==> installing dotfiles in codespace"
+fi
+
 exec > >(tee -i $HOME/dotfiles_install.log)
 exec 2>&1
 set -x
+
 
 PACKAGES_NEEDED="\
     silversearcher-ag \
     bat \
     fuse \
     libfuse2 \
+    ripgrep \
+    hub \
     tmux"
+
+sudo add-apt-repository -y ppa:cpick/hub
 
 if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
     if [ ! -d "/var/lib/apt/lists" ] || [ "$(ls /var/lib/apt/lists/ | wc -l)" = "0" ]; then
@@ -19,16 +30,12 @@ if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
     sudo apt-get -y -q install ${PACKAGES_NEEDED}
 fi
 
-# ripgrep workaround thing
-sudo apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
 npm install -g typescript
-
 
 # install nvim
 sudo modprobe fuse
 sudo groupadd fuse
 sudo usermod -a -G fuse "$(whoami)"
-
 wget https://github.com/github/copilot.vim/releases/download/neovim-nightlies/appimage.zip
 unzip appimage.zip
 sudo chmod u+x nvim.appimage
@@ -37,6 +44,7 @@ sudo mv nvim.appimage /usr/local/bin/nvim
 # make sure we're using zsh
 export PS1="(codespaces) ${PS1}"
 
+rm -f $HOME/.tmux.conf
 ln -s $(pwd)/tmux/.tmux.conf $HOME/.tmux.conf
 rm -f $HOME/.zshrc
 ln -s $(pwd)/zsh/.zshrc $HOME/.zshrc
@@ -45,15 +53,18 @@ ln -s $(pwd)/zsh/.zprofile $HOME/.zprofile
 
 rm -rf $HOME/.config
 mkdir $HOME/.config
-mkdir -p $HOME/.config/personal
-mkdir -p $HOME/.config/nvim
+
+mkdir $(pwd)/nvim/.config/nvim/autoload
+curl -fLo $(pwd)/nvim/.config/nvim/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+rm -rf $HOME/.config/nvim
 ln -s $(pwd)/nvim/.config/nvim $HOME/.config/nvim
+rm -rf $HOME/.config/personal
+mkdir -p $HOME/.config/personal
 ln -s $(pwd)/personal/.config/personal/.personal-bashrc $HOME/.config/personal/.personal-bashrc
 ln -s $(pwd)/macos/.config/personal/alias $HOME/.config/personal/alias
 ln -s $(pwd)/macos/.config/personal/env $HOME/.config/personal/env
-
-curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
-  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 nvim --headless +PlugInstall +qa
 
