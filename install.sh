@@ -28,7 +28,7 @@ if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
 fi
 
 sudo apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
-npm install -g typescript
+npm install -g typescript prettier eslint typescript-language-server
 
 # make sure we're using zsh
 export PS1="(codespaces) ${PS1}"
