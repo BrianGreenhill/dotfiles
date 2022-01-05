@@ -21,8 +21,11 @@ fi
 
 # ripgrep workaround thing
 sudo apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
+npm install -g typescript
 
+mkdir -p $HOME/.config
 mkdir -p $HOME/.config/personal
+mkdir -p $HOME/.config/nvim
 
 # install nvim
 sudo modprobe fuse
@@ -53,8 +56,6 @@ ln -s $(pwd)/macos/.config/personal/env $HOME/.config/personal/env
 curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-vim +PlugInstall +qall
 nvim --headless +PlugInstall +qa
-npm install -g typescript
 
 sudo chsh -s "$(which zsh)" "$(whoami)"
