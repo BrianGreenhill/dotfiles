@@ -13,12 +13,8 @@ set -x
 
 
 PACKAGES_NEEDED="\
-    silversearcher-ag \
-    bat \
-    fuse \
-    libfuse2 \
-    ripgrep \
     hub \
+    neovim \
     tmux"
 
 sudo add-apt-repository -y ppa:cpick/hub
@@ -30,16 +26,8 @@ if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
     sudo apt-get -y -q install ${PACKAGES_NEEDED}
 fi
 
+sudo apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
 npm install -g typescript
-
-# install nvim
-sudo modprobe fuse
-sudo groupadd fuse
-sudo usermod -a -G fuse "$(whoami)"
-wget https://github.com/github/copilot.vim/releases/download/neovim-nightlies/appimage.zip
-unzip appimage.zip
-sudo chmod u+x nvim.appimage
-sudo mv nvim.appimage /usr/local/bin/nvim
 
 # make sure we're using zsh
 export PS1="(codespaces) ${PS1}"
