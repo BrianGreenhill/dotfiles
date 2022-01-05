@@ -15,6 +15,7 @@ set -x
 PACKAGES_NEEDED="\
     hub \
     neovim \
+    fzf \
     tmux"
 
 sudo add-apt-repository -y ppa:cpick/hub
