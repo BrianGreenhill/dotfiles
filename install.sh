@@ -18,7 +18,6 @@ PACKAGES_NEEDED="\
     fzf \
     tmux"
 
-sudo add-apt-repository -y ppa:cpick/hub
 sudo add-apt-repository -y ppa:neovim-ppa/stable
 
 if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
