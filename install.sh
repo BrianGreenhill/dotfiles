@@ -45,13 +45,12 @@ ln -s $(pwd)/zsh/.zprofile $HOME/.zprofile
 
 rm -rf $HOME/.config
 mkdir $HOME/.config
-mkdir -p $HOME/.config
 mkdir -p $HOME/.config/personal
 mkdir -p $HOME/.config/nvim
-ln -s /workspaces/.codespaces/.persistedshare/dotfiles/nvim/.config/nvim $HOME/.config/nvim
-ln -s /workspaces/.codespaces/.persistedshare/dotfiles/personal/.config/personal/.personal-bashrc $HOME/.config/personal/.personal-bashrc
-ln -s /workspaces/.codespaces/.persistedshare/dotfiles/personal/macos/.config/personal/alias $HOME/.config/personal/alias
-ln -s /workspaces/.codespaces/.persistedshare/dotfiles/personal/macos/.config/personal/env $HOME/.config/personal/env
+ln -s $(pwd)/nvim/.config/nvim $HOME/.config/nvim
+ln -s $(pwd)/personal/.config/personal/.personal-bashrc $HOME/.config/personal/.personal-bashrc
+ln -s $(pwd)/macos/.config/personal/alias $HOME/.config/personal/alias
+ln -s $(pwd)/macos/.config/personal/env $HOME/.config/personal/env
 
 curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
