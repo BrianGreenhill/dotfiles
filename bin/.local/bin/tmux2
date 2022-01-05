@@ -5,10 +5,10 @@ if [[ $# -eq 1 ]]; then
 else
     items=""
     if [[ -z "${CODESPACES}" ]]; then
-      items+=`find /workspaces -maxdepth 1 -mindepth 1 -type d`
-    else
       items+=`find ~/work -maxdepth 2 -mindepth 1 -type d`
       items+=`find ~/personal -maxdepth 1 -mindepth 1 -type d`
+    else
+      items+=`find /workspaces -maxdepth 1 -mindepth 1 -type d`
     fi
     selected=`echo "$items" | fzf`
 fi
