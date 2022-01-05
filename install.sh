@@ -19,6 +19,9 @@ if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
     sudo apt-get -y -q install ${PACKAGES_NEEDED}
 fi
 
+# ripgrep workaround thing
+sudo apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
+
 mkdir -p $HOME/.config/personal
 
 # install nvim
@@ -30,10 +33,6 @@ wget https://github.com/github/copilot.vim/releases/download/neovim-nightlies/ap
 unzip appimage.zip
 sudo chmod u+x nvim.appimage
 sudo mv nvim.appimage /usr/local/bin/nvim
-# curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-# chmod u+x nvim.appimage
-# ./nvim.appimage --appimage-extract
-# sudo mv squashfs-root / && sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 
 # make sure we're using zsh
 export PS1="(codespaces) ${PS1}"
@@ -55,7 +54,7 @@ curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 vim +PlugInstall +qall
-nvim +'PlugInstall --sync' +qa
+nvim --headless +PlugInstall +qa
+npm install -g typescript
 
 sudo chsh -s "$(which zsh)" "$(whoami)"
-

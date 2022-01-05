@@ -45,6 +45,7 @@ local function config(_config)
   }, _config or {})
 end
 
+require'lspconfig'.rust_analyzer.setup(config())
 require'lspconfig'.gopls.setup(config())
 require'lspconfig'.intelephense.setup(config())
 require'lspconfig'.tsserver.setup(config())

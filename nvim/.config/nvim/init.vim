@@ -12,6 +12,7 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim', { 'do': 'git submodule update --init --recursive' }
@@ -21,8 +22,9 @@ Plug 'nvim-treesitter/playground'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'pwntester/octo.nvim'
 Plug 'rafamadriz/friendly-snippets' " preconfigured snippets
-Plug 'sebdah/vim-delve' " go debugging
 Plug 'sbdchd/neoformat' " formatting
+Plug 'sebdah/vim-delve' " go debugging
+Plug 'simrat39/rust-tools.nvim'
 Plug 'ThePrimeagen/harpoon' " file navigation helper
 Plug 'tpope/vim-commentary' " comment stuff out with gcc
 Plug 'tpope/vim-fugitive' " git integration
