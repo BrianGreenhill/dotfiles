@@ -60,3 +60,4 @@ ln -s $(pwd)/bin/.local/bin/tmux2 $HOME/.local/bin/tmux2
 nvim --headless +PlugInstall +qa
 
 sudo chsh -s "$(which zsh)" "$(whoami)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
