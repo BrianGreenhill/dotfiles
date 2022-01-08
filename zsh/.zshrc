@@ -6,10 +6,11 @@ DISABLE_MAGIC_FUNCTIONS=true
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES=$HOME/.dotfiles
 export EDITOR='vim'
+export NVM_LAZY_LOAD=true
 
 ZSH_THEME="robbyrussell"
 
-plugins=(zsh-autosuggestions)
+plugins=(zsh-autosuggestions zsh-nvm)
 source $ZSH/oh-my-zsh.sh
 
 HISTFILE=$HOME/.zsh_history
@@ -38,6 +39,10 @@ if type fzf &> /dev/null && type rg &> /dev/null; then
   export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!vendor/*"'
   export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
+
 eval "$(rbenv init -)"
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}

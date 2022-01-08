@@ -28,7 +28,13 @@ if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
 fi
 
 sudo apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
-npm install -g typescript prettier eslint typescript-language-server
+
+npm install -g \
+  typescript \
+  prettier \
+  eslint \
+  typescript-language-server \
+  bash-language-server
 
 # make sure we're using zsh
 export PS1="(codespaces) ${PS1}"
@@ -54,6 +60,7 @@ mkdir -p $HOME/.config/personal
 ln -s $(pwd)/personal/.config/personal/.personal-bashrc $HOME/.config/personal/.personal-bashrc
 ln -s $(pwd)/macos/.config/personal/alias $HOME/.config/personal/alias
 ln -s $(pwd)/macos/.config/personal/env $HOME/.config/personal/env
+mkdir -p $HOME/.local/bin
 rm -f $HOME/.local/bin/tmux2
 ln -s $(pwd)/bin/.local/bin/tmux2 $HOME/.local/bin/tmux2
 
