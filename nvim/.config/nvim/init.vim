@@ -75,4 +75,6 @@ augroup fmt
   autocmd BufWritePre * undojoin | Neoformat
 augroup END
 
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
 lua require("greenhill")
