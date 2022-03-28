@@ -22,3 +22,4 @@ set updatetime=50 " makes vim a bit snappier
 set shortmess+=c " dont pass messages to |ins-completion-menu|
 set mouse=a " mouse even when running in tmux
 set cmdheight=1
+set linebreak " breaks lines at word boundaries

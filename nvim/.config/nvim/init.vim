@@ -1,47 +1,37 @@
 call plug#begin('~/.vim/plugged')
-Plug 'gruvbox-community/gruvbox'
+Plug 'darrikonn/vim-gofmt', { 'do': ':GoUpdateBinaries' } " minimal go fmt
+Plug 'folke/zen-mode.nvim'
 Plug 'glepnir/lspsaga.nvim'
+Plug 'gruvbox-community/gruvbox'
 Plug 'hoob3rt/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'mbbill/undotree', {'branch': 'master'} " visual undo history
-" Plug 'mhartington/formatter.nvim'
-Plug 'neovim/nvim-lspconfig' " vim language server protocol
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'L3MON4D3/LuaSnip' " snippets
+Plug 'mbbill/undotree', {'branch': 'master'} " visual undo history
+Plug 'neovim/nvim-lspconfig' " vim language server protocol
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim', { 'do': 'git submodule update --init --recursive' }
 Plug 'nvim-telescope/telescope.nvim' " fuzzy finder in lua
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/playground'
+Plug 'onsails/lspkind-nvim'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'pwntester/octo.nvim'
 Plug 'rafamadriz/friendly-snippets' " preconfigured snippets
-Plug 'sbdchd/neoformat' " formatting
+Plug 'sbdchd/neoformat'
 Plug 'sebdah/vim-delve' " go debugging
-Plug 'simrat39/rust-tools.nvim'
 Plug 'ThePrimeagen/harpoon' " file navigation helper
+Plug 'ThePrimeagen/refactoring.nvim' " refactoring a la Martin
 Plug 'tpope/vim-commentary' " comment stuff out with gcc
 Plug 'tpope/vim-fugitive' " git integration
 Plug 'tpope/vim-rhubarb' " :Gbrowse! to copy github URL to clipboard
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 call plug#end()
 let mapleader="\<space>"
-let g:neoformat_only_msg_on_error = 1
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = { "c", "rust" },  -- list of language that will be disabled
-  },
-}
-EOF
 
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
@@ -55,26 +45,17 @@ nnoremap <C-n> :Ex<CR>
 
 " Y yanks to end of line from cursor position
 nnoremap Y y$
-nnoremap <C-j> :cnext<CR>
-nnoremap <C-k> :cprev<CR>
-nnoremap <C-x> :cclose<CR>
-
-fun! TrimWhitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfun
+nnoremap <leader>n :cnext<CR>
+nnoremap <leader>p :cprev<CR>
+nnoremap <leader>x :cclose<CR>
 
 augroup GREENHILL
     autocmd!
-    autocmd BufWritePre * :call TrimWhitespace()
+    autocmd BufWritePre *.js,*.ts,*.tsx,*.jsx,*.lua,*.py,*.lua,*.go try | undojoin | Neoformat | catch /E790/ | Neoformat | endtry
+    " autocmd BufWritePre *.lua Neoformat
+    " autocmd BufWritePre *.go :GoFmt
+    autocmd BufWritePre * %s/\s\+$//e
+    autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 augroup END
-
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
-
-au BufRead,BufNewFile *.md setlocal textwidth=80
 
 lua require("greenhill")

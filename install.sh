@@ -14,11 +14,16 @@ set -x
 
 PACKAGES_NEEDED="\
     hub \
-    neovim \
     fzf \
-    tmux"
+    tmux \
+    nodejs \
+    npm \
+    fuse"
 
-sudo add-apt-repository -y ppa:neovim-ppa/stable
+# install neovim nightly
+curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+chmod u+x nvim.appimage
+sudo mv nvim.appimage /usr/bin/nvim
 
 if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
     if [ ! -d "/var/lib/apt/lists" ] || [ "$(ls /var/lib/apt/lists/ | wc -l)" = "0" ]; then
@@ -27,7 +32,7 @@ if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
     sudo apt-get -y -q install ${PACKAGES_NEEDED}
 fi
 
-sudo apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
+sudo apt-get install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
 
 npm install -g \
   typescript \
