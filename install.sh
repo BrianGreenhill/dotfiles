@@ -18,6 +18,8 @@ PACKAGES_NEEDED="\
     tmux \
     nodejs \
     npm \
+    rbenv \
+    ruby-dev \
     fuse"
 
 # install neovim nightly
@@ -39,7 +41,10 @@ npm install -g \
   prettier \
   eslint \
   typescript-language-server \
-  bash-language-server
+  bash-language-server \
+  yaml-language-server
+
+gem install solargraph
 
 # make sure we're using zsh
 export PS1="(codespaces) ${PS1}"
