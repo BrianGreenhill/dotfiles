@@ -29,7 +29,7 @@ Plug 'ThePrimeagen/refactoring.nvim' " refactoring a la Martin
 Plug 'tpope/vim-commentary' " comment stuff out with gcc
 Plug 'tpope/vim-fugitive' " git integration
 Plug 'tpope/vim-rhubarb' " :Gbrowse! to copy github URL to clipboard
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'tpope/vim-dispatch' " :Dispatch to tmux stuff
 call plug#end()
 let mapleader="\<space>"
 
