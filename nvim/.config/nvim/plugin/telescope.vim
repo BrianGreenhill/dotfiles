@@ -7,6 +7,6 @@ nnoremap <leader>fs :lua require('telescope.builtin').current_buffer_fuzzy_find 
 nnoremap <leader>vs :lua require('telescope.builtin').lsp_document_symbols()<CR>
 nnoremap <leader>vS :lua require('telescope.builtin').lsp_workspace_symbols({query = vim.fn.input("Search symbols for > ")})<CR>
 nnoremap <leader>vb :lua require('telescope.builtin').builtin()<CR>
-nnoremap <leader>gr :lua require('telescope.builtin').lsp_references(require('telescope.themes').get_cursor({ previewer = false, layout_settings = { width = 500 }}))<CR>
+nnoremap <leader>gr :lua require('telescope.builtin').lsp_references()<CR>
 nnoremap <leader>ed :lua require('greenhill.telescope').search_dotfiles()<CR>
 nnoremap <leader>gc :lua require('greenhill.telescope').delete_branches()<CR>

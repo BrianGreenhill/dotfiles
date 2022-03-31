@@ -7,9 +7,9 @@ nnoremap <leader>sh :lua require('lspsaga.signaturehelp').signature_help()<CR>
 nnoremap <leader>rn :lua require('lspsaga.rename').rename()<CR>
 nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>vsd :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <leader>L :lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <leader>l :lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <leader>vsd :lua vim.diagnostic.show_line_diagnostics()<CR>
+nnoremap <leader>L :lua vim.diagnostic.goto_prev()<CR>
+nnoremap <leader>l :lua vim.diagnostic.goto_next()<CR>
 
 set completeopt=menu,menuone,noselect
 
