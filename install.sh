@@ -36,16 +36,6 @@ fi
 
 sudo apt-get install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
 
-npm install -g \
-  typescript \
-  prettier \
-  eslint \
-  typescript-language-server \
-  bash-language-server \
-  yaml-language-server
-
-gem install solargraph
-
 # make sure we're using zsh
 export PS1="(codespaces) ${PS1}"
 

@@ -48,3 +48,4 @@ timezsh() {
 }
 
 [[ -s "/Users/briangreenhill/.gvm/scripts/gvm" ]] && source "/Users/briangreenhill/.gvm/scripts/gvm"
+eval "$(direnv hook zsh)"
