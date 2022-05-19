@@ -20,6 +20,7 @@ PACKAGES_NEEDED="\
     npm \
     rbenv \
     ruby-dev \
+    direnv \
     fuse"
 
 # install neovim nightly
