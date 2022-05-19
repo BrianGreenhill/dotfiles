@@ -1,14 +1,10 @@
-# # https://github.com/sindresorhus/pure
-# autoload -U promptinit; promptinit
-# prompt pure
-
 DISABLE_MAGIC_FUNCTIONS=true
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES=$HOME/.dotfiles
 export EDITOR='vim'
 export NVM_LAZY_LOAD=true
 
-ZSH_THEME="robbyrussell"
+ZSH_THEME="minimal"
 
 plugins=(zsh-autosuggestions zsh-nvm)
 source $ZSH/oh-my-zsh.sh
@@ -49,3 +45,4 @@ timezsh() {
 
 [[ -s "/Users/briangreenhill/.gvm/scripts/gvm" ]] && source "/Users/briangreenhill/.gvm/scripts/gvm"
 eval "$(direnv hook zsh)"
+export PS1="($USER@$HOST)":$PS1
