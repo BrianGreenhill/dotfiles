@@ -16,10 +16,6 @@ PACKAGES_NEEDED="\
     hub \
     fzf \
     tmux \
-    nodejs \
-    npm \
-    rbenv \
-    ruby-dev \
     direnv \
     fuse"
 
