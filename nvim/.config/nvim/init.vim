@@ -52,8 +52,6 @@ nnoremap <leader>x :cclose<CR>
 augroup GREENHILL
     autocmd!
     autocmd BufWritePre *.js,*.ts,*.tsx,*.jsx,*.lua,*.py,*.lua,*.go try | undojoin | Neoformat | catch /E790/ | Neoformat | endtry
-    " autocmd BufWritePre *.lua Neoformat
-    " autocmd BufWritePre *.go :GoFmt
     autocmd BufWritePre * %s/\s\+$//e
     autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 augroup END

@@ -6,7 +6,7 @@ export NVM_LAZY_LOAD=true
 
 ZSH_THEME="minimal"
 
-plugins=(zsh-autosuggestions zsh-nvm)
+plugins=(zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 HISTFILE=$HOME/.zsh_history
@@ -36,13 +36,14 @@ if type fzf &> /dev/null && type rg &> /dev/null; then
   export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
-eval "$(rbenv init -)"
+[[ -s "/Users/briangreenhill/.gvm/scripts/gvm" ]] && source "/Users/briangreenhill/.gvm/scripts/gvm"
+eval "$(direnv hook zsh)"
 
 timezsh() {
   shell=${1-$SHELL}
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
-[[ -s "/Users/briangreenhill/.gvm/scripts/gvm" ]] && source "/Users/briangreenhill/.gvm/scripts/gvm"
-eval "$(direnv hook zsh)"
-export PS1="($USER@$HOST)":$PS1
+initRuby() {
+  eval "$(rbenv init -)"
+}

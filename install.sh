@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
 if [[ -z "${CODESPACES}" ]]; then
-  echo "==> this script is only for codespaces"
+  echo "==> this script is only for codespaces exiting..."
   exit 1
-else
-  echo "==> installing dotfiles in codespace"
 fi
 
 exec > >(tee -i $HOME/dotfiles_install.log)
@@ -32,9 +30,6 @@ if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
 fi
 
 sudo apt-get install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
-
-# make sure we're using zsh
-export PS1="(codespaces) ${PS1}"
 
 rm -f $HOME/.tmux.conf
 ln -s $(pwd)/tmux/.tmux.conf $HOME/.tmux.conf
@@ -66,6 +61,5 @@ nvim --headless +"TSInstall! go typescript yaml javascript bash ruby" +qa
 
 sudo chsh -s "$(which zsh)" "$(whoami)"
 rm -rf $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-rm -rf $HOME/.oh-my-zsh/custom/plugins/zsh-nvm
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-nvm
+export PS1="(codespaces) ${PS1}"

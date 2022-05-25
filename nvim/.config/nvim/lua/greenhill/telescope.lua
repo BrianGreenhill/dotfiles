@@ -26,6 +26,11 @@ require('telescope').setup {
       '%pb2_twirp.py',
     }
   },
+  pickers ={
+    git_files = {
+      theme = "ivy",
+    },
+  },
   extensions = {
     fzy_native = {
       override_generic_sorter = true,
