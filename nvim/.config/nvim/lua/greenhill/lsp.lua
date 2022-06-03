@@ -11,6 +11,8 @@ local source_mapping = {
 	nvim_lua = "[Lua]",
 	path = "[Path]",
 }
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on( 'confirm:done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
 
 cmp.setup({
     snippet = {

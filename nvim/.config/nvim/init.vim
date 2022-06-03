@@ -34,6 +34,7 @@ Plug 'tpope/vim-commentary' " comment stuff out with gcc
 Plug 'tpope/vim-fugitive' " git integration
 Plug 'tpope/vim-rhubarb' " :Gbrowse! to copy github URL to clipboard
 Plug 'tpope/vim-dispatch' " :Dispatch to tmux stuff
+Plug 'windwp/nvim-autopairs' " auto pair things
 call plug#end()
 
 set completeopt=menu,menuone,noselect

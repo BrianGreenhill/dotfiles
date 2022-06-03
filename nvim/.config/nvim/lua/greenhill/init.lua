@@ -1,4 +1,5 @@
 require ("greenhill.telescope")
+require('nvim-autopairs').setup{}
 require ("greenhill.lsp")
 require ("greenhill.refactoring")
 require('lualine').setup({theme='gruvbox'})
