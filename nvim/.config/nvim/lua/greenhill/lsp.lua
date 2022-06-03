@@ -38,14 +38,16 @@ cmp.setup({
         select = true,
       }),
       ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
+      ['<C-e>'] = cmp.mapping.abort(),
       ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
     },
-    sources = {
-      { name = 'luasnip' },
+    sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'buffer' },
-    }
+      { name = 'luasnip' },
+      { name = 'path' },
+    }, {
+      {name = 'buffer', keyword_length = 4},
+    })
 })
 
 
@@ -65,12 +67,14 @@ local function config(_config)
   }, _config or {})
 end
 
--- require'lspconfig'.rust_analyzer.setup(config())
-require'lspconfig'.gopls.setup(config())
--- require'lspconfig'.intelephense.setup(config())
+require'lspconfig'.gopls.setup({
+  on_attach = function(client, bufnr)
+    require "lsp_signature".on_attach()
+    config()
+  end
+})
 require'lspconfig'.tsserver.setup(config())
 require'lspconfig'.bashls.setup(config())
--- require'lspconfig'.svelte.setup(config())
 require'lspconfig'.yamlls.setup(config())
 require'lspconfig'.solargraph.setup(config({
   on_attach=config,
