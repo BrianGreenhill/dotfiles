@@ -1,6 +1,7 @@
 require("greenhill.plugins")
 require("greenhill.set")
 require("greenhill.keymap")
+require("greenhill.telescope")
 
 require("nvim-autopairs").setup({})
 require("lualine").setup({ theme = "gruvbox" })
