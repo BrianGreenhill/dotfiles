@@ -1,11 +1,38 @@
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
-	use("folke/zen-mode.nvim")
+	use({
+		"folke/zen-mode.nvim",
+		config = function()
+			require("zen-mode").setup({
+				window = {
+					width = 80,
+					options = {
+						signcolumn = "no",
+						number = false,
+						relativenumber = false,
+					},
+				},
+			})
+		end,
+	})
+
 	use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview" })
-	use("folke/trouble.nvim")
-	use("gruvbox-community/gruvbox")
-	use("hoob3rt/lualine.nvim")
+
+	use({
+		"folke/trouble.nvim",
+		config = function()
+			require("trouble").setup({})
+		end,
+	})
+
+	use({
+		"hoob3rt/lualine.nvim",
+		requires = { "gruvbox-community/gruvbox" },
+		config = function()
+			require("lualine").setup({ theme = "gruvbox" })
+		end,
+	})
 
 	-- snippets
 	use("leoluz/nvim-dap-go")
@@ -22,7 +49,13 @@ return require("packer").startup(function(use)
 	use("nvim-lua/popup.nvim")
 	use("nvim-lua/plenary.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
-	use("j-hui/fidget.nvim")
+
+	use({
+		"j-hui/fidget.nvim",
+		require = function()
+			require("fidget").setup({})
+		end,
+	})
 
 	-- completion
 	use({
@@ -63,5 +96,10 @@ return require("packer").startup(function(use)
 
 	use({ "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } })
 
-	use("windwp/nvim-autopairs")
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup({})
+		end,
+	})
 end)

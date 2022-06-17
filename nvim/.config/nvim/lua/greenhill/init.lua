@@ -3,21 +3,6 @@ require("greenhill.set")
 require("greenhill.keymap")
 require("greenhill.telescope")
 
-require("nvim-autopairs").setup({})
-require("lualine").setup({ theme = "gruvbox" })
-require("fidget").setup({})
-require("trouble").setup({})
-require("zen-mode").setup({
-	window = {
-		width = 80,
-		options = {
-			signcolumn = "no",
-			number = false,
-			relativenumber = false,
-		},
-	},
-})
-
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
