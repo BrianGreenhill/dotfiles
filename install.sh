@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
 if [[ -z "${CODESPACES}" ]]; then
-  echo "==> this script is only for codespaces exiting..."
-  exit 1
+	echo "==> this script is only for codespaces exiting..."
+	exit 1
 fi
 
 exec > >(tee -i $HOME/dotfiles_install.log)
 exec 2>&1
 set -x
-
 
 PACKAGES_NEEDED="\
     hub \
@@ -22,11 +21,11 @@ curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimag
 chmod u+x nvim.appimage
 sudo mv nvim.appimage /usr/bin/nvim
 
-if ! dpkg -s ${PACKAGES_NEEDED} > /dev/null 2>&1; then
-    if [ ! -d "/var/lib/apt/lists" ] || [ "$(ls /var/lib/apt/lists/ | wc -l)" = "0" ]; then
-        sudo apt-get update
-    fi
-    sudo apt-get -y -q install ${PACKAGES_NEEDED}
+if ! dpkg -s ${PACKAGES_NEEDED} >/dev/null 2>&1; then
+	if [ ! -d "/var/lib/apt/lists" ] || [ "$(ls /var/lib/apt/lists/ | wc -l)" = "0" ]; then
+		sudo apt-get update
+	fi
+	sudo apt-get -y -q install ${PACKAGES_NEEDED}
 fi
 
 sudo apt-get install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
@@ -42,8 +41,9 @@ rm -rf $HOME/.config
 mkdir $HOME/.config
 
 mkdir $(pwd)/nvim/.config/nvim/autoload
-curl -fLo $(pwd)/nvim/.config/nvim/autoload/plug.vim --create-dirs \
-  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# install packer
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 rm -rf $HOME/.config/nvim
 ln -s $(pwd)/nvim/.config/nvim $HOME/.config/nvim
@@ -56,7 +56,7 @@ mkdir -p $HOME/.local/bin
 rm -f $HOME/.local/bin/tmux2
 ln -s $(pwd)/bin/.local/bin/tmux2 $HOME/.local/bin/tmux2
 
-nvim --headless +PlugInstall +qa
+nvim --headless +PackerSync +qa
 nvim --headless +"TSInstall! go typescript yaml javascript bash ruby" +qa
 
 sudo chsh -s "$(which zsh)" "$(whoami)"

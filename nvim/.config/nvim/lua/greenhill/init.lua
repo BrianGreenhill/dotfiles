@@ -1,15 +1,50 @@
-require ("greenhill.telescope")
-require('nvim-autopairs').setup{}
-require ("greenhill.lsp")
-require ("greenhill.refactoring")
-require('lualine').setup({theme='gruvbox'})
-require('zen-mode').setup({
-  window = {
-    width=80,
-    options = {
-      signcolumn = "no",
-      number = false,
-      relativenumber = false,
-    },
-  }
+require("greenhill.plugins")
+require("greenhill.set")
+require("greenhill.keymap")
+require("greenhill.telescope")
+require("greenhill.completion")
+require("greenhill.snip")
+require("greenhill.gh_issue_cmp")
+require("greenhill.null_ls")
+require("greenhill.lsp")
+require("greenhill.refactoring")
+require("greenhill.trouble")
+require("greenhill.dap")
+
+require("nvim-autopairs").setup({})
+require("lualine").setup({ theme = "gruvbox" })
+require("fidget").setup({})
+require("trouble").setup({})
+require("zen-mode").setup({
+	window = {
+		width = 80,
+		options = {
+			signcolumn = "no",
+			number = false,
+			relativenumber = false,
+		},
+	},
+})
+
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
+local yank_group = augroup("HighlightYank", {})
+autocmd("TextYankPost", {
+	group = yank_group,
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({
+			higroup = "IncSearch",
+			timeout = 40,
+		})
+	end,
+})
+
+local format_group = augroup("my_lsp_format", { clear = true })
+autocmd("BufWritePre", {
+	group = format_group,
+	callback = function()
+		vim.lsp.buf.format()
+	end,
 })

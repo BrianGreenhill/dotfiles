@@ -34,8 +34,8 @@ if [ $? != 0 ]
     # send keys to window 1, pane 2 (:1.2) to change directories
     tmux send-keys -t $dirname:1.2 "cd ${selected}" C-m
 
-    tmux new-window -n console -t $dirname
-    tmux send-keys -t $dirname:2 "cd ${selected}" C-m
+    # tmux new-window -n console -t $dirname
+    # tmux send-keys -t $dirname:2 "cd ${selected}" C-m
   else
     tmux new -c $selected -A -s $dirname
 fi
