@@ -25,7 +25,7 @@ vim.opt.shortmess:append("c")
 vim.opt.mouse = "a"
 vim.opt.cmdheight = 1
 vim.opt.linebreak = true
-vim.opt.winbar = "%=%m\\ %f"
+vim.opt.winbar = "%=%m %f"
 vim.opt.termguicolors = true
 vim.opt.listchars = { eol = "↲", tab = "▸ ", trail = "·" }
 vim.o.completeopt = "menuone,noinsert,noselect"
@@ -38,19 +38,5 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
--- gruvbox
-vim.opt.background = "dark"
-vim.g.gruvbox_contrast_dark = "hard"
-vim.cmd("colorscheme gruvbox")
-
--- highlight column
-local hl = function(val, settings)
-	vim.api.nvim_set_hl(0, val, settings)
-end
-
-hl("SignColumn", { bg = "none" })
-hl("ColorColumn", { ctermbg = 0, bg = "#555555" })
-hl("Normal", { bg = "none" })
-hl("CursorLineNr", { bg = "none" })
-hl("LineNr", { fg = "#5eacd3" })
-hl("netrwDir", { fg = "#5eacd3" })
+-- python
+vim.g.python3_host_prog = "/usr/local/bin/python3"

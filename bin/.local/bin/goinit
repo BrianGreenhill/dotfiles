@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+mkdir ./${1} && cd ./${1}
+go mod init github.com/briangreenhill/${1}
+touch main.go
+echo "# ${1}" >README.md
+git init

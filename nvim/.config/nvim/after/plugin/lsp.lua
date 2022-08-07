@@ -1,15 +1,6 @@
 local system_name = "macOS"
 local sumneko_root_path = "/Users/briangreenhill/Personal/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
-
-require("nvim-treesitter.configs").setup({
-	ensure_installed = { "go", "python", "ruby", "typescript", "bash", "yaml" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-	highlight = {
-		enable = true, -- false will disable the whole extension
-		disable = { "c", "rust" }, -- list of language that will be disabled
-	},
-})
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -25,7 +16,6 @@ require("lspconfig").gopls.setup({
 		config()
 	end,
 })
--- require'lspconfig'.golangci_lint_ls.setup(config())
 require("lspconfig").tsserver.setup(config())
 require("lspconfig").bashls.setup(config())
 require("lspconfig").yamlls.setup(config())
@@ -37,7 +27,7 @@ require("lspconfig").solargraph.setup(config({
 		},
 	},
 }))
-require("lspconfig").pylsp.setup(config())
+require("lspconfig").pyright.setup({})
 require("lspconfig").rust_analyzer.setup({})
 
 require("lspconfig").sumneko_lua.setup(config({

@@ -17,7 +17,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview" })
+	use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
 
 	use({
 		"folke/trouble.nvim",
@@ -27,35 +27,34 @@ return require("packer").startup(function(use)
 	})
 
 	use({
-		"hoob3rt/lualine.nvim",
-		requires = { "gruvbox-community/gruvbox" },
-		config = function()
-			require("lualine").setup({ theme = "gruvbox" })
-		end,
+		"nvim-lualine/lualine.nvim",
+		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 
-	-- snippets
-	use("leoluz/nvim-dap-go")
+	-- colors
+	use("gruvbox-community/gruvbox")
+	use("folke/tokyonight.nvim")
 
 	-- visual undo history
 	use("mbbill/undotree")
 
 	-- debugging protocol
 	use("mfussenegger/nvim-dap")
+	use({
+		"theHamsta/nvim-dap-virtual-text",
+		config = function()
+			require("nvim-dap-virtual-text").setup()
+		end,
+	})
 	use("rcarriga/nvim-dap-ui")
+	use("leoluz/nvim-dap-go")
 
 	-- lsp
 	use("neovim/nvim-lspconfig")
 	use("nvim-lua/popup.nvim")
-	use("nvim-lua/plenary.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
 
-	use({
-		"j-hui/fidget.nvim",
-		require = function()
-			require("fidget").setup({})
-		end,
-	})
+	use("j-hui/fidget.nvim")
 
 	-- completion
 	use({
@@ -73,19 +72,25 @@ return require("packer").startup(function(use)
 	})
 
 	-- telescope
-	use({
-		"nvim-telescope/telescope.nvim",
-		requires = {
-			{ "nvim-lua/plenary.nvim" },
-		},
-	})
+	use("nvim-lua/plenary.nvim")
+	use("nvim-telescope/telescope.nvim")
 	use("nvim-telescope/telescope-fzy-native.nvim")
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use("onsails/lspkind-nvim")
 	use("kyazdani42/nvim-web-devicons")
 
 	-- github integration octo
-	use("pwntester/octo.nvim")
+	use({
+		"pwntester/octo.nvim",
+		requires = {
+			"kyazdani42/nvim-web-devicons",
+		},
+		config = function()
+			require("octo").setup()
+		end,
+	})
+	-- copilot
+	use("github/copilot.vim")
 
 	use("ThePrimeagen/harpoon")
 	use("ThePrimeagen/refactoring.nvim")

@@ -10,7 +10,7 @@ nnoremap("<leader>w", ":w<CR>")
 nnoremap("<leader>q", ":q<CR>")
 
 -- file browser
-nnoremap("<leader>pv", ":Ex<CR>")
+nnoremap("<C-n>", ":Ex<CR>")
 
 -- undo tree
 nnoremap("<leader>u", ":UndotreeShow<CR>")
