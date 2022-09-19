@@ -1,43 +1,42 @@
 #!/usr/bin/env bash
 
 if [[ $# -eq 1 ]]; then
-    selected=$1
+	selected=$1
 else
-    items=""
-    if [[ -z "${CODESPACES}" ]]; then
-      items+=`find ~/work -maxdepth 2 -mindepth 1 -type d`
-      items+=`find ~/personal -maxdepth 1 -mindepth 1 -type d`
-    else
-      items+=`find /workspaces -maxdepth 1 -mindepth 1 -type d`
-    fi
-    selected=`echo "$items" | fzf`
+	items=""
+	if [[ -z "${CODESPACES}" ]]; then
+		items+=$(find ~/work -maxdepth 2 -mindepth 1 -type d)
+		items+=$(find ~/personal -maxdepth 1 -mindepth 1 -type d)
+	else
+		items+=$(find /workspaces -maxdepth 1 -mindepth 1 -type d)
+	fi
+	selected=$(echo "$items" | fzf)
 fi
 
-dirname=`basename $selected`
+dirname=$(basename $selected)
 echo $dirname
 
 tmux has-session -t $dirname
-if [ $? != 0 ]
-  then
-    # create a new session with an editor window, then detach
-    tmux new-session -s $dirname -n editor -d
+if [ $? != 0 ]; then
+	# create a new session with an editor window, then detach
+	tmux new-session -s $dirname -n editor -d
 
-    # change directory to the devproject
-    tmux send-keys -t $dirname "cd ${selected}" C-m
+	# change directory to the devproject
+	tmux send-keys -t $dirname "cd ${selected}" C-m
 
-    # open vim
-    tmux send-keys -t $dirname 'nvim' C-m
+	# open vim
+	tmux send-keys -t $dirname 'nvim' C-m
 
-    # split the window to make a vertical stack
-    tmux split-window -v -p 25 -t $dirname
+	# split the window to make a vertical stack
+	tmux split-window -h -p 35 -t $dirname
 
-    # send keys to window 1, pane 2 (:1.2) to change directories
-    tmux send-keys -t $dirname:1.2 "cd ${selected}" C-m
+	# send keys to window 1, pane 2 (:1.2) to change directories
+	tmux send-keys -t $dirname:1.2 "cd ${selected}" C-m
 
-    # tmux new-window -n console -t $dirname
-    # tmux send-keys -t $dirname:2 "cd ${selected}" C-m
-  else
-    tmux new -c $selected -A -s $dirname
+	# tmux new-window -n console -t $dirname
+	# tmux send-keys -t $dirname:2 "cd ${selected}" C-m
+else
+	tmux new -c $selected -A -s $dirname
 fi
 
 tmux attach -t $dirname:1.1

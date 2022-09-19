@@ -1,6 +1,7 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
+local theme = "dropdown"
 
 require("nvim-web-devicons").setup({ default = true })
 
@@ -33,10 +34,10 @@ telescope.setup({
 		},
 	},
 	pickers = {
-		git_files = { theme = "ivy" },
-		live_grep = { theme = "ivy" },
-		lsp_references = { theme = "ivy" },
-		grep_string = { theme = "ivy" },
+		git_files = { theme = theme },
+		live_grep = { theme = theme },
+		lsp_references = { theme = theme },
+		grep_string = { theme = theme },
 	},
 	extensions = {
 		fzy_native = {

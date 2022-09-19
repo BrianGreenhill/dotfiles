@@ -56,9 +56,6 @@ mkdir -p $HOME/.local/bin
 rm -f $HOME/.local/bin/tmux2
 ln -s $(pwd)/bin/.local/bin/tmux2 $HOME/.local/bin/tmux2
 
-nvim --headless +PackerSync +qa
-nvim --headless +"TSInstall! go typescript yaml javascript bash ruby" +qa
-
 sudo chsh -s "$(which zsh)" "$(whoami)"
 rm -rf $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

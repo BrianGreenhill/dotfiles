@@ -43,3 +43,6 @@ vnoremap("<leader>d", '"_d')
 
 -- escape is so far away
 inoremap("<C-c>", "<Esc>")
+
+nnoremap("<leader>gt", ":GoTestOnSave<CR>")
+nnoremap("<leader>ld", ":GoTestLineDiag<CR>")

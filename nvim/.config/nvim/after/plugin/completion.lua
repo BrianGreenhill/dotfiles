@@ -2,6 +2,7 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local minlength = 5
 
 cmp.setup({
 	snippet = {
@@ -45,11 +46,11 @@ cmp.setup({
 		["<C-n>"] = cmp.mapping.select_next_item(),
 	},
 	sources = cmp.config.sources({
-		{ name = "nvim_lua" },
-		{ name = "nvim_lsp" },
-		{ name = "path" },
-		{ name = "luasnip" },
-		{ name = "buffer", keyword_length = 5 },
+		{ name = "nvim_lua", keyword_length = minlength },
+		{ name = "nvim_lsp", keyword_length = minlength },
+		{ name = "path", keyword_length = minlength },
+		{ name = "luasnip", keyword_length = minlength },
+		{ name = "buffer", keyword_length = minlength },
 	}),
 	experimental = {
 		native_menu = false,
