@@ -4,5 +4,4 @@
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export GOPATH=$(go env GOPATH)
 export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.rbenv/bin:/usr/local/opt/ruby/bin:$GOPATH/bin:/usr/local/sbin:/usr/local/bin:$PATH

@@ -13,6 +13,7 @@ autocmd("TextYankPost", {
 	end,
 })
 
+
 local format_group = augroup("my_lsp_format", { clear = true })
 autocmd("BufWritePre", {
 	group = format_group,
@@ -20,19 +21,3 @@ autocmd("BufWritePre", {
 		vim.lsp.buf.format()
 	end,
 })
-
--- local dapui_group = augroup("dapui_group", { clear = true })
--- autocmd("dapui_no_status", {
--- 	group = dapui_group,
--- 	pattern = "dapui*",
--- 	callback = function()
--- 		vim.set.statusline = "\\"
--- 	end,
--- })
--- autocmd("dap_repl_no_status", {
--- 	group = dapui_group,
--- 	pattern = "dap-repl",
--- 	callback = function()
--- 		vim.set.statusline = "\\"
--- 	end,
--- })

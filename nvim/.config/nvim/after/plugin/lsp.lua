@@ -1,73 +1,64 @@
-local system_name = "macOS"
-local sumneko_root_path = "/Users/briangreenhill/Personal/lua-language-server"
-local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local lsp = require("lsp-zero")
 
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-local function config(_config)
-	return vim.tbl_deep_extend("force", {
-		capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-	}, _config or {})
-end
-
-require("lspconfig").gopls.setup({
-	on_attach = function()
-		require("lsp_signature").on_attach()
-		config()
-	end,
+lsp.preset("recommended")
+lsp.ensure_installed({
+	"tsserver",
+	"eslint",
+	"sumneko_lua",
+	"gopls",
+	"marksman",
+	"bashls",
 })
-require("lspconfig").tsserver.setup(config())
-require("lspconfig").bashls.setup(config())
-require("lspconfig").yamlls.setup(config())
-require("lspconfig").solargraph.setup(config({
-	on_attach = config,
-	settings = {
-		solargraph = {
-			diagnostics = { true },
-		},
+lsp.nvim_workspace()
+
+-- cmp
+local cmp = require("cmp")
+local cmp_select = { behaviour = cmp.SelectBehavior.Select }
+
+lsp.setup_nvim_cmp({
+	sources = {
+		{ name = "copilot" },
+		{ name = "path" },
+		{ name = "nvim_lsp", keyword_length = 3 },
+		{ name = "buffer", keyword_length = 3 },
+		{ name = "luasnip", keyword_length = 2 },
 	},
-}))
-require("lspconfig").pyright.setup({})
-require("lspconfig").rust_analyzer.setup({})
+	mapping = lsp.defaults.cmp_mappings({
+		["<C-u>"] = cmp.mapping.scroll_docs(-4),
+		["<C-d>"] = cmp.mapping.scroll_docs(4),
+		["<C-e>"] = cmp.mapping.close(),
+		["<C-y>"] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Replace,
+			select = true,
+		}),
+		["<C-space>"] = cmp.mapping.complete(cmp_select),
+		["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+		["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+	}),
+})
 
-require("lspconfig").sumneko_lua.setup(config({
-	cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
-	on_attach = config,
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-				path = vim.split(package.path, ";"),
-			},
-			diagnostics = {
-				globals = { "vim" },
-			},
-			workspace = {
-				library = {
-					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-				},
-			},
-		},
-	},
-}))
+lsp.setup()
 
-local snippets_paths = function()
-	local plugins = { "friendly-snippets" }
-	local paths = {}
-	local path
-	local root_path = vim.env.HOME .. "/.vim/plugged/"
-	for _, plug in ipairs(plugins) do
-		path = root_path .. plug
-		if vim.fn.isdirectory(path) ~= 0 then
-			table.insert(paths, path)
-		end
-	end
-	return paths
-end
+-- null-ls
+local null_ls = require("null-ls")
+local null_opts = lsp.build_options("null-ls", {})
 
-require("luasnip.loaders.from_vscode").lazy_load({
-	paths = snippets_paths(),
-	include = nil, -- Load all languages
-	exclude = {},
+local sources = {
+	-- golang
+	null_ls.builtins.diagnostics.golangci_lint,
+	null_ls.builtins.formatting.goimports,
+	-- protobuf
+	null_ls.builtins.formatting.protolint,
+	-- javascript
+	null_ls.builtins.code_actions.eslint_d,
+	null_ls.builtins.formatting.eslint,
+	-- lua
+	null_ls.builtins.formatting.stylua,
+	-- shell
+	null_ls.builtins.formatting.shfmt,
+}
+
+null_ls.setup({
+	on_attach = null_opts.on_attach,
+	sources = sources,
 })

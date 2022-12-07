@@ -1,12 +1,19 @@
+# zmodload zsh/zprof
 DISABLE_MAGIC_FUNCTIONS=true
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES=$HOME/.dotfiles
 export EDITOR='vim'
-export NVM_LAZY_LOAD=true
+export NVM_LAZY=1
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 ZSH_THEME="minimal"
 
-plugins=(zsh-autosuggestions)
+plugins=(
+	zsh-autosuggestions
+	zsh-lazyload
+	nvm
+)
+
 source $ZSH/oh-my-zsh.sh
 
 HISTFILE=$HOME/.zsh_history
@@ -44,13 +51,8 @@ timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
-initRuby() {
-  eval "$(rbenv init -)"
-}
-
-initNvm() {
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-}
-export PATH="/usr/local/opt/protobuf@3/bin:$PATH"
+export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct
+export GOPRIVATE=
+export GONOPROXY=
+export GONOSUMDB='github.com/github/*'
+# zprof
