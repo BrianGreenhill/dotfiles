@@ -13,30 +13,20 @@ else
 	selected=$(echo "$items" | fzf)
 fi
 
-dirname=$(basename $selected)
-echo $dirname
-
-tmux has-session -t $dirname
-if [ $? != 0 ]; then
-	# create a new session with an editor window, then detach
-	tmux new-session -s $dirname -n editor -d
-
-	# change directory to the devproject
-	tmux send-keys -t $dirname "cd ${selected}" C-m
-
-	# open vim
-	tmux send-keys -t $dirname 'nvim' C-m
-
-	# split the window to make a vertical stack
-	tmux split-window -h -p 35 -t $dirname
-
-	# send keys to window 1, pane 2 (:1.2) to change directories
-	tmux send-keys -t $dirname:1.2 "cd ${selected}" C-m
-
-	# tmux new-window -n console -t $dirname
-	# tmux send-keys -t $dirname:2 "cd ${selected}" C-m
-else
-	tmux new -c $selected -A -s $dirname
+if [[ -z $selected ]]; then
+	exit 0
 fi
 
-tmux attach -t $dirname:1.1
+selected_name=$(basename "$selected" | tr . _)
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+	tmux new-session -s $selected_name -c $selected
+	exit 0
+fi
+
+if ! tmux has-session -t=$selected_name 2>/dev/null; then
+	tmux new-session -ds $selected_name -c $selected
+fi
+
+tmux switch-client -t $selected_name

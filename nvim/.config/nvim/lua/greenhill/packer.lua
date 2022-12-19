@@ -1,27 +1,17 @@
--- ensure packer is installed
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
-end
+-- This file can be loaded by calling `lua require('packer')` from your init.vim
 
-local packer_bootstrap = ensure_packer()
+-- Only required if you have packer configured as `opt`
+vim.cmd.packadd("packer.nvim")
 
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
-	-- essentials
-	use("nvim-lua/plenary.nvim")
-	use("nvim-telescope/telescope.nvim")
-	use({
-		"nvim-telescope/telescope-fzf-native.nvim",
-		run = "make",
-	})
+	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x", requires = { "nvim-lua/plenary.nvim" } })
+
+	-- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 })
+
+	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 	use("theprimeagen/harpoon")
 	use("mbbill/undotree")
 	use({
@@ -29,6 +19,7 @@ return require("packer").startup(function(use)
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 
+	use("lewis6991/gitsigns.nvim")
 	-- copilot
 	use("github/copilot.vim")
 	use({
@@ -55,15 +46,8 @@ return require("packer").startup(function(use)
 		as = "rose-pine",
 		config = function()
 			vim.cmd("colorscheme rose-pine")
-		end,
-	})
-
-	-- treesitter
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-			ts_update()
+			vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 		end,
 	})
 
@@ -98,13 +82,10 @@ return require("packer").startup(function(use)
 			{ "rafamadriz/friendly-snippets" },
 		},
 	})
+	use("lukas-reineke/indent-blankline.nvim")
 
 	-- tpope
 	use("tpope/vim-commentary")
 	use("tpope/vim-fugitive")
-
-	-- bootstrap packer
-	if packer_bootstrap then
-		require("packer").sync()
-	end
+	use("tpope/vim-sleuth")
 end)

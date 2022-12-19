@@ -1,52 +1,50 @@
-local keymap = require("greenhill.keymap")
-local nnoremap = keymap.nnoremap
-local vnoremap = keymap.vnoremap
-local xnoremap = keymap.xnoremap
-local inoremap = keymap.inoremap
-local nmap = keymap.nmap
-
 -- save and quit
-nnoremap("<leader>w", ":w<CR>")
-nnoremap("<leader>q", ":q<CR>")
+vim.keymap.set("n", "<leader>w", ":w<CR>")
+vim.keymap.set("n", "<leader>q", ":q<CR>")
 
 -- file browser
-nnoremap("<C-n>", ":Ex<CR>")
+vim.keymap.set("n", "<C-n>", ":Ex<CR>")
 
 -- undotree
-nnoremap("<leader>u", ":UndotreeShow<CR>")
+vim.keymap.set("n", "<leader>u", ":UndotreeShow<CR>")
 
 -- quickfix
-nnoremap("<leader>n", ":cnext<CR>")
-nnoremap("<leader>p", ":cprev<CR>")
-nnoremap("<leader>x", ":cclose<CR>")
+vim.keymap.set("n", "<leader>n", ":cnext<CR>")
+vim.keymap.set("n", "<leader>p", ":cprev<CR>")
+vim.keymap.set("n", "<leader>x", ":cclose<CR>")
 
 -- move things around
-vnoremap("J", ":m '>+1<CR>gv=gv")
-vnoremap("K", ":m '<-2<CR>gv=gv")
-nnoremap("J", "mzJ`z")
-nnoremap("n", "nzzzv")
-nnoremap("N", "Nzzzv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 -- scrolling
-nnoremap("<C-u>", "<C-u>zz")
-nnoremap("<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
 
 -- yanking
-nnoremap("Y", "yg$")
-nnoremap("<leader>y", '"+y')
-vnoremap("<leader>y", '"+y')
-nmap("<leader>Y", '"+Y')
+vim.keymap.set("n", "Y", "yg$")
+vim.keymap.set("n", "<leader>y", '"+y')
+vim.keymap.set("v", "<leader>y", '"+y')
+vim.keymap.set("n", "<leader>Y", '"+Y', { noremap = false })
+
+vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("n", "<leader>po", "<cmd>silent !tmux neww tmux2<CR>")
+vim.keymap.set("n", "<leader>f", function()
+	vim.lsp.buf.format()
+end)
 
 -- pasting
-xnoremap("<leader>p", '"_dP')
+vim.keymap.set("x", "<leader>p", '"_dP')
 
 -- deleting
-nnoremap("<leader>d", '"_d')
-vnoremap("<leader>d", '"_d')
-vnoremap("<leader>d", '"_d')
+vim.keymap.set("n", "<leader>d", '"_d')
+vim.keymap.set("v", "<leader>d", '"_d')
 
 -- escape is so far away
-inoremap("<C-c>", "<Esc>")
+vim.keymap.set("i", "<C-c>", "<Esc>")
 
 -- fugitive
-nnoremap("<leader>gs", ":Git<CR>")
+vim.keymap.set("n", "<leader>gs", ":Git<CR>")

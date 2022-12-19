@@ -1,15 +1,16 @@
 require("nvim-treesitter.configs").setup({
+	highlight = {
+		enable = true,
+	},
 	ensure_installed = {
+		"help",
 		"bash",
-		"dockerfile",
-		"gitcommit",
 		"go",
-		"javascript",
 		"lua",
-		"markdown",
-		"sql",
+		"javascript",
 		"typescript",
-		"yaml",
 	},
 	auto_install = true,
+	sync_install = false,
+	additional_vim_regex_highlighting = false,
 })

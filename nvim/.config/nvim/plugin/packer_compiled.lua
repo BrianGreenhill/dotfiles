@@ -138,10 +138,20 @@ _G.packer_plugins = {
     path = "/Users/briangreenhill/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/Users/briangreenhill/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+    url = "https://github.com/lewis6991/gitsigns.nvim"
+  },
   harpoon = {
     loaded = true,
     path = "/Users/briangreenhill/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/theprimeagen/harpoon"
+  },
+  ["indent-blankline.nvim"] = {
+    loaded = true,
+    path = "/Users/briangreenhill/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
   ["lsp-zero.nvim"] = {
     loaded = true,
@@ -225,14 +235,17 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
   ["rose-pine"] = {
-    config = { "\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0" },
+    config = { "\27LJ\2\nª\1\0\0\5\0\t\0\0196\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\3\0009\0\4\0)\2\0\0'\3\5\0005\4\6\0B\0\4\0016\0\0\0009\0\3\0009\0\4\0)\2\0\0'\3\a\0005\4\b\0B\0\4\1K\0\1\0\1\0\1\abg\tnone\16NormalFloat\1\0\1\abg\tnone\vNormal\16nvim_set_hl\bapi\26colorscheme rose-pine\bcmd\bvim\0" },
     loaded = true,
     path = "/Users/briangreenhill/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
   },
   ["telescope-fzf-native.nvim"] = {
-    loaded = true,
-    path = "/Users/briangreenhill/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
+    cond = { true },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = true,
+    path = "/Users/briangreenhill/.local/share/nvim/site/pack/packer/opt/telescope-fzf-native.nvim",
     url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
   },
   ["telescope.nvim"] = {
@@ -254,14 +267,23 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/briangreenhill/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-sleuth"] = {
+    loaded = true,
+    path = "/Users/briangreenhill/.local/share/nvim/site/pack/packer/start/vim-sleuth",
+    url = "https://github.com/tpope/vim-sleuth"
   }
 }
 
 time([[Defining packer_plugins]], false)
 -- Config for: rose-pine
 time([[Config for rose-pine]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
+try_loadstring("\27LJ\2\nª\1\0\0\5\0\t\0\0196\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\3\0009\0\4\0)\2\0\0'\3\5\0005\4\6\0B\0\4\0016\0\0\0009\0\3\0009\0\4\0)\2\0\0'\3\a\0005\4\b\0B\0\4\1K\0\1\0\1\0\1\abg\tnone\16NormalFloat\1\0\1\abg\tnone\vNormal\16nvim_set_hl\bapi\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
 time([[Config for rose-pine]], false)
+-- Conditional loads
+time([[Conditional loading of telescope-fzf-native.nvim]], true)
+  require("packer.load")({"telescope-fzf-native.nvim"}, {}, _G.packer_plugins)
+time([[Conditional loading of telescope-fzf-native.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
