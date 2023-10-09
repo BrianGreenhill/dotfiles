@@ -47,8 +47,8 @@ ln -s $(pwd)/nvim/.config/nvim $HOME/.config/nvim
 rm -rf $HOME/.config/personal
 mkdir -p $HOME/.config/personal
 ln -s $(pwd)/personal/.config/personal/.personal-bashrc $HOME/.config/personal/.personal-bashrc
-ln -s $(pwd)/macos/.config/personal/alias $HOME/.config/personal/alias
-ln -s $(pwd)/macos/.config/personal/env $HOME/.config/personal/env
+ln -s $(pwd)/personal/.config/personal/alias $HOME/.config/personal/alias
+ln -s $(pwd)/personal/.config/personal/env $HOME/.config/personal/env
 mkdir -p $HOME/.local/bin
 rm -f $HOME/.local/bin/tmux2
 ln -s $(pwd)/bin/.local/bin/tmux2 $HOME/.local/bin/tmux2
