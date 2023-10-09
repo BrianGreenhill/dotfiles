@@ -3,16 +3,11 @@ DISABLE_MAGIC_FUNCTIONS=true
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES=$HOME/.dotfiles
 export EDITOR='vim'
-export NVM_LAZY=1
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 ZSH_THEME="minimal"
 
-plugins=(
-	zsh-autosuggestions
-	zsh-lazyload
-	nvm
-)
+plugins=(zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -55,4 +50,4 @@ export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direc
 export GOPRIVATE=
 export GONOPROXY=
 export GONOSUMDB='github.com/github/*'
-# zprof
+source $HOME/.config/op/plugins.sh

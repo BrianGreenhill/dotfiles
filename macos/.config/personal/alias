@@ -1,3 +1,5 @@
+# docker
+
 alias dc='docker-compose'
 alias dce='docker-compose exec'
 alias dcl='docker-compose logs -f'
@@ -5,15 +7,10 @@ alias dcp='docker-compose ps'
 alias dcr='docker-compose restart'
 alias dcd='docker-compose down -v'
 
-alias hosts='sudo vim /etc/hosts'
 alias grep='grep --color=auto'
-alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
-alias prettyjson='python -m json.tool'
-alias ls='ls -G'
-alias ll='ls -Galh'
 alias tt='tmux2'
 
-# vim
+# nvim
 
 if which nvim &> /dev/null; then
   alias vim='nvim'

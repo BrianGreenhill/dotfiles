@@ -1,9 +1,8 @@
-vim.keymap.set("n", "<leader>po", function()
+vim.keymap.set("n", "<leader>ps", function()
 	vim.opt.rnu = false
 	vim.opt.signcolumn = "no"
 	vim.opt.colorcolumn = "800"
 end)
-
 
 vim.keymap.set("n", "<leader>pe", function()
 	vim.opt.rnu = true

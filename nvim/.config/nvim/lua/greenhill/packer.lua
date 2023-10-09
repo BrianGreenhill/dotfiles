@@ -6,12 +6,13 @@ vim.cmd.packadd("packer.nvim")
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
-	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x", requires = { "nvim-lua/plenary.nvim" } })
+	use({ "nvim-telescope/telescope.nvim", tag = "0.1.0", requires = { "nvim-lua/plenary.nvim" } })
 
 	-- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 })
+	-- use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 })
 
 	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
+	use("nvim-treesitter/nvim-treesitter-context")
 	use("theprimeagen/harpoon")
 	use("mbbill/undotree")
 	use({
@@ -19,26 +20,7 @@ return require("packer").startup(function(use)
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 
-	use("lewis6991/gitsigns.nvim")
-	-- copilot
 	use("github/copilot.vim")
-	use({
-		"zbirenbaum/copilot.lua",
-		event = "VimEnter",
-		config = function()
-			vim.defer_fn(function()
-				require("copilot").setup()
-			end, 100)
-		end,
-	})
-
-	use({
-		"zbirenbaum/copilot-cmp",
-		after = { "copilot.lua" },
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-	})
 
 	-- theme
 	use({
@@ -46,21 +28,18 @@ return require("packer").startup(function(use)
 		as = "rose-pine",
 		config = function()
 			vim.cmd("colorscheme rose-pine")
-			vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 		end,
 	})
 
 	-- LSP
 	use({
 		"VonHeikemen/lsp-zero.nvim",
+		branch = "v1.x",
 		requires = {
 			-- LSP Support
 			{ "neovim/nvim-lspconfig" },
 			{ "williamboman/mason.nvim" },
 			{ "williamboman/mason-lspconfig.nvim" },
-			{ "j-hui/fidget.nvim" },
-			{ "jose-elias-alvarez/null-ls.nvim" },
 
 			-- Autocompletion
 			{ "hrsh7th/nvim-cmp" },
@@ -82,7 +61,6 @@ return require("packer").startup(function(use)
 			{ "rafamadriz/friendly-snippets" },
 		},
 	})
-	use("lukas-reineke/indent-blankline.nvim")
 
 	-- tpope
 	use("tpope/vim-commentary")
