@@ -1,7 +1,9 @@
 local dap = require("dap")
 require("dap-go").setup()
 local dapui = require("dapui")
-require("nvim-dap-virtual-text").setup()
+require("nvim-dap-virtual-text").setup({
+	virt_text_pos = vim.fn.has 'nvim-0.10' == 1 and 'inline' or 'eol',
+})
 
 dapui.setup({
 	icons = { expanded = "▾", collapsed = "▸" },
