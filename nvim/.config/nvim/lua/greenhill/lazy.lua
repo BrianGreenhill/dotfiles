@@ -11,18 +11,35 @@ local plugins = {
 	{ "rose-pine/neovim", lazy = false, priority = 1000, config = function()
 		vim.cmd([[colorscheme rose-pine]])
 	end },
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	{ "nvim-treesitter/nvim-treesitter",
+		requires = {
+			"nvim-treesitter/nvim-treesitter-refactor",
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			"nvim-treesitter/nvim-treesitter-context",
+		},
+		build = ":TSUpdate",
+	},
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-	"nvim-treesitter/nvim-treesitter-context",
+	{
+		"toppair/peek.nvim",
+		event = { "VeryLazy" },
+		build = "deno task --quiet build:fast",
+		config = function()
+			require("peek").setup()
+			-- refer to `configuration to change defaults`
+			vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+			vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+		end,
+	},
 	"theprimeagen/harpoon",
 	"mbbill/undotree",
 	"nvim-lualine/lualine.nvim",
-	"github/copilot.vim",
 	{
 		"jellydn/CopilotChat.nvim",
+		dependencies = { "github/copilot.vim" },
 		opts = {
 			mode = "split",
 			prompts = {
@@ -52,28 +69,35 @@ local plugins = {
 		dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' }
 	},
 	{ "VonHeikemen/lsp-zero.nvim", branch = "v1.x" },
-	{ "neovim/nvim-lspconfig" },
-	"williamboman/mason.nvim",
-	"williamboman/mason-lspconfig.nvim",
-	"folke/lsp-colors.nvim",
+	{ "neovim/nvim-lspconfig",
+		dependencies = {
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			"j-hui/fidget.nvim",
+			"folke/neodev.nvim"
+		},
+	},
 	{
 		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lua",
+			"L3MON4D3/LuaSnip",
+			"rafamadriz/friendly-snippets",
 		},
 	},
-	"mfussenegger/nvim-dap",
-	"leoluz/nvim-dap-go",
-	"rcarriga/nvim-dap-ui",
-	"theHamsta/nvim-dap-virtual-text",
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"leoluz/nvim-dap-go",
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+		},
+	},
 	"onsails/lspkind-nvim",
-	"L3MON4D3/LuaSnip",
-	"rafamadriz/friendly-snippets",
 
 	"tpope/vim-commentary",
 	"tpope/vim-fugitive",
