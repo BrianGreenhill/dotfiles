@@ -8,8 +8,4 @@ commitDotFiles() {
     popd
 }
 
-setWallpaper() {
-  m wallpaper `find ~/Pictures/wallpaper/*.jpg | fzf`
-}
-
-export STOW_FOLDERS="bin,nvim,tmux,macos,personal,zsh,git"
+export STOW_FOLDERS="bin,nvim,tmux,personal,zsh,kitty"
