@@ -5,9 +5,6 @@ vim.keymap.set("n", "<leader>q", ":q<CR>")
 -- file browser
 vim.keymap.set("n", "<C-n>", ":Ex<CR>")
 
--- undotree
-vim.keymap.set("n", "<leader>u", ":UndotreeShow<CR>")
-
 -- quickfix
 vim.keymap.set("n", "<leader>n", ":cnext<CR>")
 vim.keymap.set("n", "<leader>p", ":cprev<CR>")

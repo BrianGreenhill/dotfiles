@@ -9,7 +9,7 @@ ZSH_THEME="minimal"
 
 plugins=(zsh-autosuggestions)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=50000
@@ -41,13 +41,12 @@ fi
 [[ -s "/Users/briangreenhill/.gvm/scripts/gvm" ]] && source "/Users/briangreenhill/.gvm/scripts/gvm"
 eval "$(direnv hook zsh)"
 
-timezsh() {
-  shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
-}
-
 export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct
 export GOPRIVATE=
 export GONOPROXY=
 export GONOSUMDB='github.com/github/*'
 source $HOME/.config/op/plugins.sh
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

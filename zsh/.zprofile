@@ -1,4 +1,4 @@
-source ~/.zshrc
+source ~/.config/zsh/.zshrc
 export GPG_TTY=$(tty)
 gpgconf --launch gpg-agent
 export SSH_AUTH_SOCKET=$HOME/.gnupg/S.gpg-agent.ssh

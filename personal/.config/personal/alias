@@ -1,3 +1,9 @@
+lsflags="--color"
+
+alias ls="ls ${lsflags}"
+alias ll="ls ${lsflags} -l"
+alias la="ls ${lsflags} -la"
+
 # docker
 
 alias dc='docker-compose'
