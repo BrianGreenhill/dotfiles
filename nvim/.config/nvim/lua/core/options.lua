@@ -49,7 +49,6 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
--- kickstarter
 vim.g.maplocalleader = " "
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -69,12 +68,4 @@ autocmd("TextYankPost", {
 			timeout = 40,
 		})
 	end,
-})
-
-local format_group = augroup("my_lsp_format", { clear = true })
-autocmd("BufWritePre", {
-    group = format_group,
-    callback = function()
-        vim.lsp.buf.format()
-    end,
 })
