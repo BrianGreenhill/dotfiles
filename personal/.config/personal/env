@@ -8,4 +8,8 @@ commitDotFiles() {
     popd
 }
 
+installDotFiles() {
+    echo $STOW_FOLDERS | tr "," "\n" | xargs stow -R
+}
+
 export STOW_FOLDERS="bin,nvim,tmux,personal,zsh,kitty"
