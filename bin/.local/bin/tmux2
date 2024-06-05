@@ -4,12 +4,9 @@ if [[ $# -eq 1 ]]; then
 	selected=$1
 else
 	items=""
-	if [[ -z "${CODESPACES}" ]]; then
-		items+=$(find ~/work -maxdepth 2 -mindepth 1 -type d)
-		items+=$(find ~/personal -maxdepth 1 -mindepth 1 -type d)
-	else
-		items+=$(find /workspaces -maxdepth 1 -mindepth 1 -type d)
-	fi
+    items+=$(find ~/work -maxdepth 2 -mindepth 1 -type d)
+    items+=$(find ~/personal -maxdepth 1 -mindepth 1 -type d)
+    items+=$(find ~ -maxdepth 1 -mindepth 1 -type d | grep dotfiles)
 	selected=$(echo "$items" | fzf)
 fi
 

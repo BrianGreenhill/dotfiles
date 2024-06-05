@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-STATUS="~/work/status"
-ISP="~/work/internal-statuspage"
-CAT="~/work/cat"
-
 createWindow() {
     session=$1
     window=$2
