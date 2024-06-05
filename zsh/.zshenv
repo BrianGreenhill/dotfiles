@@ -60,7 +60,9 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/sbin::/usr/local/bin:$PATH
 
 export PATH="$GOBIN:$PATH"
 
+# dotfiles
+export STOW_FOLDERS="bin,nvim,tmux,personal,zsh,kitty"
+
 
 export CLICOLOR=1
 
-. "$HOME/.cargo/env"

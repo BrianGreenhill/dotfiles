@@ -1,2 +1,0 @@
-[[ -e ~/.config/personal/alias ]] && source ~/.config/personal/alias
-[[ -e ~/.config/personal/env ]] && source ~/.config/personal/env
