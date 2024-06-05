@@ -1,12 +1,21 @@
 return {
 	{
 		"camspiers/snap",
-		keys = function()
+		config = function()
 			local snap = require("snap")
-			return {
-				{ "<C-p>", snap.config.file({ producer = "ripgrep.file", preview = true, prompt = "" }) },
-				{ "<leader>pw", snap.config.vimgrep({}) },
-			}
+			snap.maps({
+				{
+					"<C-p>",
+					snap.config.file({ producer = "ripgrep.file", args = { "--hidden", "--iglob", "!*.git" } }),
+				},
+				{
+					"<leader>ff",
+					snap.config.vimgrep({
+						producer = "ripgrep.vimgrep",
+						args = { "--hidden", "--iglob", "!*.git" },
+					}),
+				},
+			})
 		end,
 	},
 	{
