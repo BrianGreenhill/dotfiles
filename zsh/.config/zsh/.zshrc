@@ -10,6 +10,7 @@ setopt AUTO_REMOVE_SLASH
 autoload edit-command-line; zle -N edit-command-line
 
 _comp_options+=(globdots)
+source $ZDOTDIR/completion.zsh
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
