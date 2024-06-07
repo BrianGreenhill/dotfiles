@@ -3,16 +3,31 @@ return {
 		"camspiers/snap",
 		config = function()
 			local snap = require("snap")
+			local config = {
+				prompt = "",
+				reverse = true,
+				consumer = "fzf",
+				limit = 50000,
+			}
+			local file = snap.config.file:with(config)
+			local vimgrep = snap.config.vimgrep:with(config)
 			snap.maps({
 				{
 					"<C-p>",
-					snap.config.file({ producer = "ripgrep.file", args = { "--hidden", "--iglob", "!*.git" } }),
+					file({
+						producer = "ripgrep.file",
+						args = { "--hidden", "--ignore", "--iglob", "!*.git" },
+						preview_min_width = 0,
+						preview = true,
+					}),
 				},
 				{
 					"<leader>ff",
-					snap.config.vimgrep({
+					vimgrep({
 						producer = "ripgrep.vimgrep",
-						args = { "--hidden", "--iglob", "!*.git" },
+						args = { "--hidden", "--ignore", "--iglob", "!*.git" },
+						preview_min_width = 0,
+						preview = true,
 					}),
 				},
 			})
@@ -26,52 +41,5 @@ return {
 			vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-backward)")
 			vim.keymap.set({ "n", "x", "o" }, "gs", "<Plug>(leap-from-window)")
 		end,
-	},
-	{
-		"ThePrimeagen/harpoon",
-		branch = "harpoon2",
-		dependencies = "nvim-lua/plenary.nvim",
-		keys = function()
-			local harpoon = require("harpoon")
-			return {
-				{
-					"<C-e>",
-					function()
-						harpoon:list():add()
-					end,
-				},
-				{
-					"<C-m>",
-					function()
-						harpoon.ui:toggle_quick_menu(harpoon:list())
-					end,
-				},
-				{
-					"<C-t>",
-					function()
-						harpoon:list():select(1)
-					end,
-				},
-				{
-					"<C-g>",
-					function()
-						harpoon:list():select(2)
-					end,
-				},
-				{
-					"<C-h>",
-					function()
-						harpoon:list():select(3)
-					end,
-				},
-				{
-					"<C-y>",
-					function()
-						harpoon:list():select(4)
-					end,
-				},
-			}
-		end,
-		opts = { settings = { save_on_toggle = true } },
 	},
 }

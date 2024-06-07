@@ -89,6 +89,8 @@ alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset
 alias gb="git branch"
 alias gbclean="git branch --merged | grep -v main | xargs git branch -d"
 
+alias rg="rg --hidden --glob=!.git/"
+
 ## brew
 
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
@@ -102,6 +104,24 @@ commitDotFiles() {
     git push origin main
     popd
 }
+
+# Custom function to search file contents with rg and fzf
+search_contents() {
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --hidden --glob '!.git/*' --ignore-file '.gitignore'"
+    INITIAL_QUERY=""
+
+    # Use fzf with ripgrep to search file contents
+    fzf --ansi --query="$INITIAL_QUERY" \
+        --bind "change:reload:$RG_PREFIX {q} || true" \
+        --delimiter : \
+        --preview 'preview.sh {1} {2}' \
+        --preview-window=right:60%:wrap \
+        --phony
+}
+
+# Bind the custom function to Ctrl-G
+zle -N search_contents
+bindkey '^G' search_contents
 
 eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
