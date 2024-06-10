@@ -23,6 +23,7 @@ return {
 			lsp.rust_analyzer.setup({ capabilities = capabilities })
 			lsp.tsserver.setup({ capabilities = capabilities })
 			lsp.bashls.setup({ capabilities = capabilities })
+			lsp.ruby_lsp.setup({ capabilities = capabilities })
 
 			vim.keymap.set("n", "<leader>M", vim.diagnostic.open_float)
 			vim.keymap.set("n", "<leader>ld", vim.diagnostic.setqflist)
@@ -41,6 +42,8 @@ return {
 					vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf })
 					vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, { buffer = ev.buf })
 					vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration, { buffer = ev.buf })
+
+					require("lsp_signature").on_attach({}, ev.buf)
 				end,
 			})
 		end,
@@ -55,6 +58,7 @@ return {
 				go = { { "gopls", "goimports" } },
 				typescript = { "prettier" },
 				rust = { "rustfmt" },
+				ruby = { "rufo" },
 			},
 			format_on_save = { timeout_ms = 500, lsp_fallback = true },
 			notify_on_error = false,

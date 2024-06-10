@@ -1,5 +1,5 @@
 node_modules
 .zsh_history
 .zhistory
-.zcompdump
+.zcompdump*
 .zsh_history

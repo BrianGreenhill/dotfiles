@@ -1,0 +1,15 @@
+import = ["~/.config/alacritty/rose-pine-moon.toml"]
+
+[shell]
+program = "/usr/local/bin/tmux"
+args = ["new-session", "-A", "-s", "main"]
+
+[font]
+normal = { family = "JetBrainsMonoNL Nerd Font", style = "Medium" }
+size = 13.0
+offset = { x = 0, y = 6 }
+
+[window]
+decorations = "None"
+startup_mode = "Maximized"
+padding = { x = 6, y = 6 }

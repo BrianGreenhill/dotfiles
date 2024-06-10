@@ -4,8 +4,8 @@ if [[ $# -eq 1 ]]; then
 	selected=$1
 else
 	items=""
-    items+=$(find ~/work -maxdepth 2 -mindepth 1 -type d)
-    items+=$(find ~/personal -maxdepth 1 -mindepth 1 -type d)
+    items+=$(find ~/Projects/Work -maxdepth 2 -mindepth 1 -type d)
+    items+=$(find ~/Projects/Personal -maxdepth 1 -mindepth 1 -type d)
     items+=$(find ~ -maxdepth 1 -mindepth 1 -type d | grep dotfiles)
 	selected=$(echo "$items" | fzf)
 fi
@@ -26,4 +26,9 @@ if ! tmux has-session -t=$selected_name 2>/dev/null; then
 	tmux new-session -ds $selected_name -c $selected
 fi
 
-tmux switch-client -t $selected_name
+# if in tmux session
+
+if [[ -z $TMUX ]]; then
+    tmux switch-client -t $selected_name
+    exit 0
+fi

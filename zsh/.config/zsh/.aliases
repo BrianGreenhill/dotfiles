@@ -1,0 +1,75 @@
+lsflags="--color=auto"
+
+alias ls="ls ${lsflags}"
+
+# List with human-readable file sizes, colored output, and type indicators
+alias ll='ls -lhF ${lsflags}'
+
+# List all files including hidden files, human-readable sizes, and type indicators
+alias la='ls -lhaF ${lsflags}'
+
+# List only directories
+alias lsd='ls -l | grep "^d"'
+
+# Tree view of directories and files, up to 2 levels deep
+alias lt='tree -L 2'
+
+# docker
+
+alias dc='docker-compose'
+alias dce='docker-compose exec'
+alias dcl='docker-compose logs -f'
+alias dcp='docker-compose ps'
+alias dcr='docker-compose restart'
+alias dcd='docker-compose down -v'
+
+# nvim
+alias vim='nvim'
+
+#tmux
+alias tt='tmux2'
+
+# terraform
+alias tf='terraform'
+alias tfp='terraform plan'
+alias tfa='terraform apply'
+alias tfi='terraform init'
+
+# kube
+alias k='kubectl'
+alias kg='kubectl get'
+alias kgp='kubectl get pod'
+alias kd='kubectl describe'
+alias kdp='kubectl describe pod'
+alias kexec='kubectl exec -i'
+alias klog='kubectl logs -f'
+alias kpf='kubectl port-forward'
+alias kctx='kubectx'
+alias kns='kubens'
+
+# git
+alias git='hub'
+alias g='git'
+alias gcl='git clone'
+alias gap='git add -p'
+alias gpristine='git reset --hard && git clean -dfx'
+alias gst='git status'
+alias gl='git pull'
+alias gp='git push'
+alias gpuo="git push --set-upstream origin"
+alias branch="git branch | grep \* | cut -d ' ' -f2"
+alias gd='git diff'
+alias gcm='git commit -v -m'
+alias gco='git checkout'
+alias gcom='git checkout main'
+alias gcb='git checkout -b'
+alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+alias gb="git branch"
+alias gbclean="git branch --merged | grep -v main | xargs git branch -d"
+
+# ripgrep
+alias rg="rg --hidden --glob=!.git/"
+alias grep='grep --color=auto'
+
+## brew
+alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
