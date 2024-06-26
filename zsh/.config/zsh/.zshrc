@@ -1,6 +1,6 @@
+# autoload zsh/zprof
 autoload -U colors && colors
-PROMPT='%F{#eb6f92}%n%f@%F{#c4a7e7}%m %F{#e0def4}%~ %f> '
-
+# https://zsh.sourceforge.io/Doc/Release/Options.html
 setopt AUTO_MENU
 setopt ALWAYS_TO_END
 setopt COMPLETE_ALIASES
@@ -8,18 +8,27 @@ setopt LIST_PACKED
 setopt AUTO_PARAM_KEYS
 setopt AUTO_PARAM_SLASH
 setopt AUTO_REMOVE_SLASH
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt SHARE_HISTORY
 
 export HISTFILE="$ZDOTDIR/.zhistory"
 export HISTSIZE=10000
 export SAVEHIST=10000
 export INC_APPEND_HISTORY
 
+# prompt with git branch
+autoload -Uz vcs_info
+setopt prompt_subst
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '( %F{#8be9fd}%b%f)'
+PROMPT='%(?.%F{#50fa7b}⏺.%F{#ff79cb}⏺)%f %2~ ${vcs_info_msg_0_} %# '
+
 bindkey ^R history-incremental-search-backward 
 
-autoload -U compinit
-zstyle ':completion:*' menu select
+FPATH=~/.rbenv/completions:"$FPATH"
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu yes select
 zmodload zsh/complist
-compinit
 _comp_options+=(globdots)
 
 bindkey -v
@@ -62,8 +71,6 @@ search_contents() {
 # Bind the custom function to Ctrl-G
 zle -N search_contents
 bindkey '^G' search_contents
-
-. "$HOME/.cargo/env"
+eval "$(rbenv init -)"
 eval "$(direnv hook zsh)"
-
-# Minimalistic Zsh Prompt with Rose Pine Moon Color Scheme
+#zprof

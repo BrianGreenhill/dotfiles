@@ -29,7 +29,9 @@ export GONOPROXY=
 export GONOSUMDB='github.com/github/*'
 
 # dotfiles
-export STOW_FOLDERS="bin,nvim,tmux,personal,zsh,kitty,wezterm,alacritty"
+# TERMINAL = wezterm|kitty|alacritty
+export TERMINAL="alacritty"
+export STOW_FOLDERS="bin,nvim,tmux,personal,zsh,${TERMINAL}"
 export CLICOLOR=1
 export BAT_THEME=rose-pine-moon
 export HOMEBREW_NO_AUTO_UPDATE=1
