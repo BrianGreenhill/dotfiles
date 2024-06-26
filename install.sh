@@ -8,7 +8,7 @@ directories=$(find . -maxdepth 1 -type d -not -name ".*" | sed 's|./||')
 
 if $CODESPACES; then
     echo "installing package dependencies"
-    sudo apt-get install ripgrep fzf
+    sudo apt-get -y -q install ripgrep fzf
     echo "creating symlinks..."
     ln -s /workspaces/.codespaces/.persistedshare/dotfiles/nvim/.config/nvim ~/.config/nvim
     ln -s /workspaces/.codespaces/.persistedshare/dotfiles/tmux/tmux.conf ~/.tmux.conf
