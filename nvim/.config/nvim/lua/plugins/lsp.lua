@@ -23,7 +23,7 @@ return {
             lsp.rust_analyzer.setup({ capabilities = capabilities })
             lsp.tsserver.setup({ capabilities = capabilities })
             lsp.bashls.setup({ capabilities = capabilities })
-            lsp.ruby_ls.setup({ capabilities = capabilities })
+            lsp.ruby_lsp.setup({ capabilities = capabilities })
             lsp.pyright.setup({ capabilities = capabilities })
 
             vim.keymap.set("n", "<leader>M", vim.diagnostic.open_float)

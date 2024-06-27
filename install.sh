@@ -10,8 +10,8 @@ if $CODESPACES; then
     echo "installing package dependencies"
     sudo apt-get -y -q install ripgrep fzf
     echo "creating symlinks..."
-    ln -s /workspaces/.codespaces/.persistedshare/dotfiles/nvim/.config/nvim ~/.config/nvim
-    ln -s /workspaces/.codespaces/.persistedshare/dotfiles/tmux/tmux.conf ~/.tmux.conf
+    ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/nvim/.config/nvim ~/.config/nvim
+    ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/tmux/.tmux.conf ~/.tmux.conf
     echo "symlinks created"
     export EDITOR=nvim
     echo "EDITOR set to nvim"
