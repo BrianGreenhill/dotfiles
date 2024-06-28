@@ -1,24 +1,15 @@
 require("core.options")
 require("core.keymap")
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
+-- Install vim-plug if not already installed
+local plug_install_path = vim.fn.stdpath('data') .. '/site/autoload/plug.vim'
+if vim.fn.empty(vim.fn.glob(plug_install_path)) > 0 then
+    vim.fn.system({
+        'sh', '-c',
+        'curl -fLo ' .. plug_install_path .. ' --create-dirs ' ..
+        'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    })
+    vim.cmd [[autocmd VimEnter * PlugInstall | source $MYVIMRC]]
 end
-vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins", {
-	change_detection = {
-		notify = false,
-	},
-	ui = {
-		border = "rounded",
-	},
-})
+require("plugins")

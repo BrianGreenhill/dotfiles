@@ -1,9 +1,5 @@
 import = ["~/.config/alacritty/rose-pine-moon.toml"]
 
-[shell]
-program = "/usr/local/bin/tmux"
-args = ["new-session", "-A", "-s", "main"]
-
 [font]
 normal = { family = "JetBrainsMonoNL Nerd Font", style = "Medium" }
 size = 13.0
