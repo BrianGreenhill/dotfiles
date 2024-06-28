@@ -21,11 +21,11 @@ vim.cmd [[
   Plug 'saadparwaiz1/cmp_luasnip'
   Plug 'L3MON4D3/LuaSnip'
   Plug 'nvim-tree/nvim-web-devicons'
-  Plug 'bluz71/nvim-linefly'
   Plug 'zbirenbaum/copilot.lua'
   Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
   Plug 'folke/trouble.nvim'
   Plug 'windwp/nvim-autopairs'
+  Plug 'nvim-lualine/lualine.nvim'
 
   call plug#end()
 ]]
@@ -38,3 +38,4 @@ require("plugins.completion")
 require("plugins.copilot")
 require("plugins.treesitter")
 require("plugins.trouble")
+require("plugins.statusline")
