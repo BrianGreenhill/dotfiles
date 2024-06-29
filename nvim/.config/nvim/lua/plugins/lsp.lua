@@ -4,53 +4,51 @@ require("mason-lspconfig").setup()
 local lsp = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-lsp.lua_ls.setup({
-    capabilities = capabilities,
-    settings = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            completion = { callSnippet = "Replace" },
-        },
-    },
-})
-lsp.gopls.setup({ capabilities = capabilities })
-lsp.rust_analyzer.setup({ capabilities = capabilities })
-lsp.tsserver.setup({ capabilities = capabilities })
-lsp.bashls.setup({ capabilities = capabilities })
-lsp.ruby_lsp.setup({ capabilities = capabilities })
-lsp.pyright.setup({ capabilities = capabilities })
+local on_attach = function(client, bufnr)
+    if client.name == 'ruff' then
+        -- Disable hover in favor of Pyright
+        client.server_capabilities.hoverProvider = false
+    end
 
-vim.keymap.set("n", "<leader>M", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>ld", vim.diagnostic.setqflist)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_prev)
+    if client.server_capabilities.documentFormattingProvider then
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format({ bufnr = bufnr })
+            end,
+        })
+    end
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-    callback = function(ev)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = ev.buf })
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = ev.buf })
-        vim.keymap.set("n", "rn", vim.lsp.buf.rename, { buffer = ev.buf })
-        vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, { buffer = ev.buf })
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = ev.buf })
-        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = ev.buf })
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf })
-        vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, { buffer = ev.buf })
-        vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration, { buffer = ev.buf })
+    -- key mapping
+    local opts = { buffer = bufnr, silent = true }
+    vim.keymap.set("n", "<leader>M", vim.diagnostic.open_float, opts)
+    vim.keymap.set("n", "<leader>ld", vim.diagnostic.setqflist, opts)
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "rn", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts)
+    vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration, opts)
+end
 
-        require("lsp_signature").on_attach({}, ev.buf)
-    end,
-})
+local servers = {
+    lua_ls = {},
+    gopls = {},
+    rust_analyzer = {},
+    bashls = {},
+    ruby_lsp = {},
+    ruff = {},
+    pyright = {},
+}
 
-require("conform").setup({
-    formatters_by_ft = {
-        lua = { "stylua" },
-        go = { { "gopls", "goimports" } },
-        typescript = { "prettier" },
-        rust = { "rustfmt" },
-        ruby = { "rufo" },
-        python = { "ruff_format" }
-    },
-    format_on_save = { timeout_ms = 500, lsp_fallback = true },
-    notify_on_error = false,
-})
+for server, config in pairs(servers) do
+    config.capabilities = capabilities
+    config.on_attach = on_attach
+    lsp[server].setup(config)
+end

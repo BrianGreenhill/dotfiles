@@ -27,13 +27,6 @@ cmp.setup {
         ["<C-space>"] = cmp.mapping.complete(),
     },
     formatting = { fields = { "kind", "abbr", "menu" } },
-    sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "nvim_lua" },
-        { name = "luasnip" },
-        { name = "buffer" },
-        { name = "path" },
-    }),
+    sources = cmp.config.sources({ { name = "nvim_lsp" } }),
 }
 require("nvim-autopairs").setup {}
-require("lsp_signature").setup({})

@@ -73,4 +73,6 @@ zle -N search_contents
 bindkey '^G' search_contents
 eval "$(rbenv init -)"
 eval "$(direnv hook zsh)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 #zprof
