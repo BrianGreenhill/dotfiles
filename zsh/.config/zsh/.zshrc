@@ -1,49 +1,25 @@
-# autoload zsh/zprof
-autoload -U colors && colors
-# https://zsh.sourceforge.io/Doc/Release/Options.html
-setopt AUTO_MENU
-setopt ALWAYS_TO_END
-setopt COMPLETE_ALIASES
-setopt LIST_PACKED
-setopt AUTO_PARAM_KEYS
-setopt AUTO_PARAM_SLASH
-setopt AUTO_REMOVE_SLASH
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt SHARE_HISTORY
-
-export HISTFILE="$ZDOTDIR/.zhistory"
-export HISTSIZE=10000
-export SAVEHIST=10000
-export INC_APPEND_HISTORY
-
-# prompt with git branch
-autoload -Uz vcs_info
-setopt prompt_subst
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '( %F{#8be9fd}%b%f)'
-PROMPT='%(?.%F{#50fa7b}⏺.%F{#ff79cb}⏺)%f %2~ ${vcs_info_msg_0_} %# '
-
-bindkey ^R history-incremental-search-backward 
-
-FPATH=~/.rbenv/completions:"$FPATH"
 autoload -Uz compinit && compinit
-zstyle ':completion:*' menu yes select
-zmodload zsh/complist
-_comp_options+=(globdots)
+autoload -U colors && colors
+autoload -U promptinit; promptinit; prompt pure
+
+# https://zsh.sourceforge.io/Doc/Release/Options.html
+# # Set options for history and shell behavior
+setopt AUTO_MENU ALWAYS_TO_END COMPLETE_ALIASES LIST_PACKED
+setopt AUTO_PARAM_KEYS AUTO_PARAM_SLASH AUTO_REMOVE_SLASH EXTENDED_HISTORY
+setopt SHARE_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS HIST_FIND_NO_DUPS HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS HIST_VERIFY
+
+eval "$(direnv hook zsh)"
+
+[[ -e ~/.local/bin/z.sh ]] && source ~/.local/bin/z.sh
+[[ -e ~/.config/zsh/.aliases ]] && source ~/.config/zsh/.aliases
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -e ~/.asdf/asdf.sh ]] && source ~/.asdf/asdf.sh
+[[ -f ~/.fzf-tab/fzf-tab.plugin.zsh ]] && source ~/.fzf-tab/fzf-tab.plugin.zsh
 
 bindkey -v
 export KEYTIMEOUT=1
-
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
-
-[[ -e ~/.fzf.zsh ]] && source ~/.fzf.zsh
-[[ -e ~/.config/zsh/.aliases ]] && source ~/.config/zsh/.aliases
-[[ -e /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-[[ -e ~/.asdf/asdf.sh ]] && source ~/.asdf/asdf.sh
 
 ## functions
 commitDotFiles() {
@@ -60,17 +36,19 @@ search_contents() {
     INITIAL_QUERY=""
 
     # Use fzf with ripgrep to search file contents
+    # append selection to nvim and open to the line number
+    # preview the file contents
     fzf --ansi --query="$INITIAL_QUERY" \
         --bind "change:reload:$RG_PREFIX {q} || true" \
         --delimiter : \
+        --tmux \
         --preview 'preview.sh {1} {2}' \
         --preview-window=right:60%:wrap \
         --phony
 }
 
-# Bind the custom function to Ctrl-G
+# # Bind the custom function to Ctrl-G
 zle -N search_contents
 bindkey '^G' search_contents
-eval "$(direnv hook zsh)"
-eval "$(zoxide init zsh)"
-#zprof
+
+# zprof

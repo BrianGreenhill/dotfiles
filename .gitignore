@@ -2,5 +2,7 @@ node_modules
 .zsh_history
 .zhistory
 .zcompdump*
+.zsh_sessions
+z.sh
 nvim/.config/nvim/plugged
 tmux/.config/tmux/plugins
