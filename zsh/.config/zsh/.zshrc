@@ -41,7 +41,6 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
 [[ -e ~/.fzf.zsh ]] && source ~/.fzf.zsh
-[[ -e ~/bin/z.sh ]] && source ~/bin/z.sh
 [[ -e ~/.config/zsh/.aliases ]] && source ~/.config/zsh/.aliases
 [[ -e /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
@@ -75,4 +74,5 @@ eval "$(rbenv init -)"
 eval "$(direnv hook zsh)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+eval "$(zoxide init zsh)"
 #zprof

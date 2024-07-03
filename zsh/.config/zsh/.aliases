@@ -2,11 +2,8 @@ lsflags="--color=auto"
 
 alias ls="ls ${lsflags}"
 
-# List with human-readable file sizes, colored output, and type indicators
-alias ll='ls -lhF ${lsflags}'
-
 # List all files including hidden files, human-readable sizes, and type indicators
-alias la='ls -lhaF ${lsflags}'
+alias ll='ls -lhaF ${lsflags}'
 
 # List only directories
 alias lsd='ls -l | grep "^d"'
@@ -15,7 +12,6 @@ alias lsd='ls -l | grep "^d"'
 alias lt='tree -L 2'
 
 # docker
-
 alias dc='docker-compose'
 alias dce='docker-compose exec'
 alias dcl='docker-compose logs -f'
@@ -25,9 +21,6 @@ alias dcd='docker-compose down -v'
 
 # nvim
 alias vim='nvim'
-
-#tmux
-alias tt='tmux2'
 
 # terraform
 alias tf='terraform'
@@ -48,7 +41,6 @@ alias kctx='kubectx'
 alias kns='kubens'
 
 # git
-alias git='hub'
 alias g='git'
 alias gcl='git clone'
 alias gap='git add -p'
