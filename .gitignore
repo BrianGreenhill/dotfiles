@@ -4,3 +4,4 @@ node_modules
 .zcompdump*
 .zsh_history
 nvim/.config/nvim/plugged
+tmux/.config/tmux/plugins
