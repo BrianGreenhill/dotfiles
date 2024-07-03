@@ -15,6 +15,7 @@ vim.cmd [[
   Plug 'windwp/nvim-autopairs'
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'tpope/vim-fugitive'
+  Plug 'ray-x/lsp_signature.nvim'
 
   call plug#end()
 ]]

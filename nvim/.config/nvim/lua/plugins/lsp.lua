@@ -1,5 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup()
+require("lsp_signature").setup()
 
 local lsp = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -19,6 +20,8 @@ local on_attach = function(client, bufnr)
             end,
         })
     end
+
+    require("lsp_signature").on_attach()
 
     -- key mapping
     local opts = { buffer = bufnr, silent = true }
@@ -45,6 +48,7 @@ local servers = {
     ruby_lsp = {},
     ruff = {},
     pyright = {},
+    tsserver = {},
 }
 
 for server, config in pairs(servers) do

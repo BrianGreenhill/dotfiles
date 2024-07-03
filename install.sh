@@ -6,12 +6,15 @@ set -e
 # exclude directories that start with a dot
 directories=$(find . -maxdepth 1 -type d -not -name ".*" | sed 's|./||')
 
-if $CODESPACES; then
+# check if CODESPACES env var is true
+if [[ $CODESPACES == "true" ]]; then
     echo "installing package dependencies"
     sudo apt-get -y -q install ripgrep fzf
     echo "creating symlinks..."
-    ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/nvim/.config/nvim ~/.config/nvim
-    ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/tmux/.tmux.conf ~/.tmux.conf
+    directories = $(tmux nvim)
+    for dir in $directories; do
+        ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/$dir/.config/$dir ~/.config/$dir
+    done
     echo "symlinks created"
     export EDITOR=nvim
     echo "EDITOR set to nvim"
