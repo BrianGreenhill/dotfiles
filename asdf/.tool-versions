@@ -6,3 +6,7 @@ direnv 2.34.0
 zoxide 0.9.4
 rust 1.79.0
 fzf 0.53.0
+jq 1.7.1
+git 2.45.2
+tmux 3.4
+neovim 0.10.0

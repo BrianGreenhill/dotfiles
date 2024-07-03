@@ -46,4 +46,7 @@ for p in $plugins; do
 done
 
 echo "installing asdf versions..."
+# https://github.com/aphecetche/asdf-tmux/pull/9
+export TMUX_CONFIGURE_OPTIONS="--enable-utf8proc"
 asdf install
+unset TMUX_CONFIGURE_OPTIONS
