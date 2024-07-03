@@ -22,7 +22,6 @@ if [[ $CODESPACES == "true" ]]; then
     exit 0
 fi
 
-
 if [[ $(which stow) == "" ]]; then
     echo "stow is not installed"
     exit 1
@@ -33,3 +32,18 @@ for dir in $directories; do
     echo "stowing $dir..."
     stow -R $dir
 done
+
+if [[ $(which asdf) == "" ]]; then
+    echo "asdf is not installed. installing..."
+    brew install asdf
+    . $(brew --prefix asdf)/libexec/asdf.sh
+fi
+
+echo "installing asdf plugins..."
+plugins=$(cat $HOME/.tool-versions | cut -d ' ' -f 1 | sort | uniq)
+for p in $plugins; do
+    asdf plugin add $p
+done
+
+echo "installing asdf versions..."
+asdf install

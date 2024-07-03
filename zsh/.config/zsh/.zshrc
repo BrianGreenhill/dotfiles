@@ -43,6 +43,7 @@ bindkey -v '^?' backward-delete-char
 [[ -e ~/.fzf.zsh ]] && source ~/.fzf.zsh
 [[ -e ~/.config/zsh/.aliases ]] && source ~/.config/zsh/.aliases
 [[ -e /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+[[ -e ~/.asdf/asdf.sh ]] && source ~/.asdf/asdf.sh
 
 ## functions
 commitDotFiles() {
@@ -70,9 +71,6 @@ search_contents() {
 # Bind the custom function to Ctrl-G
 zle -N search_contents
 bindkey '^G' search_contents
-eval "$(rbenv init -)"
 eval "$(direnv hook zsh)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 eval "$(zoxide init zsh)"
 #zprof

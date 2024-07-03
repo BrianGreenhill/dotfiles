@@ -27,6 +27,6 @@ cmp.setup {
         ["<C-space>"] = cmp.mapping.complete(),
     },
     formatting = { fields = { "kind", "abbr", "menu" } },
-    sources = cmp.config.sources({ { name = "nvim_lsp" } }),
+    sources = cmp.config.sources({ { name = "nvim_lsp", { name = "cmdline" } } }),
 }
 require("nvim-autopairs").setup {}

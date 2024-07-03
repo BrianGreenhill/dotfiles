@@ -3,7 +3,7 @@ require("nvim-treesitter.configs").setup({
     ignore_install = {},
     modules = {},
     auto_install = false,
-    ensure_installed = { "go", "lua", "rust", "bash", "typescript", "javascript", "ruby" },
+    ensure_installed = { "go", "lua", "rust", "bash", "typescript", "javascript", "ruby", "vimdoc" },
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
