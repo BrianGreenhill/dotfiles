@@ -1,15 +1,16 @@
-require("core.options")
-require("core.keymap")
+vim.g.mapleader = ' '      -- set leader to space
+vim.g.maplocalleader = ' ' -- set local leader to space
 
--- Install vim-plug if not already installed
-local plug_install_path = vim.fn.stdpath('data') .. '/site/autoload/plug.vim'
-if vim.fn.empty(vim.fn.glob(plug_install_path)) > 0 then
-    vim.fn.system({
-        'sh', '-c',
-        'curl -fLo ' .. plug_install_path .. ' --create-dirs ' ..
-        'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    })
-    vim.cmd [[autocmd VimEnter * PlugInstall | source $MYVIMRC]]
-end
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+end ---@diagnostic disable-next-line: undefined-field
+vim.opt.rtp:prepend(lazypath)
 
-require("plugins")
+-- Set up lazy, and load my `lua/custom/plugins/` folder
+require("lazy").setup({ import = "custom/plugins" }, {
+  change_detection = {
+    notify = false,
+  },
+})

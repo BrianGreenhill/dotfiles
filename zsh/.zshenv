@@ -34,7 +34,6 @@ prompt:#9ccfd8,\
 hl+:#ebbcba"
 
 export FZF_DEFAULT_OPTS="--height 60% \
---tmux \
 --border sharp \
 --layout reverse \
 --color='$FZF_COLORS' \
@@ -43,8 +42,7 @@ export FZF_DEFAULT_OPTS="--height 60% \
 --marker ⇒"
 
 export FZF_CTRL_T_OPTS="
---tmux --preview 'bat --color=always --style=numbers --line-range :500 {}' --preview-window=right:60%"
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -n 10'"
+--preview 'bat --color=always --style=numbers --line-range :500 {}' --preview-window=right:60%"
 export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
 
 # go

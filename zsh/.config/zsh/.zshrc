@@ -15,8 +15,6 @@ eval "$(direnv hook zsh)"
 [[ -e ~/.local/bin/z.sh ]] && source ~/.local/bin/z.sh
 [[ -e ~/.config/zsh/.aliases ]] && source ~/.config/zsh/.aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[[ -e ~/.asdf/asdf.sh ]] && source ~/.asdf/asdf.sh
-[[ -f ~/.fzf-tab/fzf-tab.plugin.zsh ]] && source ~/.fzf-tab/fzf-tab.plugin.zsh
 
 bindkey -v
 export KEYTIMEOUT=1
@@ -50,5 +48,4 @@ search_contents() {
 # # Bind the custom function to Ctrl-G
 zle -N search_contents
 bindkey '^G' search_contents
-
 # zprof

@@ -11,6 +11,9 @@ alias lsd='ls -l | grep "^d"'
 # Tree view of directories and files, up to 2 levels deep
 alias lt='tree -L 2'
 
+alias l="eza -l --icons --git -a"
+alias t="eza --tree --level=2 --icons"
+
 # docker
 alias dc='docker-compose'
 alias dce='docker-compose exec'

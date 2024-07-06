@@ -33,20 +33,8 @@ for dir in $directories; do
     stow -R $dir
 done
 
-if [[ $(which asdf) == "" ]]; then
-    echo "asdf is not installed. installing..."
-    brew install asdf
-    . $(brew --prefix asdf)/libexec/asdf.sh
+if [[ $(which nix-env) ]]; then
+    echo "installing nix packages..."
+    NIX_SYSTEM_PACKAGES_CONFIG="$HOME/.dotfiles/nix/system-packages.nix"
+    nix-env -if "$NIX_SYSTEM_PACKAGES_CONFIG"
 fi
-
-echo "installing asdf plugins..."
-plugins=$(cat $HOME/.tool-versions | cut -d ' ' -f 1 | sort | uniq)
-for p in $plugins; do
-    asdf plugin add $p
-done
-
-echo "installing asdf versions..."
-# https://github.com/aphecetche/asdf-tmux/pull/9
-export TMUX_CONFIGURE_OPTIONS="--enable-utf8proc"
-asdf install
-unset TMUX_CONFIGURE_OPTIONS
