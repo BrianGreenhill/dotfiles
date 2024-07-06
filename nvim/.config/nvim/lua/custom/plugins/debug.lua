@@ -23,6 +23,9 @@ return {
     vim.keymap.set('n', '<F12>', dap.restart, { desc = 'Debug: Restart' })
     vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
     vim.keymap.set('n', '<leader>gb', dap.run_to_cursor, { desc = 'Debug: Run to Cursor' })
+    vim.keymap.set('n', '<leader>?', function()
+      dapui.eval(nil, { enter = true })
+    end, { desc = 'Debug: Inspect' })
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
