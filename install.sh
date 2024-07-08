@@ -8,11 +8,13 @@ directories=$(find . -maxdepth 1 -type d -not -name ".*" | sed 's|./||')
 
 # check if CODESPACES env var is true
 if [[ $CODESPACES == "true" ]]; then
+    export XDG_CONFIG_HOME=~/.config
     echo "installing package dependencies"
     sudo apt-get -y -q install ripgrep fzf
     echo "creating symlinks..."
     directories=("tmux" "nvim")
-    for dir in $directories; do
+    for i in "${directories[@]}"; do
+        dir=${directories[$i]}
         ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/$dir/.config/$dir ~/.config/$dir
     done
     echo "symlinks created"
