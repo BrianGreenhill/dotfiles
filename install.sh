@@ -13,14 +13,11 @@ if [[ $CODESPACES == "true" ]]; then
     sudo apt-get -y -q install ripgrep fzf
     echo "creating symlinks..."
     directories=("tmux" "nvim")
-    for i in "${directories[@]}"; do
-        dir=${directories[$i]}
+    for dir in "${directories[@]}"; do
+        echo "symlinked $dir..."
         ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/$dir/.config/$dir ~/.config/$dir
     done
-    echo "symlinks created"
-    export EDITOR=nvim
-    echo "EDITOR set to nvim"
-    echo "alias vim=nvim" >>~/.bashrc
+    echo "done"
     exit 0
 fi
 
