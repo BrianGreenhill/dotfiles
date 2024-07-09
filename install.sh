@@ -8,7 +8,8 @@ directories=$(find . -maxdepth 1 -type d -not -name ".*" | sed 's|./||')
 
 # check if CODESPACES env var is true
 if [[ $CODESPACES == "true" ]]; then
-    export XDG_CONFIG_HOME=~/.config
+    echo "installing nvim"
+    ./workspaces/.codespaces/.persistedshare/dotfiles/bin/.local/bin/build-nvim-debian.sh
     echo "installing package dependencies"
     sudo apt-get -y -q install ripgrep fzf
     echo "creating symlinks..."
