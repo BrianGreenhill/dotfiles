@@ -1,6 +1,0 @@
-================================================================================
-INTRODUCTION                                                  *brian-config*
-
-This is my nvim configuration
-
- vim:tw=80:ts=8:ft=help:norl:
