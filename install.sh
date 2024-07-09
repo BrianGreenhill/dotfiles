@@ -18,6 +18,8 @@ if [[ $CODESPACES == "true" ]]; then
         echo "symlinked $dir..."
         ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/$dir/.config/$dir ~/.config/$dir
     done
+    rbenv install 3.3.1 >&3 2>&1
+    rbenv global 3.3.1
     echo "done"
     exit 0
 fi
