@@ -8,19 +8,20 @@ directories=$(find . -maxdepth 1 -type d -not -name ".*" | sed 's|./||')
 
 # check if CODESPACES env var is true
 if [[ $CODESPACES == "true" ]]; then
-    echo "installing nvim"
-    /workspaces/.codespaces/.persistedshare/dotfiles/bin/.local/bin/build-nvim-debian.sh
+    # echo "installing nvim"
+    # /workspaces/.codespaces/.persistedshare/dotfiles/bin/.local/bin/build-nvim-debian.sh
     echo "installing package dependencies"
     sudo apt-get -y -q install ripgrep fzf python3.8-venv
+    pushd /workspaces/.codespaces/.persistedshare/dotfiles
+    git submodule update --init --recursive
     echo "creating symlinks..."
     directories=("tmux" "nvim")
     for dir in "${directories[@]}"; do
         echo "symlinked $dir..."
         ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/$dir/.config/$dir ~/.config/$dir
     done
-    rbenv install 3.3.1 -s
-    rbenv global 3.3.1
     echo "done"
+    popd
     exit 0
 fi
 
