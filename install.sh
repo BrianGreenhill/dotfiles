@@ -11,7 +11,7 @@ if [[ $CODESPACES == "true" ]]; then
     echo "installing nvim"
     /workspaces/.codespaces/.persistedshare/dotfiles/bin/.local/bin/build-nvim-debian.sh
     echo "installing package dependencies"
-    sudo apt-get -y -q install ripgrep fzf
+    sudo apt-get -y -q install ripgrep fzf python3.8-venv
     echo "creating symlinks..."
     directories=("tmux" "nvim")
     for dir in "${directories[@]}"; do
