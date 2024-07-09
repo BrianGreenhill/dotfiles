@@ -8,10 +8,8 @@ directories=$(find . -maxdepth 1 -type d -not -name ".*" | sed 's|./||')
 
 # check if CODESPACES env var is true
 if [[ $CODESPACES == "true" ]]; then
-    # echo "installing nvim"
-    # /workspaces/.codespaces/.persistedshare/dotfiles/bin/.local/bin/build-nvim-debian.sh
     echo "installing package dependencies"
-    sudo apt-get -y -q install ripgrep fzf python3.8-venv
+    sudo apt-get -y -q install ripgrep fzf
     pushd /workspaces/.codespaces/.persistedshare/dotfiles
     git submodule update --init --recursive
     echo "creating symlinks..."
