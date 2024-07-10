@@ -21,9 +21,20 @@ export KEYTIMEOUT=1
 
 ## functions
 commitDotFiles() {
+    commitNvimConfig
+
     pushd $DOTFILES
+    git submodule foreach git pull origin main
     git add .
     git commit -m "another dotfiles commit..."
+    git push origin main
+    popd
+}
+
+commitNvimConfig() {
+    pushd ~/Projects/Personal/config.nvim
+    git add .
+    git commit -m "another nvim commit..."
     git push origin main
     popd
 }
