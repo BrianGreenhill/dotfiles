@@ -40,9 +40,3 @@ for dir in $directories; do
     echo "stowing $dir..."
     stow -R $dir
 done
-
-if [[ $(which nix-env) ]]; then
-    echo "installing nix packages..."
-    NIX_SYSTEM_PACKAGES_CONFIG="$HOME/.dotfiles/nix/system-packages.nix"
-    nix-env -if "$NIX_SYSTEM_PACKAGES_CONFIG"
-fi
