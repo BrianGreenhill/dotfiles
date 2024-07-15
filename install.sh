@@ -17,9 +17,9 @@ if [[ $CODESPACES == "true" ]]; then
     directories=("tmux" "nvim")
     for dir in "${directories[@]}"; do
         echo "symlinked $dir..."
-        ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/$dir/.config/$dir ~/.config/$dir
+        ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/"$dir"/.config/"$dir" ~/.config/"$dir"
     done
-    echo "==> install vim plugins"
+    echo "==> nvim plugins"
     nvim --headless +PlugInstall +qall
     echo "==> installing ruby"
     rbenv install 3.3.1 -s
@@ -36,7 +36,7 @@ if [[ $(which stow) == "" ]]; then
 fi
 
 # ensure this runs from the user home directory
-for dir in $directories; do
+for dir in "${directories[@]}"; do
     echo "stowing $dir..."
-    stow -R $dir
+    stow -R "$dir"
 done

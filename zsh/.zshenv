@@ -20,23 +20,9 @@ export MANPAGER='nvim +Man!'
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-FZF_COLORS="bg+:-1,\
-bg:#232136,\
-spinner:#9ccfd8,\
-hl:#ebbcba,\
-fg:#e0def4,\
-header:#9ccfd8,\
-info:#9ccfd8,\
-pointer:#ebbcba,\
-marker:#ebbcba,\
-fg+:#e0def4,\
-prompt:#9ccfd8,\
-hl+:#ebbcba"
-
 export FZF_DEFAULT_OPTS="--height 60% \
 --border sharp \
 --layout reverse \
---color='$FZF_COLORS' \
 --prompt '∷ ' \
 --pointer ▶ \
 --marker ⇒"
@@ -55,9 +41,6 @@ export GONOPROXY=
 export GONOSUMDB='github.com/github/*'
 
 # dotfiles
-# TERMINAL = wezterm|kitty|alacritty
-export TERMINAL="alacritty"
-export STOW_FOLDERS="bin,nvim,tmux,personal,zsh,${TERMINAL}"
 export CLICOLOR=1
 export BAT_THEME=rose-pine-moon
 export HOMEBREW_NO_AUTO_UPDATE=1
