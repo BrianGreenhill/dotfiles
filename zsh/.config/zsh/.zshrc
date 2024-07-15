@@ -43,4 +43,3 @@ alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-eval "$(rbenv init - zsh)"
