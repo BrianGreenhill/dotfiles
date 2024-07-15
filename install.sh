@@ -6,10 +6,19 @@ set -e
 # exclude directories that start with a dot
 directories=$(find . -maxdepth 1 -type d -not -name ".*" | sed 's|./||')
 
+function installfzf() {
+    if [[ -z $CODESPACES  ]]; then echo "CODESPACES env var is not set"; exit 1; fi
+    echo "==> installing latest fzf..."
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install --all
+    echo 'source ~/.fzf.bash' >>~/.bashrc
+    source ~/.bashrc
+    fzf --version
+    echo "done"
+}
+
 # check if CODESPACES env var is true
 if [[ $CODESPACES == "true" ]]; then
-    echo "installing fzf"
-    sudo apt-get -y -q install fzf
     echo "pulling nvim config"
     pushd /workspaces/.codespaces/.persistedshare/dotfiles
     git submodule update --init --recursive
@@ -21,10 +30,11 @@ if [[ $CODESPACES == "true" ]]; then
     done
     echo "==> nvim plugins"
     nvim --headless +PlugInstall +qall
+    installfzf
     echo "==> installing ruby"
     rbenv install 3.3.1 -s
     rbenv global 3.3.1
-    sudo apt install python3.8-venv -y -q
+    sudo apt-get install python3.8-venv -y -q
     echo "done"
     popd
     exit 0
