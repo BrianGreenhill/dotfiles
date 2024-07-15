@@ -1,62 +1,45 @@
 autoload -Uz compinit && compinit
 autoload -U colors && colors
-autoload -U promptinit; promptinit; prompt pure
-
-# https://zsh.sourceforge.io/Doc/Release/Options.html
-# # Set options for history and shell behavior
-setopt AUTO_MENU ALWAYS_TO_END COMPLETE_ALIASES LIST_PACKED
-setopt AUTO_PARAM_KEYS AUTO_PARAM_SLASH AUTO_REMOVE_SLASH EXTENDED_HISTORY
-setopt SHARE_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS
-setopt HIST_IGNORE_ALL_DUPS HIST_FIND_NO_DUPS HIST_IGNORE_SPACE
-setopt HIST_SAVE_NO_DUPS HIST_VERIFY
-
-eval "$(direnv hook zsh)"
-
-[[ -e ~/.local/bin/z.sh ]] && source ~/.local/bin/z.sh
-[[ -e ~/.config/zsh/.aliases ]] && source ~/.config/zsh/.aliases
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 bindkey -v
 export KEYTIMEOUT=1
 
-## functions
-commitDotFiles() {
-    commitNvimConfig
+alias lt='tree -L 2'
+alias ll='eza -l --icons -a'
+alias l="eza -l --icons --git -a"
+alias t="eza --tree --level=2 --icons"
+alias vim='nvim'
+alias k='kubectl'
+alias kg='kubectl get'
+alias kgp='kubectl get pod'
+alias kd='kubectl describe'
+alias kdp='kubectl describe pod'
+alias kexec='kubectl exec -i'
+alias klog='kubectl logs -f'
+alias kpf='kubectl port-forward'
+alias kctx='kubectx'
+alias kns='kubens'
+alias g='git'
+alias gcl='git clone'
+alias gap='git add -p'
+alias gpristine='git reset --hard && git clean -dfx'
+alias gst='git status'
+alias gl='git pull'
+alias gp='git push'
+alias gpuo="git push --set-upstream origin"
+alias branch="git branch | grep \* | cut -d ' ' -f2"
+alias gd='git diff'
+alias gcm='git commit -v -m'
+alias gco='git checkout'
+alias gcom='git checkout main'
+alias gcoma='git checkout master'
+alias gcb='git checkout -b'
+alias gb="git branch"
+alias gbclean="git branch --merged | grep -v main | xargs git branch -d"
+alias rg="rg --hidden --glob=!.git/"
+alias grep='grep --color=auto'
+alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
-    pushd $DOTFILES
-    git submodule foreach git pull origin main
-    git add .
-    git commit -m "another dotfiles commit..."
-    git push origin main
-    popd
-}
-
-commitNvimConfig() {
-    pushd ~/Projects/Personal/config.nvim
-    git add .
-    git commit -m "another nvim commit..."
-    git push origin main
-    popd
-}
-
-# Custom function to search file contents with rg and fzf
-search_contents() {
-    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --hidden --glob '!.git/*' --ignore-file '.gitignore'"
-    INITIAL_QUERY=""
-
-    # Use fzf with ripgrep to search file contents
-    # append selection to nvim and open to the line number
-    # preview the file contents
-    fzf --ansi --query="$INITIAL_QUERY" \
-        --bind "change:reload:$RG_PREFIX {q} || true" \
-        --delimiter : \
-        --tmux \
-        --preview 'preview.sh {1} {2}' \
-        --preview-window=right:60%:wrap \
-        --phony
-}
-
-# # Bind the custom function to Ctrl-G
-zle -N search_contents
-bindkey '^G' search_contents
-# zprof
+. ~/.fzf.zsh
+eval "$(direnv hook zsh)"
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"

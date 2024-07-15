@@ -1,35 +1,11 @@
-lsflags="--color=auto"
-
-alias ls="ls ${lsflags}"
-
-# List all files including hidden files, human-readable sizes, and type indicators
-alias ll='ls -lhaF ${lsflags}'
-
-# List only directories
-alias lsd='ls -l | grep "^d"'
-
 # Tree view of directories and files, up to 2 levels deep
+alias ll='ls -lah'
 alias lt='tree -L 2'
-
 alias l="eza -l --icons --git -a"
 alias t="eza --tree --level=2 --icons"
 
-# docker
-alias dc='docker-compose'
-alias dce='docker-compose exec'
-alias dcl='docker-compose logs -f'
-alias dcp='docker-compose ps'
-alias dcr='docker-compose restart'
-alias dcd='docker-compose down -v'
-
 # nvim
 alias vim='nvim'
-
-# terraform
-alias tf='terraform'
-alias tfp='terraform plan'
-alias tfa='terraform apply'
-alias tfi='terraform init'
 
 # kube
 alias k='kubectl'
@@ -57,6 +33,7 @@ alias gd='git diff'
 alias gcm='git commit -v -m'
 alias gco='git checkout'
 alias gcom='git checkout main'
+alias gcoma='git checkout master'
 alias gcb='git checkout -b'
 alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
 alias gb="git branch"
