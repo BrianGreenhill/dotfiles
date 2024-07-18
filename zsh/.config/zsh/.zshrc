@@ -3,6 +3,10 @@ autoload -U colors && colors
 bindkey -v
 export KEYTIMEOUT=1
 
+mountain="󰋵"
+prmpt="❯"
+export PS1="%F{green} "$mountain"  %~%f %F{red}"$prmpt"%f "
+
 alias lt='tree -L 2'
 alias ll='eza -l --icons -a'
 alias l="eza -l --icons --git -a"
@@ -41,5 +45,5 @@ alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
 . ~/.fzf.zsh
 eval "$(direnv hook zsh)"
-eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(rbenv init - zsh)"

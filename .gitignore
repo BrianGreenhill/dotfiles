@@ -6,3 +6,4 @@ node_modules
 z.sh
 nvim/.config/nvim/plugged
 tmux/.config/tmux/plugins
+tags
