@@ -3,16 +3,25 @@
 set -e
 
 function help() {
-    echo "========================================="
-    echo " [Commit] - commit dotfiles changes"
+    echo '=========================================================='
+    echo '         ______                                         '
+    echo '  __________  /________      ________ _________ _______ '
+    echo '  __  ___/_  /_  __ \_ | /| / /_  __ `__ \  __ `/_  __ \'
+    echo '  _(__  )_  / / /_/ /_ |/ |/ /_  / / / / / /_/ /_  / / /'
+    echo '  /____/ /_/  \____/____/|__/ /_/ /_/ /_/\__,_/ /_/ /_/'
     echo ""
-    echo "Requires: git, DOTFILES env variable"
-    echo "and config.nvim directory"
+    echo "  [commit.sh] - commit dotfiles changes"
     echo ""
-    echo "Usage: commit.sh [dot|nvim|all]"
-    echo "========================================="
+    echo " Usage:"
+    echo "  commit.sh dot - commit dotfiles"
+    echo "  commit.sh nvim - commit nvim"
+    echo "  commit.sh obsidian - commit obsidian"
+    echo ""
+    echo '========================================================='
     exit 1
 }
+
+if [[ -z "$1" ]]; then help; fi
 
 function commitDot() {
     pushd "$DOTFILES"
@@ -31,9 +40,14 @@ function commitNvim() {
     popd
 }
 
-if [[ -z "$1" ]]; then help; fi
-if [[ ! -d "$DOTFILES" ]]; then help; fi
-if [[ ! -d ~/Projects/Personal/config.nvim ]]; then help; fi
+function commitObsidian() {
+    pushd ~/Projects/Personal/hoard
+    git add .
+    git commit -m "another obsidian commit..."
+    git push origin main
+    popd
+}
+
 
 case $1 in
     dot)
@@ -44,10 +58,9 @@ case $1 in
         commitNvim
         echo "nvim commit done..."
         ;;
-    all)
-        commitNvim
-        commitDot
-        echo "all commit done..."
+    obsidian)
+        commitObsidian
+        echo "obsidian commit done..."
         ;;
     *)
         help
