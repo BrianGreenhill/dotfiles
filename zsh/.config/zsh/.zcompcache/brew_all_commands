@@ -1,0 +1,4 @@
+list=( ${(Q)"${(z)$(<<\EO:list
+'bootstrap-jenv-java' 'bootstrap-nodenv-node' 'bootstrap-rbenv-ruby' 'bundle' 'macos-vscode-codespaces' 'report-issue' 'services' 'setup-nginx-conf' 'upgrade-mysql' 'vendor-gem'
+EO:list
+)}"} )

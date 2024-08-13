@@ -12,8 +12,6 @@ function installfzf() {
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install --all
     echo 'source ~/.fzf.bash' >>~/.bashrc
-    source ~/.bashrc
-    fzf --version
     echo "done"
 }
 
@@ -48,5 +46,5 @@ fi
 # ensure this runs from the user home directory
 for dir in "${directories[@]}"; do
     echo "stowing $dir..."
-    stow -R "$dir"
+    stow "$dir"
 done

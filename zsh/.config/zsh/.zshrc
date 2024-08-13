@@ -1,17 +1,21 @@
 autoload -Uz compinit && compinit
 autoload -U colors && colors
-bindkey -v
+bindkey -e
+
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+
 export KEYTIMEOUT=1
 
 mountain="󰋵"
 prmpt="❯"
 export PS1="%F{green} "$mountain"  %~%f %F{red}"$prmpt"%f "
 
-alias lt='tree -L 2'
-alias ll='eza -l --icons -a'
-alias l="eza -l --icons --git -a"
-alias t="eza --tree --level=2 --icons"
+alias ll='ls -alh'
 alias vim='nvim'
+alias v='nvim'
+alias dcp='docker compose'
+alias dcd='docker compose down -v'
 alias k='kubectl'
 alias kg='kubectl get'
 alias kgp='kubectl get pod'

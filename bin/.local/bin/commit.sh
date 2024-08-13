@@ -3,12 +3,7 @@
 set -e
 
 function help() {
-    echo '=========================================================='
-    echo '         ______                                         '
-    echo '  __________  /________      ________ _________ _______ '
-    echo '  __  ___/_  /_  __ \_ | /| / /_  __ `__ \  __ `/_  __ \'
-    echo '  _(__  )_  / / /_/ /_ |/ |/ /_  / / / / / /_/ /_  / / /'
-    echo '  /____/ /_/  \____/____/|__/ /_/ /_/ /_/\__,_/ /_/ /_/'
+    echo ' slowman - a slow but powerful pokemon'
     echo ""
     echo "  [commit.sh] - commit dotfiles changes"
     echo ""
@@ -16,50 +11,40 @@ function help() {
     echo "  commit.sh dot - commit dotfiles"
     echo "  commit.sh nvim - commit nvim"
     echo "  commit.sh obsidian - commit obsidian"
-    echo ""
-    echo '========================================================='
     exit 1
+}
+
+function _changes_made() {
+    changes_made=$(git status --porcelain)
+    if [[ -z "$changes_made" ]]; then
+        echo "No changes to commit..."
+        exit 0
+    fi
 }
 
 if [[ -z "$1" ]]; then help; fi
 
-function commitDot() {
-    pushd "$DOTFILES"
-    git submodule foreach git pull origin main
+function commit() {
+    pushd "$1"
+    _changes_made
     git add .
-    git commit -m "another dotfiles commit..."
+    git commit -m "[automated] sync from commit.sh"
     git push origin main
     popd
 }
-
-function commitNvim() {
-    pushd ~/Projects/Personal/config.nvim
-    git add .
-    git commit -m "another nvim commit..."
-    git push origin main
-    popd
-}
-
-function commitObsidian() {
-    pushd ~/Projects/Personal/hoard
-    git add .
-    git commit -m "another obsidian commit..."
-    git push origin main
-    popd
-}
-
 
 case $1 in
     dot)
-        commitDot
+        commit "$HOME/projects/dotfiles"
         echo "dotfiles commit done..."
         ;;
     nvim)
-        commitNvim
+        commit "$HOME/projects/config.nvim"
         echo "nvim commit done..."
         ;;
     obsidian)
-        commitObsidian
+        commit "$HOME/Documents/obsidian/hoard"
+        commit "$HOME/Documents/obsidian/github"
         echo "obsidian commit done..."
         ;;
     *)
