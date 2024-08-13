@@ -50,4 +50,4 @@ alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 . ~/.fzf.zsh
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
-eval "$(rbenv init - zsh)"
+# eval "$(rbenv init - zsh)"
