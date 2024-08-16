@@ -38,9 +38,7 @@ vim.call("plug#begin")
 -- Plug("ibhagwan/fzf-lua", { branch = "main" })
 Plug("folke/lazydev.nvim")
 Plug("hrsh7th/cmp-nvim-lsp")
-Plug("hrsh7th/cmp-buffer")
 Plug("hrsh7th/cmp-path")
-Plug("hrsh7th/cmp-cmdline")
 Plug("hrsh7th/nvim-cmp")
 Plug("leoluz/nvim-dap-go")
 Plug("mfussenegger/nvim-dap")
@@ -55,6 +53,7 @@ Plug("rebelot/kanagawa.nvim")
 Plug("stevearc/conform.nvim")
 Plug("stevearc/oil.nvim")
 Plug("tpope/vim-fugitive")
+Plug("onsails/lspkind.nvim")
 Plug("zbirenbaum/copilot.lua")
 Plug("windwp/nvim-autopairs")
 Plug("williamboman/mason.nvim")
@@ -91,8 +90,29 @@ telescope.setup({
     },
 })
 require("telescope").load_extension("fzf")
-set("n", "<leader>sf", builtin.find_files)
-set("n", "<leader>s/", builtin.live_grep)
+set("n", "<leader>sf", function()
+    builtin.find_files({
+        find_command = {
+            "fd",
+            "--type",
+            "f",
+            "--hidden",
+            "--follow",
+            "--exclude",
+            ".git",
+            "--exclude",
+            "vendor",
+            "--exclude",
+            "node_modules",
+        },
+    })
+end)
+set("n", "<leader>s/", function()
+    builtin.live_grep({
+        ignore_patterns = { ".git", "vendor", "node_modules" },
+        additional_args = { "-u" },
+    })
+end)
 set("n", "<leader>sh", builtin.help_tags)
 set("n", "<leader>sq", builtin.quickfix)
 set("n", "<leader>st", builtin.tags)
@@ -145,6 +165,7 @@ for _, lsp in pairs(servers) do
     })
 end
 
+local lspkind = require("lspkind")
 local cmp = require("cmp")
 cmp.setup({
     snippet = {
@@ -167,11 +188,18 @@ cmp.setup({
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
+    formatting = {
+        format = lspkind.cmp_format({
+            with_text = true,
+            menu = {
+                nvim_lsp = "[LSP]",
+                path = "[Path]",
+            },
+        }),
+    },
     sources = {
         { name = "nvim_lsp" },
         { name = "path" },
-        { name = "buffer" },
-        { name = "cmdline" },
     },
 })
 
