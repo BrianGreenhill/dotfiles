@@ -7,6 +7,8 @@ export SSH_AUTH_SOCKET=$HOME/.gnupg/S.gpg-agent.ssh
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/sbin::/usr/local/bin:$PATH
 export PATH=$HOME/.rbenv/shims:$PATH
 export PATH=$HOME/.config/local/share/nvim/mason/bin:$PATH
+export PATH=$HOMEBREW_PREFIX/lib/ruby/gems/3.3.0/bin:$PATH
+export PATH=/opt/homebrew/opt/ruby/bin:$PATH
 export PATH="$GOBIN:$PATH"
 
 # Added by OrbStack: command-line tools and integration

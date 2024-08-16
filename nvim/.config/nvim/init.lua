@@ -35,7 +35,7 @@ set("n", "<leader>cr", "<cmd>:so ~/.config/nvim/init.lua<cr>", { desc = "[C]onfi
 local Plug = vim.fn["plug#"]
 vim.call("plug#begin")
 
--- Plug("ibhagwan/fzf-lua", { branch = "main" })
+Plug("ibhagwan/fzf-lua", { branch = "main" })
 Plug("folke/lazydev.nvim")
 Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-path")
@@ -77,71 +77,25 @@ require("nvim-treesitter.configs").setup({
     additional_vim_regex_highlighting = { "markdown", "ruby" },
 })
 require("mason").setup()
-local telescope = require("telescope")
-local builtin = require("telescope.builtin")
-telescope.setup({
-    extensions = {
-        fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-        },
-    },
+local fzflua = require("fzf-lua")
+fzflua.setup({
+    "max-perf",
+    keymap = { fzf = { ["ctrl-q"] = "select-all+accept" } },
+    winopts = { preview = { default = false } },
 })
-require("telescope").load_extension("fzf")
-set("n", "<leader>sf", function()
-    builtin.find_files({
-        find_command = {
-            "fd",
-            "--type",
-            "f",
-            "--hidden",
-            "--follow",
-            "--exclude",
-            ".git",
-            "--exclude",
-            "vendor",
-            "--exclude",
-            "node_modules",
-        },
-    })
-end)
-set("n", "<leader>s/", function()
-    builtin.live_grep({
-        ignore_patterns = { ".git", "vendor", "node_modules" },
-        additional_args = { "-u" },
-    })
-end)
-set("n", "<leader>sh", builtin.help_tags)
-set("n", "<leader>sq", builtin.quickfix)
-set("n", "<leader>st", builtin.tags)
-set("n", "<leader>sn", function()
-    builtin.find_files({ cwd = vim.fn.stdpath("config") })
-end)
-set("n", "<leader>sd", function()
-    builtin.find_files({ cwd = vim.env.HOME .. "/projects/dotfiles" })
-end)
-set("n", "<leader>so", function()
-    builtin.find_files({ cwd = vim.env.HOME .. "/projects/obsidian/hoard" })
-end)
--- local fzflua = require("fzf-lua")
--- fzflua.setup({
--- 	"max-perf",
--- 	keymap = { fzf = { ["ctrl-q"] = "select-all+accept" } },
--- })
--- local files_cwd = function(cwd)
--- 	return function()
--- 		fzflua.files(cwd)
--- 	end
--- end
--- set("n", "<leader>sf", fzflua.files)
--- set("n", "<leader>sh", fzflua.help_tags)
--- set("n", "<leader>s/", fzflua.live_grep_native)
--- set("n", "<leader>sq", fzflua.quickfix)
--- set("n", "<leader>sn", files_cwd({ cwd = vim.fn.stdpath("config") }))
--- set("n", "<leader>sd", files_cwd({ cwd = vim.env.HOME .. "/projects/dotfiles" }))
--- set("n", "<leader>so", files_cwd({ cwd = vim.env.HOME .. "/Documents/obsidian/hoard" }))
+local files_cwd = function(cwd)
+    return function()
+        fzflua.files(cwd)
+    end
+end
+set("n", "<leader>sf", fzflua.files)
+set("n", "<leader>sh", fzflua.help_tags)
+set("n", "<leader>s/", fzflua.live_grep_native)
+set("n", "<leader>sq", fzflua.quickfix)
+set("n", "<leader><leader>", fzflua.resume)
+set("n", "<leader>sn", files_cwd({ cwd = vim.fn.stdpath("config") }))
+set("n", "<leader>sd", files_cwd({ cwd = vim.env.HOME .. "/projects/dotfiles" }))
+set("n", "<leader>so", files_cwd({ cwd = vim.env.HOME .. "/projects/obsidian/hoard" }))
 require("copilot").setup({
     suggestion = {
         auto_trigger = true,
@@ -212,11 +166,12 @@ local lspaucmdcfg = {
         end
 
         map("<leader>le", vim.diagnostic.open_float, "[L]ist [E]rrors")
-        map("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
-        map("gr", builtin.lsp_references, "[G]oto [R]eferences")
-        map("gi", builtin.lsp_implementations, "[G]oto [I]mplementations")
-        -- map("gr", fzflua.lsp_references, "[G]oto [R]eferences")
-        -- map("gi", fzflua.lsp_implementations, "[G]oto [I]mplementations")
+        -- map("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
+        -- map("gr", builtin.lsp_references, "[G]oto [R]eferences")
+        -- map("gi", builtin.lsp_implementations, "[G]oto [I]mplementations")
+        map("gd", fzflua.lsp_definitions, "[G]oto [D]efinition")
+        map("gr", fzflua.lsp_references, "[G]oto [R]eferences")
+        map("gi", fzflua.lsp_implementations, "[G]oto [I]mplementations")
         map("rn", vim.lsp.buf.rename, "[R]e[n]ame")
         map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
