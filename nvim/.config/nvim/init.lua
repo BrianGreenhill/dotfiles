@@ -57,10 +57,8 @@ Plug("onsails/lspkind.nvim")
 Plug("zbirenbaum/copilot.lua")
 Plug("windwp/nvim-autopairs")
 Plug("williamboman/mason.nvim")
-Plug("ThePrimeagen/harpoon", { branch = "harpoon2" })
 Plug("nvim-lua/plenary.nvim")
-Plug("nvim-telescope/telescope-fzf-native.nvim", { ["do"] = "make" })
-Plug("nvim-telescope/telescope.nvim", { branch = "0.1.x" })
+Plug("ThePrimeagen/harpoon", { branch = "harpoon2" })
 vim.call("plug#end")
 
 require("kanagawa").setup({ transparent = true })
@@ -81,7 +79,9 @@ local fzflua = require("fzf-lua")
 fzflua.setup({
     "max-perf",
     keymap = { fzf = { ["ctrl-q"] = "select-all+accept" } },
-    winopts = { preview = { default = false } },
+    winopts = {
+        preview = { hidden = "hidden" },
+    },
 })
 local files_cwd = function(cwd)
     return function()
@@ -90,12 +90,22 @@ local files_cwd = function(cwd)
 end
 set("n", "<leader>sf", fzflua.files)
 set("n", "<leader>sh", fzflua.help_tags)
-set("n", "<leader>s/", fzflua.live_grep_native)
+set("n", "<leader>s/", fzflua.grep)
 set("n", "<leader>sq", fzflua.quickfix)
-set("n", "<leader><leader>", fzflua.resume)
+set("n", "<leader><leader>", fzflua.live_grep_resume)
 set("n", "<leader>sn", files_cwd({ cwd = vim.fn.stdpath("config") }))
 set("n", "<leader>sd", files_cwd({ cwd = vim.env.HOME .. "/projects/dotfiles" }))
 set("n", "<leader>so", files_cwd({ cwd = vim.env.HOME .. "/projects/obsidian/hoard" }))
+
+local harpoon = require("harpoon")
+harpoon:setup()
+vim.keymap.set("n", "<leader>a", function()
+    harpoon:list():add()
+end)
+vim.keymap.set("n", "<C-e>", function()
+    harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+
 require("copilot").setup({
     suggestion = {
         auto_trigger = true,
@@ -166,9 +176,6 @@ local lspaucmdcfg = {
         end
 
         map("<leader>le", vim.diagnostic.open_float, "[L]ist [E]rrors")
-        -- map("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
-        -- map("gr", builtin.lsp_references, "[G]oto [R]eferences")
-        -- map("gi", builtin.lsp_implementations, "[G]oto [I]mplementations")
         map("gd", fzflua.lsp_definitions, "[G]oto [D]efinition")
         map("gr", fzflua.lsp_references, "[G]oto [R]eferences")
         map("gi", fzflua.lsp_implementations, "[G]oto [I]mplementations")
