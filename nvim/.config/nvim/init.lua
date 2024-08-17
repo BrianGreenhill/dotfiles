@@ -37,6 +37,7 @@ vim.call("plug#begin")
 
 Plug("ibhagwan/fzf-lua", { branch = "main" })
 Plug("folke/lazydev.nvim")
+Plug("folke/tokyonight.nvim")
 Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-path")
 Plug("hrsh7th/nvim-cmp")
@@ -49,7 +50,6 @@ Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" })
 Plug("nvim-treesitter/nvim-treesitter-context")
 Plug("ray-x/lsp_signature.nvim")
 Plug("rcarriga/nvim-dap-ui")
-Plug("rebelot/kanagawa.nvim")
 Plug("stevearc/conform.nvim")
 Plug("stevearc/oil.nvim")
 Plug("tpope/vim-fugitive")
@@ -61,19 +61,22 @@ Plug("nvim-lua/plenary.nvim")
 Plug("ThePrimeagen/harpoon", { branch = "harpoon2" })
 vim.call("plug#end")
 
-require("kanagawa").setup({ transparent = true })
-vim.cmd.colorscheme("kanagawa-dragon")
+require("tokyonight").setup({
+    style = "storm",
+    transparent = true,
+    styles = {
+        comments = { italic = false },
+        keywords = { italic = false },
+        sidebars = "transparent",
+        floats = "transparent",
+        plugins = { auto = false },
+    },
+})
+vim.cmd.colorscheme("tokyonight")
 set("n", "<leader>gs", "<cmd>:G<cr>")
 require("oil").setup()
 vim.keymap.set("n", "-", "<cmd>:Oil<cr>")
-require("nvim-treesitter.configs").setup({
-    ensure_installed = { "vimdoc", "markdown", "markdown_inline" },
-    sync_install = false,
-    auto_install = true,
-    highlight = { enable = true },
-    indent = { enable = true },
-    additional_vim_regex_highlighting = { "markdown", "ruby" },
-})
+require("nvim-treesitter.configs").setup({})
 require("mason").setup()
 local fzflua = require("fzf-lua")
 fzflua.setup({
@@ -81,6 +84,13 @@ fzflua.setup({
     keymap = { fzf = { ["ctrl-q"] = "select-all+accept" } },
     winopts = {
         preview = { hidden = "hidden" },
+    },
+    files = {
+        fd_opts = [[--color=never --type f --hidden --follow --exclude .git --exclude vendor]],
+    },
+    grep = {
+        rg_opts =
+        [[--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g !.git/ -g !vendor -e ]],
     },
 })
 local files_cwd = function(cwd)
@@ -122,13 +132,27 @@ require("nvim-autopairs").setup({})
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require("lspconfig")
-local servers = { "gopls", "yamlls", "sorbet", "tsserver", "lua_ls", "bashls" }
-for _, lsp in pairs(servers) do
-    lspconfig[lsp].setup({
-        capabilities = capabilities,
-    })
-end
-
+local opts = { capabilities = capabilities }
+lspconfig.gopls.setup(opts)
+lspconfig.yamlls.setup(opts)
+lspconfig.sorbet.setup(opts)
+lspconfig.tsserver.setup(opts)
+lspconfig.bashls.setup(opts)
+lspconfig.lua_ls.setup({
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            runtime = {
+                version = "LuaJIT",
+                path = vim.split(package.path, ";"),
+            },
+            diagnostics = {
+                globals = { "vim", "require" },
+                disable = { "missing-fields" },
+            },
+        },
+    },
+})
 local lspkind = require("lspkind")
 local cmp = require("cmp")
 cmp.setup({
@@ -153,6 +177,8 @@ cmp.setup({
         documentation = cmp.config.window.bordered(),
     },
     formatting = {
+        fields = { "abbr", "kind", "menu" },
+        expandable_indicator = true,
         format = lspkind.cmp_format({
             with_text = true,
             menu = {
