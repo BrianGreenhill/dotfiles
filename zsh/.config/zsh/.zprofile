@@ -15,4 +15,8 @@ export PATH="$GOBIN:$PATH"
 # Comment this line if you don't want it to be added again.
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ -f /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    eval "$(/usr/local/bin/brew shellenv)"
+fi

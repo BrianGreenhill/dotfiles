@@ -22,8 +22,6 @@ vim.opt.undoreload = 10000
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 5
 vim.opt.wrap = false
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.shortmess:append("c")
 
 local set = vim.keymap.set
 set("n", "<leader>w", "<cmd>:w<cr>")
@@ -40,8 +38,11 @@ Plug("folke/lazydev.nvim")
 Plug("folke/tokyonight.nvim")
 Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-path")
+Plug("hrsh7th/cmp-buffer")
+Plug("hrsh7th/cmp-cmdline")
 Plug("hrsh7th/nvim-cmp")
 Plug("leoluz/nvim-dap-go")
+Plug("mbbill/undotree")
 Plug("mfussenegger/nvim-dap")
 Plug("mfussenegger/nvim-lint")
 Plug("neovim/nvim-lspconfig")
@@ -53,6 +54,7 @@ Plug("rcarriga/nvim-dap-ui")
 Plug("stevearc/conform.nvim")
 Plug("stevearc/oil.nvim")
 Plug("tpope/vim-fugitive")
+Plug("tpope/vim-rails")
 Plug("onsails/lspkind.nvim")
 Plug("zbirenbaum/copilot.lua")
 Plug("windwp/nvim-autopairs")
@@ -62,15 +64,15 @@ Plug("ThePrimeagen/harpoon", { branch = "harpoon2" })
 vim.call("plug#end")
 
 require("tokyonight").setup({
-    style = "storm",
-    transparent = true,
-    styles = {
-        comments = { italic = false },
-        keywords = { italic = false },
-        sidebars = "transparent",
-        floats = "transparent",
-        plugins = { auto = false },
-    },
+	style = "storm",
+	transparent = true,
+	styles = {
+		comments = { italic = false },
+		keywords = { italic = false },
+		sidebars = "transparent",
+		floats = "transparent",
+		plugins = { auto = false },
+	},
 })
 vim.cmd.colorscheme("tokyonight")
 set("n", "<leader>gs", "<cmd>:G<cr>")
@@ -80,23 +82,22 @@ require("nvim-treesitter.configs").setup({})
 require("mason").setup()
 local fzflua = require("fzf-lua")
 fzflua.setup({
-    "max-perf",
-    keymap = { fzf = { ["ctrl-q"] = "select-all+accept" } },
-    winopts = {
-        preview = { hidden = "hidden" },
-    },
-    files = {
-        fd_opts = [[--color=never --type f --hidden --follow --exclude .git --exclude vendor]],
-    },
-    grep = {
-        rg_opts =
-        [[--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g !.git/ -g !vendor -e ]],
-    },
+	"max-perf",
+	keymap = { fzf = { ["ctrl-q"] = "select-all+accept" } },
+	winopts = {
+		preview = { hidden = "hidden" },
+	},
+	files = {
+		fd_opts = [[--color=never --type f --hidden --follow --exclude .git --exclude vendor]],
+	},
+	grep = {
+		rg_opts = [[--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g !.git/ -g !vendor -e ]],
+	},
 })
 local files_cwd = function(cwd)
-    return function()
-        fzflua.files(cwd)
-    end
+	return function()
+		fzflua.files(cwd)
+	end
 end
 set("n", "<leader>sf", fzflua.files)
 set("n", "<leader>sh", fzflua.help_tags)
@@ -106,25 +107,26 @@ set("n", "<leader><leader>", fzflua.live_grep_resume)
 set("n", "<leader>sn", files_cwd({ cwd = vim.fn.stdpath("config") }))
 set("n", "<leader>sd", files_cwd({ cwd = vim.env.HOME .. "/projects/dotfiles" }))
 set("n", "<leader>so", files_cwd({ cwd = vim.env.HOME .. "/projects/obsidian/hoard" }))
+set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 local harpoon = require("harpoon")
 harpoon:setup()
 vim.keymap.set("n", "<leader>a", function()
-    harpoon:list():add()
+	harpoon:list():add()
 end)
 vim.keymap.set("n", "<C-e>", function()
-    harpoon.ui:toggle_quick_menu(harpoon:list())
+	harpoon.ui:toggle_quick_menu(harpoon:list())
 end)
 
 require("copilot").setup({
-    suggestion = {
-        auto_trigger = true,
-        keymap = { accept = "<C-j>" },
-    },
-    filetypes = {
-        yaml = true,
-        markdown = true,
-    },
+	suggestion = {
+		auto_trigger = true,
+		keymap = { accept = "<C-j>" },
+	},
+	filetypes = {
+		yaml = true,
+		markdown = true,
+	},
 })
 
 require("lazydev").setup()
@@ -139,116 +141,114 @@ lspconfig.sorbet.setup(opts)
 lspconfig.tsserver.setup(opts)
 lspconfig.bashls.setup(opts)
 lspconfig.lua_ls.setup({
-    capabilities = capabilities,
-    settings = {
-        Lua = {
-            runtime = {
-                version = "LuaJIT",
-                path = vim.split(package.path, ";"),
-            },
-            diagnostics = {
-                globals = { "vim", "require" },
-                disable = { "missing-fields" },
-            },
-        },
-    },
+	capabilities = capabilities,
+	settings = {
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+				path = vim.split(package.path, ";"),
+			},
+			diagnostics = {
+				globals = { "vim", "require" },
+				disable = { "missing-fields" },
+			},
+		},
+	},
 })
 local lspkind = require("lspkind")
 local cmp = require("cmp")
 cmp.setup({
-    snippet = {
-        expand = function(args)
-            vim.snippet.expand(args.body)
-        end,
-    },
-    mapping = {
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-y>"] = cmp.mapping(
-            cmp.mapping.confirm({
-                behavior = cmp.ConfirmBehavior.Insert,
-                select = true,
-            }),
-            { "i", "c" }
-        ),
-    },
-    window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-    },
-    formatting = {
-        fields = { "abbr", "kind", "menu" },
-        expandable_indicator = true,
-        format = lspkind.cmp_format({
-            with_text = true,
-            menu = {
-                nvim_lsp = "[LSP]",
-                path = "[Path]",
-            },
-        }),
-    },
-    sources = {
-        { name = "nvim_lsp" },
-        { name = "path" },
-    },
+	completion = {
+		completeopt = "menu,menuone,preview,noinsert",
+	},
+	snippet = {
+		expand = function(args)
+			vim.snippet.expand(args.body)
+		end,
+	},
+	mapping = cmp.mapping.preset.insert({
+		["<C-n>"] = cmp.mapping.select_next_item(),
+		["<C-p>"] = cmp.mapping.select_prev_item(),
+		["<C-y>"] = cmp.mapping.confirm({ select = false }),
+		["<C-u>"] = cmp.mapping.scroll_docs(-4),
+		["<C-d>"] = cmp.mapping.scroll_docs(4),
+		["<C-e>"] = cmp.mapping.abort(),
+		["<C-space>"] = cmp.mapping.complete(),
+	}),
+	formatting = {
+		format = lspkind.cmp_format({
+			maxwidth = 50,
+			ellipsis_char = "...",
+		}),
+	},
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp" },
+		{ name = "buffer", keyword_length = 3 },
+		{ name = "path" },
+	}),
 })
 
-local lspaucmdcfg = {
-    group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
-    callback = function(event)
-        require("lsp_signature").on_attach()
-        local map = function(keys, func, desc)
-            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-        end
+cmp.setup.cmdline("/", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "buffer" },
+	}),
+})
 
-        map("<leader>le", vim.diagnostic.open_float, "[L]ist [E]rrors")
-        map("gd", fzflua.lsp_definitions, "[G]oto [D]efinition")
-        map("gr", fzflua.lsp_references, "[G]oto [R]eferences")
-        map("gi", fzflua.lsp_implementations, "[G]oto [I]mplementations")
-        map("rn", vim.lsp.buf.rename, "[R]e[n]ame")
-        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{
+			name = "cmdline",
+			option = {
+				ignore_cmds = { "Man", "!" },
+			},
+		},
+	}),
+})
 
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client.server_capabilities.documentFormattingProvider then
-            local format_group = vim.api.nvim_create_augroup("LspFormatting", { clear = false })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = format_group,
-                buffer = event.buf,
-                callback = function()
-                    vim.lsp.buf.format({ async = false })
-                end,
-            })
-        end
-    end,
-}
-vim.api.nvim_create_autocmd("LspAttach", lspaucmdcfg)
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+	callback = function(event)
+		require("lsp_signature").on_attach()
+		local map = function(keys, func, desc)
+			vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+		end
+
+		map("<leader>le", vim.diagnostic.open_float, "[L]ist [E]rrors")
+		map("gd", fzflua.lsp_definitions, "[G]oto [D]efinition")
+		map("gr", fzflua.lsp_references, "[G]oto [R]eferences")
+		map("gi", fzflua.lsp_implementations, "[G]oto [I]mplementations")
+		map("rn", vim.lsp.buf.rename, "[R]e[n]ame")
+		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+	end,
+})
 
 require("conform").setup({
-    formatters_by_ft = {
-        lua = { "stylua" },
-        go = { "gofmt", "goimports" },
-    },
+	format_on_save = {
+		async = false,
+		timeout_ms = 500,
+		lsp_format = "fallback",
+	},
+	formatters_by_ft = {
+		lua = { "stylua" },
+		go = { "gofmt", "goimports" },
+	},
 })
-vim.api.nvim_create_autocmd("BufWritePre", {
-    callback = function(args)
-        require("conform").format({
-            bufnr = args.bufnr,
-            lsp_fallback = true,
-            quiet = true,
-        })
-    end,
-})
-local lint = require("lint")
-lint.linters_by_ft = {
-    markdown = { "cspell" },
-    go = { "golangcilint" },
-    ruby = { "rubocop" },
-    lua = { "luacheck" },
+require("lint").linters_by_ft = {
+	markdown = { "cspell" },
+	go = { "golangcilint" },
+	ruby = { "rubocop" },
+	lua = { "luacheck" },
 }
+local lintaugroup = vim.api.nvim_create_augroup("lint", { clear = true })
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    callback = function()
-        lint.try_lint()
-    end,
+	group = lintaugroup,
+	callback = function()
+		require("lint").try_lint()
+	end,
 })
 
 require("dapui").setup()
@@ -265,14 +265,14 @@ set("n", "<F8>", dap.step_out)
 set("n", "<F9>", dap.step_back)
 set("n", "<F10>", dap.restart)
 dap.listeners.before.attach.dapui_config = function()
-    ui.open()
+	ui.open()
 end
 dap.listeners.before.launch.dapui_config = function()
-    ui.open()
+	ui.open()
 end
 dap.listeners.before.event_terminated.dapui_config = function()
-    ui.close()
+	ui.close()
 end
 dap.listeners.before.event_exited.dapui_config = function()
-    ui.close()
+	ui.close()
 end
