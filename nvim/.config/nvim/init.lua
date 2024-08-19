@@ -209,6 +209,8 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
+local fzfdefault = { jump_to_single_result = true }
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	callback = function(event)
@@ -218,9 +220,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		map("<leader>le", vim.diagnostic.open_float, "[L]ist [E]rrors")
-		map("gd", fzflua.lsp_definitions, "[G]oto [D]efinition")
-		map("gr", fzflua.lsp_references, "[G]oto [R]eferences")
-		map("gi", fzflua.lsp_implementations, "[G]oto [I]mplementations")
+		map("gd", function()
+			fzflua.lsp_definitions(fzfdefault)
+		end, "[G]oto [D]efinition")
+		map("gr", function()
+			fzflua.lsp_references(fzfdefault)
+		end, "[G]oto [R]eferences")
+		map("gi", function()
+			fzflua.lsp_implementations(fzfdefault)
+		end, "[G]oto [I]mplementations")
 		map("rn", vim.lsp.buf.rename, "[R]e[n]ame")
 		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 	end,
