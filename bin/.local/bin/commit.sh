@@ -9,7 +9,6 @@ function help() {
     echo ""
     echo " Usage:"
     echo "  commit.sh dot - commit dotfiles"
-    echo "  commit.sh nvim - commit nvim"
     echo "  commit.sh obsidian - commit obsidian"
     exit 1
 }
@@ -37,10 +36,6 @@ case $1 in
     dot)
         commit "$HOME/projects/dotfiles"
         echo "dotfiles commit done..."
-        ;;
-    nvim)
-        commit "$HOME/projects/config.nvim"
-        echo "nvim commit done..."
         ;;
     obsidian)
         commit "$HOME/Documents/obsidian/hoard"
