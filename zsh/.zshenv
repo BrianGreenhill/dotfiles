@@ -21,12 +21,7 @@ export MANPAGER='nvim +Man!'
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export GOCACHE="$XDG_CACHE_HOME/go-build"
-export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct
-export GOPRIVATE=
-export GONOPROXY=
-export GONOSUMDB='github.com/github/*'
 
 # dotfiles
 export CLICOLOR=1
-export BAT_THEME=kanagawa
 export HOMEBREW_NO_AUTO_UPDATE=1

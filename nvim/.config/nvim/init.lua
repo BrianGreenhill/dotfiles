@@ -36,6 +36,7 @@ vim.call("plug#begin")
 Plug("ibhagwan/fzf-lua", { branch = "main" })
 Plug("folke/lazydev.nvim")
 Plug("folke/tokyonight.nvim")
+Plug("rebelot/kanagawa.nvim")
 Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-path")
 Plug("hrsh7th/cmp-buffer")
@@ -55,6 +56,7 @@ Plug("stevearc/conform.nvim")
 Plug("stevearc/oil.nvim")
 Plug("tpope/vim-fugitive")
 Plug("tpope/vim-rails")
+Plug("tpope/vim-rhubarb")
 Plug("onsails/lspkind.nvim")
 Plug("zbirenbaum/copilot.lua")
 Plug("windwp/nvim-autopairs")
@@ -63,18 +65,10 @@ Plug("nvim-lua/plenary.nvim")
 Plug("ThePrimeagen/harpoon", { branch = "harpoon2" })
 vim.call("plug#end")
 
-require("tokyonight").setup({
-	style = "storm",
-	transparent = true,
-	styles = {
-		comments = { italic = false },
-		keywords = { italic = false },
-		sidebars = "transparent",
-		floats = "transparent",
-		plugins = { auto = false },
-	},
-})
-vim.cmd.colorscheme("tokyonight")
+require("tokyonight").setup()
+require("kanagawa").setup()
+vim.o.background = "dark"
+vim.cmd.colorscheme("kanagawa")
 set("n", "<leader>gs", "<cmd>:G<cr>")
 require("oil").setup()
 vim.keymap.set("n", "-", "<cmd>:Oil<cr>")
@@ -264,8 +258,6 @@ require("dap-go").setup()
 local dap = require("dap")
 local ui = require("dapui")
 set("n", "<leader>db", dap.toggle_breakpoint)
-set("n", "dt", require("dap-go").debug_test)
-set("n", "dlt", require("dap-go").debug_last_test)
 set("n", "<F5>", dap.continue)
 set("n", "<F6>", dap.step_over)
 set("n", "<F7>", dap.step_into)

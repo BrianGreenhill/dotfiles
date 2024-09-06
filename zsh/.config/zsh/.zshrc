@@ -1,3 +1,9 @@
+parse_git_branch() {
+    git branch --show 2> /dev/null | sed -E 's/(.+)/ (\1)/g'
+}
+
+setopt PROMPT_SUBST
+PROMPT='[@%m] %9c%{%F{green}%}$(parse_git_branch)%{%F{none}%} $ '
 autoload -Uz compinit && compinit
 autoload -U colors && colors
 bindkey -e
@@ -6,10 +12,6 @@ bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
 export KEYTIMEOUT=1
-
-mountain="󰋵"
-prmpt="❯"
-export PS1="%F{green} "$mountain"  %~%f %F{red}"$prmpt"%f "
 
 alias ll='ls -alh'
 alias vim='nvim'
@@ -50,4 +52,3 @@ alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 . ~/.fzf.zsh
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
-# eval "$(rbenv init - zsh)"
