@@ -52,6 +52,7 @@ Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" })
 Plug("nvim-treesitter/nvim-treesitter-context")
 Plug("ray-x/lsp_signature.nvim")
 Plug("rcarriga/nvim-dap-ui")
+Plug("stevearc/dressing.nvim")
 Plug("stevearc/conform.nvim")
 Plug("stevearc/oil.nvim")
 Plug("tpope/vim-fugitive")
@@ -66,9 +67,14 @@ Plug("ThePrimeagen/harpoon", { branch = "harpoon2" })
 vim.call("plug#end")
 
 require("tokyonight").setup()
-require("kanagawa").setup()
-vim.o.background = "dark"
+require("kanagawa").setup({
+	transparent = true,
+	theme = "dragon",
+})
 vim.cmd.colorscheme("kanagawa")
+vim.o.background = "dark"
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
 set("n", "<leader>gs", "<cmd>:G<cr>")
 require("oil").setup()
 vim.keymap.set("n", "-", "<cmd>:Oil<cr>")
@@ -77,7 +83,7 @@ require("mason").setup()
 local fzflua = require("fzf-lua")
 fzflua.setup({
 	"max-perf",
-	keymap = { fzf = { ["ctrl-q"] = "select-all+accept" } },
+	keymap = { fzf = { ["ctrl-q"] = "select-all+accept" } }, -- send all results to quickfix
 	winopts = {
 		preview = { hidden = "hidden" },
 	},
@@ -93,6 +99,11 @@ local files_cwd = function(cwd)
 		fzflua.files(cwd)
 	end
 end
+local grep_cwd = function(cwd)
+	return function()
+		fzflua.grep(cwd)
+	end
+end
 set("n", "<leader>sf", fzflua.files)
 set("n", "<leader>sh", fzflua.help_tags)
 set("n", "<leader>s/", fzflua.grep)
@@ -100,7 +111,8 @@ set("n", "<leader>sq", fzflua.quickfix)
 set("n", "<leader><leader>", fzflua.live_grep_resume)
 set("n", "<leader>sn", files_cwd({ cwd = vim.fn.stdpath("config") }))
 set("n", "<leader>sd", files_cwd({ cwd = vim.env.HOME .. "/projects/dotfiles" }))
-set("n", "<leader>so", files_cwd({ cwd = vim.env.HOME .. "/projects/obsidian/hoard" }))
+set("n", "<leader>sof", files_cwd({ cwd = vim.env.HOME .. "/projects/obsidian/github" })) -- search obsidian notes
+set("n", "<leader>so", grep_cwd({ cwd = vim.env.HOME .. "/projects/obsidian/github" })) -- search obsidian notes
 set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 local harpoon = require("harpoon")
@@ -132,7 +144,7 @@ local opts = { capabilities = capabilities }
 lspconfig.gopls.setup(opts)
 lspconfig.yamlls.setup(opts)
 lspconfig.sorbet.setup(opts)
-lspconfig.tsserver.setup(opts)
+lspconfig.vtsls.setup(opts)
 lspconfig.bashls.setup(opts)
 lspconfig.lua_ls.setup({
 	capabilities = capabilities,
