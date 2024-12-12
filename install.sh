@@ -14,9 +14,22 @@ function installfzf {
     echo "done"
 }
 
+function installneovim {
+    if ! command -v nvim &>/dev/null; then
+        echo "installing neovim..."
+
+        sudo add-apt-repository ppa:neovim-ppa/unstable -y && \
+            sudo apt-get update -y && \
+            sudo apt-get install neovim -y
+
+        echo "done"
+    fi
+}
+
 # check if CODESPACES env var is true
 if [[ $CODESPACES == "true" ]]; then
     installfzf
+    installneovim
     echo "configuring neovim"
     ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/nvim/.config/nvim ~/.config/nvim
     nvim --headless +PlugInstall +qall

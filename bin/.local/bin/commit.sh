@@ -34,7 +34,7 @@ function commit() {
 
 case $1 in
     dot)
-        commit "$HOME/projects/dotfiles"
+        commit "$HOME/work/briangreenhill/dotfiles"
         echo "dotfiles commit done..."
         ;;
     obsidian)

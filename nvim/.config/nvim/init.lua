@@ -243,12 +243,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 require("conform").setup({
 	format_on_save = {
 		async = false,
-		timeout_ms = 500,
+		timeout_ms = 5000,
 		lsp_format = "fallback",
 	},
 	formatters_by_ft = {
 		lua = { "stylua" },
 		go = { "gofmt", "goimports" },
+		python = { "isort", "black" },
 	},
 })
 require("lint").linters_by_ft = {
@@ -256,6 +257,7 @@ require("lint").linters_by_ft = {
 	go = { "golangcilint" },
 	ruby = { "rubocop" },
 	lua = { "luacheck" },
+	python = { "flake8" },
 }
 local lintaugroup = vim.api.nvim_create_augroup("lint", { clear = true })
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
