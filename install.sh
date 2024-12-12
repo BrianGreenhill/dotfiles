@@ -7,11 +7,13 @@ set -e
 if [[ -z $CODESPACES  ]]; then echo "this is only for codespaces"; exit 1; fi
 
 function installfzf {
-    echo "installing latest fzf..."
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --all
-    echo 'source ~/.fzf.bash' >>~/.bashrc
-    echo "done"
+    if [ ! -d ~/.fzf ]; then
+        echo "installing latest fzf..."
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install --all
+        echo 'source ~/.fzf.bash' >>~/.bashrc
+        echo "done"
+    fi
 }
 
 function installneovim {
