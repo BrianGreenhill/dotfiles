@@ -9,6 +9,9 @@ export PATH=$HOME/.rbenv/shims:$PATH
 export PATH=$HOME/.config/local/share/nvim/mason/bin:$PATH
 export PATH=$HOMEBREW_PREFIX/lib/ruby/gems/3.3.0/bin:$PATH
 export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+export PATH=$HOME/.krew/bin:$PATH
+export PATH=$HOME/neovim/bin:$PATH
+export PATH=$HOME/tmux/bin:$PATH
 export PATH="$GOBIN:$PATH"
 
 # Added by OrbStack: command-line tools and integration
