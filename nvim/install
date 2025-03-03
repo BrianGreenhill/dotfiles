@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euox pipefail
+
+echo "installing neovim"
+rm -rf neovim
+# shallow clone to save time
+git clone -b stable --single-branch --depth 1 https://github.com/neovim/neovim 
+pushd neovim
+make CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim"
+make install
+popd
+
+rm -rf neovim
+echo "done"

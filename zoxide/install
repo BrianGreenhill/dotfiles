@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+
+if [ -f $ZDOTDIR/.zshrc ]; then
+    if ! grep -q "zoxide init zsh" $ZDOTDIR/.zshrc; then
+        echo "eval \"$(zoxide init zsh)\"" >> $ZDOTDIR/.zshrc
+    fi
+fi

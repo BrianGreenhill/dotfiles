@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euox pipefail
+
+TMUX_VERSION=3.5
+echo "installing tmux..."
+rm -rf $(which tmux)
+git clone --depth 1 -b $TMUX_VERSION --single-branch https://github.com/tmux/tmux tmux-repo
+pushd tmux-repo
+sh autogen.sh
+./configure --prefix=$HOME/tmux --enable-utf8proc && make && make install
+popd
+rm -rf tmux-repo
+echo "done"

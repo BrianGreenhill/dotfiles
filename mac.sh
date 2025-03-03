@@ -1,7 +1,6 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/zsh
+set -euo pipefail
 
-TMUX_VERSION=3.5
 function checkdeps {
     deps="utf8proc libtool libevent git cmake autoconf automake m4 perl pkg-config"
     for dep in $deps; do
@@ -13,63 +12,28 @@ function checkdeps {
     done
 }
 
-function installbrew {
-    if command -v brew &>/dev/null; then
-        return
-    fi
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-}
+arg="$1"
+if [ ! -z $arg ]; then
+    echo "targeting install for $arg"
+    install_directories=($arg)
+else
+    install_directories=(tmux nvim zoxide)
+fi
 
-function installtmux {
-    if command -v tmux &>/dev/null; then
-        echo "tmux already installed"
-        return
-    fi
-
-    echo "installing tmux..."
-    git clone --depth 1 -b $TMUX_VERSION --single-branch https://github.com/tmux/tmux tmux-repo
-    pushd tmux-repo
-    sh autogen.sh
-    ./configure --prefix=$HOME/tmux --enable-utf8proc && make && make install
-    popd
-    rm -rf tmux-repo
-    echo "done"
-}
-
-function installnvim {
-    if command -v nvim &>/dev/null; then
-        echo "neovim already installed"
-        return
-    fi
-
-    echo "installing neovim..."
-    rm -rf neovim
-    # shallow clone to save time
-    git clone -b stable --single-branch --depth 1 https://github.com/neovim/neovim 
-    pushd neovim
-    make CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim"
-    make install
-    popd
-
-    rm -rf neovim
-    echo "done"
-}
-
-case "$1" in
-    "checkdeps")
-        checkdeps
-        ;;
-    "brew")
-        installbrew
-        ;;
-    "tmux")
-        installtmux
-        ;;
-    "nvim")
-        installnvim
-        ;;
-    *)
-        echo "usage: $0 [checkdeps|brew|tmux|nvim]"
+for dir in ${install_directories[@]}; do
+    if [ ! -d $dir ]; then
+        echo "$dir not found"
         exit 1
-        ;;
-esac
+    fi
+
+    pushd $dir
+    if [ ! -f install ]; then
+        echo "no install script found in $dir"
+        echo "skipping $dir"
+        popd
+        continue
+    fi
+    chmod +x install
+    ./install
+    popd
+done
