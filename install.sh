@@ -4,7 +4,10 @@
 
 set -e
 
-if [[ -z $CODESPACES  ]]; then echo "this is only for codespaces"; exit 1; fi
+if [[ -z $CODESPACES ]]; then
+    echo "this is only for codespaces"
+    exit 1
+fi
 
 function installfzf {
     if [ ! -d ~/.fzf ]; then
@@ -20,8 +23,8 @@ function installneovim {
     if ! command -v nvim &>/dev/null; then
         echo "installing neovim..."
 
-        sudo add-apt-repository ppa:neovim-ppa/unstable -y && \
-            sudo apt-get update -y && \
+        sudo add-apt-repository ppa:neovim-ppa/unstable -y &&
+            sudo apt-get update -y &&
             sudo apt-get install neovim -y
 
         echo "done"
@@ -34,7 +37,6 @@ if [[ $CODESPACES == "true" ]]; then
     installneovim
     echo "configuring neovim"
     ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/nvim/.config/nvim ~/.config/nvim
-    nvim --headless +PlugInstall +qall
     echo "configuring tmux"
     ln -sf /workspaces/.codespaces/.persistedshare/dotfiles/tmux/.config/tmux ~/.config/tmux
     exit 0
