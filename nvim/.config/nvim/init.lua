@@ -1,4 +1,4 @@
-local vim = vim
+local vim = vim -- luacheck: ignore
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.nu = true
@@ -24,62 +24,79 @@ vim.opt.sidescrolloff = 5
 vim.opt.wrap = false
 
 local set = vim.keymap.set
-set("n", "<leader>w", "<cmd>:w<cr>")
-set("n", "<leader>q", "<cmd>:q<cr>")
+set("n", "<leader>w", "<cmd>:w<cr>", { desc = "[W]rite" })
+set("n", "<leader>q", "<cmd>:q<cr>", { desc = "[Q]uit" })
 set("v", "<leader>y", '"+y')
 set("n", "<leader>Y", '"+Y', { noremap = false })
-set("n", "<leader>cr", "<cmd>:so ~/.config/nvim/init.lua<cr>", { desc = "[C]onfig [R]eload" })
 
 local Plug = vim.fn["plug#"]
 vim.call("plug#begin")
-
-Plug("ibhagwan/fzf-lua", { branch = "main" })
-Plug("folke/lazydev.nvim")
-Plug("folke/tokyonight.nvim")
-Plug("rebelot/kanagawa.nvim")
+Plug("folke/which-key.nvim")
 Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-path")
 Plug("hrsh7th/cmp-buffer")
 Plug("hrsh7th/cmp-cmdline")
 Plug("hrsh7th/nvim-cmp")
+Plug("ibhagwan/fzf-lua", { branch = "main" })
+Plug("lewis6991/gitsigns.nvim")
 Plug("leoluz/nvim-dap-go")
 Plug("mbbill/undotree")
 Plug("mfussenegger/nvim-dap")
 Plug("mfussenegger/nvim-lint")
 Plug("neovim/nvim-lspconfig")
+Plug("nvim-lua/plenary.nvim")
 Plug("nvim-neotest/nvim-nio")
 Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" })
 Plug("nvim-treesitter/nvim-treesitter-context")
+Plug("onsails/lspkind.nvim")
 Plug("ray-x/lsp_signature.nvim")
 Plug("rcarriga/nvim-dap-ui")
+Plug("rebelot/kanagawa.nvim")
 Plug("stevearc/dressing.nvim")
 Plug("stevearc/conform.nvim")
 Plug("stevearc/oil.nvim")
+Plug("ThePrimeagen/harpoon", { branch = "harpoon2" })
 Plug("tpope/vim-fugitive")
 Plug("tpope/vim-rails")
 Plug("tpope/vim-rhubarb")
-Plug("onsails/lspkind.nvim")
-Plug("zbirenbaum/copilot.lua")
 Plug("windwp/nvim-autopairs")
 Plug("williamboman/mason.nvim")
-Plug("nvim-lua/plenary.nvim")
-Plug("ThePrimeagen/harpoon", { branch = "harpoon2" })
+Plug("zbirenbaum/copilot.lua")
 vim.call("plug#end")
 
-require("tokyonight").setup()
 require("kanagawa").setup({
-	transparent = true,
 	theme = "dragon",
+	transparent = true,
 })
 vim.cmd.colorscheme("kanagawa")
 vim.o.background = "dark"
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
 set("n", "<leader>gs", "<cmd>:G<cr>")
+require("gitsigns").setup({
+	on_attach = function(bufnr)
+		local gitsigns = require("gitsigns")
+		set("n", "<leader>hs", gitsigns.stage_hunk, { buffer = bufnr, desc = "Git [H]unk: [S]tage" })
+		set("n", "<leader>hu", gitsigns.undo_stage_hunk, { buffer = bufnr, desc = "Git [H]unk: [U]ndo [S]tage" })
+		set("v", "<leader>hr", gitsigns.reset_hunk, { buffer = bufnr, desc = "Git [H]unk: [R]eset [H]unk" })
+		set("n", "<leader>hp", gitsigns.preview_hunk, { buffer = bufnr, desc = "Git [H]unk: [P]review" })
+		set("n", "<leader>hb", gitsigns.blame_line, { buffer = bufnr, desc = "Git [H]unk: [B]lame" })
+		set("n", "<leader>hd", gitsigns.diffthis, { buffer = bufnr, desc = "Git [H]unk: [D]iff this" })
+	end,
+})
 require("oil").setup()
-vim.keymap.set("n", "-", "<cmd>:Oil<cr>")
-require("nvim-treesitter.configs").setup({})
-require("mason").setup()
+set("n", "-", "<cmd>:Oil<cr>", { desc = "[O]il" })
+require("which-key").setup()
+local wk = require("which-key")
+wk.add({
+	{ "<leader>c", group = "[C]ode" },
+	{ "<leader>f", group = "[F]iles" },
+	{ "<leader>s", group = "[S]earch" },
+	{ "<leader>g", group = "[G]it" },
+	{ "<leader>h", group = "Git [H]unks" },
+})
+
+-- fzf-lua setup
 local fzflua = require("fzf-lua")
 fzflua.setup({
 	"max-perf",
@@ -91,38 +108,31 @@ fzflua.setup({
 		fd_opts = [[--color=never --type f --hidden --follow --exclude .git --exclude vendor]],
 	},
 	grep = {
-		rg_opts = [[--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g !.git/ -g !vendor -e ]],
+		rg_opts = [[--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g !.git/ -g !vendor -e ]], -- luacheck: ignore
 	},
 })
-local files_cwd = function(cwd)
-	return function()
-		fzflua.files(cwd)
-	end
-end
-local grep_cwd = function(cwd)
-	return function()
-		fzflua.grep(cwd)
-	end
-end
-set("n", "<leader>sf", fzflua.files)
-set("n", "<leader>sh", fzflua.help_tags)
-set("n", "<leader>s/", fzflua.grep)
-set("n", "<leader>sq", fzflua.quickfix)
-set("n", "<leader><leader>", fzflua.live_grep_resume)
-set("n", "<leader>sn", files_cwd({ cwd = vim.fn.stdpath("config") }))
-set("n", "<leader>sd", files_cwd({ cwd = vim.env.HOME .. "/projects/dotfiles" }))
-set("n", "<leader>sof", files_cwd({ cwd = vim.env.HOME .. "/projects/obsidian/github" })) -- search obsidian notes
-set("n", "<leader>so", grep_cwd({ cwd = vim.env.HOME .. "/projects/obsidian/github" })) -- search obsidian notes
-set("n", "<leader>u", vim.cmd.UndotreeToggle)
+set("n", "<leader>sf", fzflua.files, { desc = "FZF: [S]earch [F]iles" })
+set("n", "<leader>sh", fzflua.help_tags, { desc = "FZF: [S]earch [H]elp" })
+set("n", "<leader>s/", fzflua.live_grep_native, { desc = "FZF: [S]earch [R]egex" })
+set("n", "<leader>/", fzflua.lgrep_curbuf, { desc = "FZF: [L]ocal [G]rep" })
+set("n", "<leader>sq", fzflua.quickfix, { desc = "FZF: [S]earch [Q]uickfix" })
+set("n", "<leader><leader>", fzflua.live_grep_resume, { desc = "FZF: [R]esume [S]earch" })
+set("n", "<leader>sn", function()
+	fzflua.files({ cwd = vim.fn.stdpath("config") })
+end, { desc = "FZF: [S]earch [N]vim [C]onfig" })
+set("n", "<leader>sd", function()
+	fzflua.files({ cwd = vim.env.HOME .. "/work/briangreenhill/dotfiles" })
+end, { desc = "FZF: [S]earch [D]otfiles" })
+set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "[U]ndo tree" })
 
 local harpoon = require("harpoon")
 harpoon:setup()
-vim.keymap.set("n", "<leader>a", function()
+set("n", "<leader>fa", function()
 	harpoon:list():add()
-end)
-vim.keymap.set("n", "<C-e>", function()
+end, { desc = "Harpoon: [A]dd" })
+set("n", "<leader>ft", function()
 	harpoon.ui:toggle_quick_menu(harpoon:list())
-end)
+end, { desc = "Harpoon: [T]oggle" })
 
 require("copilot").setup({
 	suggestion = {
@@ -135,32 +145,17 @@ require("copilot").setup({
 	},
 })
 
-require("lazydev").setup()
 require("nvim-autopairs").setup({})
 
+-- lsp and treesitter
+require("nvim-treesitter.configs").setup({})
+require("mason").setup()
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require("lspconfig")
 local opts = { capabilities = capabilities }
 lspconfig.gopls.setup(opts)
 lspconfig.yamlls.setup(opts)
-lspconfig.sorbet.setup(opts)
-lspconfig.vtsls.setup(opts)
 lspconfig.bashls.setup(opts)
-lspconfig.lua_ls.setup({
-	capabilities = capabilities,
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-				path = vim.split(package.path, ";"),
-			},
-			diagnostics = {
-				globals = { "vim", "require" },
-				disable = { "missing-fields" },
-			},
-		},
-	},
-})
 local lspkind = require("lspkind")
 local cmp = require("cmp")
 cmp.setup({
@@ -221,22 +216,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	callback = function(event)
 		require("lsp_signature").on_attach()
-		local map = function(keys, func, desc)
-			vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-		end
-
-		map("<leader>le", vim.diagnostic.open_float, "[L]ist [E]rrors")
-		map("gd", function()
+		set("n", "rn", vim.lsp.buf.rename, { buffer = event.buf, desc = "LSP: [R]e[n]ame" })
+		set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = event.buf, desc = "LSP: [C]ode [A]ction" })
+		set("n", "<leader>dh", vim.diagnostic.open_float, { buffer = event.buf, desc = "LSP: [D]iagnostic [H]elp" })
+		set("n", "gd", function()
 			fzflua.lsp_definitions(fzfdefault)
-		end, "[G]oto [D]efinition")
-		map("gr", function()
+		end, { desc = "LSP: [G]oto [D]efinition" })
+		set("n", "gr", function()
 			fzflua.lsp_references(fzfdefault)
-		end, "[G]oto [R]eferences")
-		map("gi", function()
+		end, { desc = "LSP: [G]oto [R]eferences" })
+		set("n", "gi", function()
 			fzflua.lsp_implementations(fzfdefault)
-		end, "[G]oto [I]mplementations")
-		map("rn", vim.lsp.buf.rename, "[R]e[n]ame")
-		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+		end, { desc = "LSP: [G]oto [I]mplementations" })
 	end,
 })
 
@@ -250,6 +241,7 @@ require("conform").setup({
 		lua = { "stylua" },
 		go = { "gofmt", "goimports" },
 		python = { "isort", "black" },
+		ruby = { "rubocop" },
 	},
 })
 require("lint").linters_by_ft = {
@@ -271,22 +263,18 @@ require("dapui").setup()
 require("dap-go").setup()
 local dap = require("dap")
 local ui = require("dapui")
-set("n", "<leader>db", dap.toggle_breakpoint)
-set("n", "<F5>", dap.continue)
-set("n", "<F6>", dap.step_over)
-set("n", "<F7>", dap.step_into)
-set("n", "<F8>", dap.step_out)
-set("n", "<F9>", dap.step_back)
-set("n", "<F10>", dap.restart)
-dap.listeners.before.attach.dapui_config = function()
+set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP: [D]ebug [B]reakpoint" })
+set("n", "<F5>", dap.continue, { desc = "DAP: [C]ontinue F5" })
+set("n", "<F6>", dap.step_over, { desc = "DAP: [S]tep [O]ver F6" })
+set("n", "<F7>", dap.step_into, { desc = "DAP: [S]tep [I]nto F7" })
+set("n", "<F8>", dap.step_out, { desc = "DAP: [S]tep [O]ut F8" })
+set("n", "<F9>", dap.step_back, { desc = "DAP: [S]tep [B]ack F9" })
+set("n", "<F10>", dap.restart, { desc = "DAP: [R]estart, F10" })
+
+local open = function()
 	ui.open()
 end
-dap.listeners.before.launch.dapui_config = function()
-	ui.open()
-end
-dap.listeners.before.event_terminated.dapui_config = function()
-	ui.close()
-end
-dap.listeners.before.event_exited.dapui_config = function()
-	ui.close()
-end
+dap.listeners.before.attach.dapui_config = open
+dap.listeners.before.launch.dapui_config = open
+dap.listeners.before.event_terminated.dapui_config = open
+dap.listeners.before.event_exited.dapui_config = open
