@@ -233,7 +233,7 @@ require('lazy').setup {
   },
   {
     'ibhagwan/fzf-lua',
-    config = function()
+    config = function(_, opts)
       local fzflua = require 'fzf-lua'
       vim.keymap.set('n', '<leader>sf', fzflua.files, { desc = 'FZF: [S]earch [F]iles' })
       vim.keymap.set('n', '<leader>sh', fzflua.help_tags, { desc = 'FZF: [S]earch [H]elp' })
@@ -247,12 +247,13 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>sd', function()
         fzflua.files { cwd = vim.env.HOME .. '/work/briangreenhill/dotfiles' }
       end, { desc = 'FZF: [S]earch [D]otfiles' })
+      fzflua.setup(opts)
     end,
     opts = {
       'max-perf',
       keymap = { fzf = { ['ctrl-q'] = 'select-all+accept' } }, -- send all results to quickfix
       winopts = {
-        preview = { hidden = 'hidden' },
+        preview = { hidden = true },
       },
       files = {
         fd_opts = [[--color=never --type f --hidden --follow --exclude .git --exclude vendor]],
