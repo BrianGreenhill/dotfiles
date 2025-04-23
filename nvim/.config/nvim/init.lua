@@ -63,16 +63,6 @@ require('lazy').setup {
     },
   },
   {
-    'folke/snacks.nvim',
-    lazy = false,
-    priority = 1000,
-    ---@type snacks.Config
-    opts = {
-      input = { enabled = true },
-      notifier = { enabled = true, timeout = 3000 },
-    },
-  },
-  {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
@@ -202,6 +192,7 @@ require('lazy').setup {
       vim.keymap.set('n', '<F8>', dap.step_out, { desc = 'DAP: [S]tep [O]ut F8' })
       vim.keymap.set('n', '<F9>', dap.step_back, { desc = 'DAP: [S]tep [B]ack F9' })
       vim.keymap.set('n', '<F10>', dap.restart, { desc = 'DAP: [R]estart, F10' })
+      vim.keymap.set('n', '<leader>dt', require('dap-go').debug_test, { desc = 'DAP: [D]ebug [T]est' })
 
       local open = function()
         ui.open()
@@ -241,6 +232,7 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>/', fzflua.lgrep_curbuf, { desc = 'FZF: [L]ocal [G]rep' })
       vim.keymap.set('n', '<leader>sq', fzflua.quickfix, { desc = 'FZF: [S]earch [Q]uickfix' })
       vim.keymap.set('n', '<leader><leader>', fzflua.live_grep_resume, { desc = 'FZF: [R]esume [S]earch' })
+      vim.keymap.set('n', '<leader>sb', fzflua.buffers, { desc = 'FZF: [S]earch [B]uffers' })
       vim.keymap.set('n', '<leader>sn', function()
         fzflua.files { cwd = vim.fn.stdpath 'config' }
       end, { desc = 'FZF: [S]earch [N]vim [C]onfig' })
@@ -277,7 +269,6 @@ require('lazy').setup {
     },
     config = function()
       local fzflua = require 'fzf-lua'
-      local fzfdefault = { jump_to_single_result = true }
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
@@ -286,21 +277,19 @@ require('lazy').setup {
           vim.keymap.set('n', 'rn', vim.lsp.buf.rename, { buffer = event.buf, desc = 'LSP: [R]e[n]ame' })
           vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = event.buf, desc = 'LSP: [C]ode [A]ction' }) -- luacheck: ignore
           vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float, { buffer = event.buf, desc = 'LSP: [D]iagnostic [H]elp' }) -- luacheck: ignore
-          vim.keymap.set('n', 'gd', function()
-            fzflua.lsp_definitions(fzfdefault)
-          end, { desc = 'LSP: [G]oto [D]efinition' })
-          vim.keymap.set('n', 'gr', function()
-            fzflua.lsp_references(fzfdefault)
-          end, { desc = 'LSP: [G]oto [R]eferences' })
-          vim.keymap.set('n', 'gi', function()
-            fzflua.lsp_implementations(fzfdefault)
-          end, { desc = 'LSP: [G]oto [I]mplementations' })
+          vim.keymap.set('n', 'gd', fzflua.lsp_definitions, { desc = 'LSP: [G]oto [D]efinition' })
+          vim.keymap.set('n', 'gr', fzflua.lsp_references, { desc = 'LSP: [G]oto [R]eferences' })
+          vim.keymap.set('n', 'gi', fzflua.lsp_implementations, { desc = 'LSP: [G]oto [I]mplementations' })
         end,
       })
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require 'lspconfig'
       local opts = { capabilities = capabilities }
-      lspconfig.gopls.setup(opts)
+      lspconfig.gopls.setup { capabilities = capabilities, settings = {
+        gopls = {
+          buildFlags = { '-tags=integration' },
+        },
+      } }
       lspconfig.yamlls.setup(opts)
       lspconfig.bashls.setup(opts)
     end,
@@ -334,6 +323,7 @@ require('lazy').setup {
         lsp_format = 'fallback',
       },
       formatters_by_ft = {
+        html = { 'htmlbeautifier' },
         lua = { 'stylua' },
         go = { 'gofmt', 'goimports' },
         python = { 'isort', 'black' },
@@ -347,7 +337,11 @@ require('lazy').setup {
     dependencies = {
       { 'echasnovski/mini.icons', opts = {} },
     },
-    opts = {},
+    opts = {
+      view_options = {
+        show_hidden = true,
+      },
+    },
     lazy = false,
   },
   'tpope/vim-fugitive',
@@ -356,17 +350,11 @@ require('lazy').setup {
   'tpope/vim-sleuth',
   { 'windwp/nvim-autopairs', opts = {} },
   {
-    'zbirenbaum/copilot.lua',
-    opts = {
-      suggestion = {
-        auto_trigger = true,
-        keymap = { accept = '<C-j>' },
-      },
-      filetypes = {
-        yaml = true,
-        markdown = true,
-      },
-    },
+    'github/copilot.vim',
+    config = function()
+      vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
+      vim.g.copilot_no_tab_map = true
+    end,
   },
 }
 

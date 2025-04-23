@@ -3,7 +3,7 @@ TERM="screen-256color"
 
 [font]
 size = 18.0
-normal = { family = "JetBrainsMono Nerd Font", style = "Light" }
+normal = { family = "JetBrainsMonoNL Nerd Font Mono", style = "Light" }
 
 [colors]
 cursor = { text = "#dcd7ba", background = "#c34043" }
