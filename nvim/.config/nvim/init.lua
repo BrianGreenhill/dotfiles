@@ -356,6 +356,15 @@ require('lazy').setup {
       vim.g.copilot_no_tab_map = true
     end,
   },
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    build = 'make tiktoken',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'github/copilot.vim',
+    },
+    opts = {},
+  },
 }
 
 vim.cmd.colorscheme 'kanagawa'
