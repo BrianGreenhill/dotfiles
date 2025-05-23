@@ -254,6 +254,7 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>sd', function()
         fzflua.files { cwd = vim.env.HOME .. '/work/briangreenhill/dotfiles' }
       end, { desc = 'FZF: [S]earch [D]otfiles' })
+      fzflua.register_ui_select()
     end,
   },
   {
