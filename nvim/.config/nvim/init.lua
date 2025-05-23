@@ -224,23 +224,6 @@ require('lazy').setup {
   },
   {
     'ibhagwan/fzf-lua',
-    config = function(_, opts)
-      local fzflua = require 'fzf-lua'
-      vim.keymap.set('n', '<leader>sf', fzflua.files, { desc = 'FZF: [S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>sh', fzflua.help_tags, { desc = 'FZF: [S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>s/', fzflua.live_grep_native, { desc = 'FZF: [S]earch [R]egex' })
-      vim.keymap.set('n', '<leader>/', fzflua.lgrep_curbuf, { desc = 'FZF: [L]ocal [G]rep' })
-      vim.keymap.set('n', '<leader>sq', fzflua.quickfix, { desc = 'FZF: [S]earch [Q]uickfix' })
-      vim.keymap.set('n', '<leader><leader>', fzflua.live_grep_resume, { desc = 'FZF: [R]esume [S]earch' })
-      vim.keymap.set('n', '<leader>sb', fzflua.buffers, { desc = 'FZF: [S]earch [B]uffers' })
-      vim.keymap.set('n', '<leader>sn', function()
-        fzflua.files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = 'FZF: [S]earch [N]vim [C]onfig' })
-      vim.keymap.set('n', '<leader>sd', function()
-        fzflua.files { cwd = vim.env.HOME .. '/work/briangreenhill/dotfiles' }
-      end, { desc = 'FZF: [S]earch [D]otfiles' })
-      fzflua.setup(opts)
-    end,
     opts = {
       'max-perf',
       keymap = { fzf = { ['ctrl-q'] = 'select-all+accept' } }, -- send all results to quickfix
@@ -255,6 +238,23 @@ require('lazy').setup {
       },
       register_ui_select = true,
     },
+    config = function(_, opts)
+      local fzflua = require 'fzf-lua'
+      fzflua.setup(opts)
+      vim.keymap.set('n', '<leader>sf', fzflua.files, { desc = 'FZF: [S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sh', fzflua.help_tags, { desc = 'FZF: [S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>s/', fzflua.live_grep_native, { desc = 'FZF: [S]earch [R]egex' })
+      vim.keymap.set('n', '<leader>/', fzflua.lgrep_curbuf, { desc = 'FZF: [L]ocal [G]rep' })
+      vim.keymap.set('n', '<leader>sq', fzflua.quickfix, { desc = 'FZF: [S]earch [Q]uickfix' })
+      vim.keymap.set('n', '<leader><leader>', fzflua.live_grep_resume, { desc = 'FZF: [R]esume [S]earch' })
+      vim.keymap.set('n', '<leader>sb', fzflua.buffers, { desc = 'FZF: [S]earch [B]uffers' })
+      vim.keymap.set('n', '<leader>sn', function()
+        fzflua.files { cwd = vim.fn.stdpath 'config' }
+      end, { desc = 'FZF: [S]earch [N]vim [C]onfig' })
+      vim.keymap.set('n', '<leader>sd', function()
+        fzflua.files { cwd = vim.env.HOME .. '/work/briangreenhill/dotfiles' }
+      end, { desc = 'FZF: [S]earch [D]otfiles' })
+    end,
   },
   {
     'neovim/nvim-lspconfig',
