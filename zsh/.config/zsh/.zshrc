@@ -48,6 +48,7 @@ alias gbclean="git branch --merged | grep -v main | xargs git branch -d"
 alias rg="rg --hidden --glob=!.git/"
 alias grep='grep --color=auto'
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
+alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 
 . ~/.fzf.zsh
 eval "$(direnv hook zsh)"
