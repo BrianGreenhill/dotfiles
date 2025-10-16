@@ -50,6 +50,55 @@ require('lazy').setup {
     end,
   },
   {
+    'folke/sidekick.nvim',
+    opts = {
+      -- add any options here
+      cli = {
+        mux = {
+          backend = 'tmux',
+          enabled = true,
+        },
+      },
+    },
+    keys = {
+      {
+        '<tab>',
+        function()
+          -- if there is a next edit, jump to it, otherwise apply it if any
+          if not require('sidekick').nes_jump_or_apply() then
+            return '<Tab>' -- fallback to normal tab
+          end
+        end,
+        expr = true,
+        desc = 'Goto/Apply Next Edit Suggestion',
+      },
+      {
+        '<c-.>',
+        function()
+          require('sidekick.cli').focus()
+        end,
+        mode = { 'n', 'x', 'i', 't' },
+        desc = 'Sidekick Switch Focus',
+      },
+      {
+        '<leader>aa',
+        function()
+          require('sidekick.cli').toggle { focus = true }
+        end,
+        desc = 'Sidekick Toggle CLI',
+        mode = { 'n', 'v' },
+      },
+      {
+        '<leader>ap',
+        function()
+          require('sidekick.cli').select_prompt()
+        end,
+        desc = 'Sidekick Ask Prompt',
+        mode = { 'n', 'v' },
+      },
+    },
+  },
+  {
     'folke/which-key.nvim',
     event = 'VimEnter',
     opts = {
@@ -258,16 +307,18 @@ require('lazy').setup {
     end,
   },
   {
-    'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
+    opts = {},
     dependencies = {
-      { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      { 'j-hui/fidget.nvim', opts = {} },
-      'hrsh7th/cmp-nvim-lsp',
-      'ibhagwan/fzf-lua',
-      'ray-x/lsp_signature.nvim',
     },
+  },
+  { 'j-hui/fidget.nvim', opts = {} },
+  'ray-x/lsp_signature.nvim',
+  {
+    'hrsh7th/cmp-nvim-lsp',
+    dependencies = { 'ibhagwan/fzf-lua' },
     config = function()
       local fzflua = require 'fzf-lua'
 
@@ -283,16 +334,38 @@ require('lazy').setup {
           vim.keymap.set('n', 'gi', fzflua.lsp_implementations, { desc = 'LSP: [G]oto [I]mplementations' })
         end,
       })
+
+      -- Use the new vim.lsp.config API instead of nvim-lspconfig
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      local lspconfig = require 'lspconfig'
-      local opts = { capabilities = capabilities }
-      lspconfig.gopls.setup { capabilities = capabilities, settings = {
-        gopls = {
-          buildFlags = { '-tags=integration' },
+
+      -- Configure gopls
+      vim.lsp.config.gopls = {
+        cmd = { 'gopls' },
+        filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+        root_markers = { 'go.work', 'go.mod', '.git' },
+        capabilities = capabilities,
+        settings = {
+          gopls = {
+            buildFlags = { '-tags=integration' },
+          },
         },
-      } }
-      lspconfig.yamlls.setup(opts)
-      lspconfig.bashls.setup(opts)
+      }
+
+      -- Configure yamlls
+      vim.lsp.config.yamlls = {
+        cmd = { 'yaml-language-server', '--stdio' },
+        filetypes = { 'yaml', 'yaml.docker-compose', 'yaml.gitlab' },
+        root_markers = { '.git' },
+        capabilities = capabilities,
+      }
+
+      -- Configure bashls
+      vim.lsp.config.bashls = {
+        cmd = { 'bash-language-server', 'start' },
+        filetypes = { 'sh', 'bash' },
+        root_markers = { '.git' },
+        capabilities = capabilities,
+      }
     end,
   },
   {
