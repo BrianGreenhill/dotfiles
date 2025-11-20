@@ -62,7 +62,7 @@ fi
 echo "🔗 Symlinking configurations..."
 cd "$DOTFILES_DIR"
 
-configs=(aerospace alacritty nvim tmux zsh)
+configs=(aerospace alacritty nvim tmux zsh ubersicht)
 
 for config in "${configs[@]}"; do
     if [[ -d "$config" ]]; then

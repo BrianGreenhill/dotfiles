@@ -10,6 +10,7 @@ Personal development environment configuration for macOS and GitHub Codespaces.
 - **Multiplexer:** tmux with custom keybindings
 - **Window Manager:** AeroSpace (tiling window manager for macOS)
 - **Tools:** fzf, ripgrep, bat, zoxide, and more
+- **Ubersicht widget** simple-bar for a minimal menu bar
 
 ## Installation
 
@@ -67,8 +68,8 @@ dotfiles/
 - Lazy.nvim plugin manager
 - Kanagawa Dragon theme
 - LSP support with Mason
-- Telescope fuzzy finder
 - Treesitter syntax highlighting
+- Fzf search integration
 
 ## Updating
 
@@ -87,7 +88,7 @@ Edit files in `~/.dotfiles` - changes are reflected immediately via symlinks.
 Key tools installed:
 - **CLI:** bat, fd, ripgrep, fzf, zoxide, tree, jq, yq
 - **Dev:** neovim, tmux, git, gh, node, go, rust
-- **Apps:** Alacritty, AeroSpace, OrbStack, Obsidian
+- **Apps:** Alacritty, AeroSpace, OrbStack
 
 ## License
 
