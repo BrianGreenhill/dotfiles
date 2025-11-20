@@ -1,13 +1,47 @@
 [env]
-TERM="screen-256color"
+TERM = "xterm-256color"  # Better compatibility than screen-256color
 
 [font]
-size = 18.0
-normal = { family = "JetBrainsMono Nerd Font", style = "Light" }
+size = 20.0
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
 
-[colors]
-cursor = { text = "#dcd7ba", background = "#c34043" }
+[colors.primary]
+background = "#181616"  # Kanagawa Dragon dark bg
+foreground = "#c5c9c5"  # Kanagawa Dragon fg
+
+[colors.cursor]
+text = "#dcd7ba"
+cursor = "#c34043"
+
+[colors.normal]
+black = "#0d0c0c"
+red = "#c4746e"
+green = "#8a9a7b"
+yellow = "#c4b28a"
+blue = "#8ba4b0"
+magenta = "#a292a3"
+cyan = "#8ea4a2"
+white = "#C8C093"
+
+[colors.bright]
+black = "#a6a69c"
+red = "#E46876"
+green = "#87a987"
+yellow = "#e6c384"
+blue = "#7fb4ca"
+magenta = "#938aa9"
+cyan = "#7aa89f"
+white = "#c5c9c5"
 
 [window]
 decorations = "Buttonless"
 option_as_alt = "OnlyLeft"
+padding = { x = 10, y = 10 }  # Add some breathing room
+
+[scrolling]
+history = 10000
+
+[terminal.shell]
+program = "/bin/zsh"
+args = ["-l"]

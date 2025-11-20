@@ -1,10 +1,14 @@
+autoload -Uz compinit && compinit
 parse_git_branch() {
-    git branch --show 2> /dev/null | sed -E 's/(.+)/ (\1)/g'
+    git branch --show-current 2> /dev/null | sed 's/^/ (/' | sed 's/$/)/'
+}
+
+parse_git_dirty() {
+    [[ -n $(git status --porcelain 2> /dev/null) ]] && echo "*"
 }
 
 setopt PROMPT_SUBST
-PROMPT='[@%m] %9c%{%F{green}%}$(parse_git_branch)%{%F{none}%} $ '
-autoload -Uz compinit && compinit
+PROMPT='%F{blue}%m%f: %F{cyan}%2~%f%F{green}$(parse_git_branch)%F{yellow}$(parse_git_dirty)%f $ '
 autoload -U colors && colors
 bindkey -e
 

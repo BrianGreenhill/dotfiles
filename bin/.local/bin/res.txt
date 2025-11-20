@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="global-app">
+<head>
+  <!-- Queue-it charge njuko -->
+  <script type='text/javascript' src='//static.queue-it.net/script/queueclient.min.js'></script>
+  <script>
+    (function() {
+      var domain = window.location.hostname;
+      var queueConfig = {};
+      if (domain === "in.wrrccopenhagen26-tickets.com") {
+        queueConfig = {
+          customerId: "sparta"
+        };
+      } else {
+        queueConfig = {
+          customerId: "njuko"
+        };
+      }
+      var queueItConfigScript = document.createElement("script");
+      queueItConfigScript.type = 'text/javascript';
+      queueItConfigScript.setAttribute('data-queueit-c', queueConfig.customerId);
+      queueItConfigScript.src = '//static.queue-it.net/script/queueconfigloader.min.js';
+      document.head.appendChild(queueItConfigScript);
+    })();
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-8V0NEL89WF"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    // gtag('config', 'G-8V0NEL89WF');
+  </script>
+  <script>
+    if (window.location.hostname === "in.events-levelwater.org") {
+      var metaTag = document.createElement('meta');
+      metaTag.name = "google-site-verification";
+      metaTag.content = "BSzhwxDU9hgZdcaUYPnqWRg-v_mQDcumCcXpVeyorRk";
+      document.head.appendChild(metaTag);
+    }
+  </script>
+  <script src="/assets/keycloak.js"></script>
+  <base href="/">
+  <title></title>
+
+
+
+  <meta charset="utf-8">
+
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
+  <meta http-equiv="cache-control" content="max-age=0" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="pragma" content="no-cache" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+  <script defer data-domain="njuko.com" src="https://plausible.io/js/plausible.js"></script>
+
+  <style type="text/css">
+    html, body {
+      min-height: 100%;
+      height: 100%;
+      line-height: normal;
+      font-family: Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #212121 !important;
+
+    }
+    .app-loading {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    @-webkit-keyframes spinner {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0; }
+      5% {
+        opacity: 1; }
+      100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0; } }
+
+    @keyframes spinner {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0; }
+      5% {
+        opacity: 1; }
+      100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0; } }
+
+    .spinner {
+      position: relative;
+      -webkit-transform: translateY(-30px);
+      transform: translateY(-30px); }
+    .spinner > div:nth-child(2) {
+      -webkit-animation-delay: -0.4s;
+      animation-delay: -0.4s; }
+    .spinner > div:nth-child(3) {
+      -webkit-animation-delay: -0.2s;
+      animation-delay: -0.2s; }
+    .spinner > div {
+      background-color: #D84A38;
+      border-radius: 100%;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+      position: absolute;
+      left: -30px;
+      top: 0;
+      opacity: 0;
+      margin: 0;
+      width: 60px;
+      height: 60px;
+      -webkit-animation: spinner 1s 0s linear infinite;
+      animation: spinner 1s 0s linear infinite; }
+    }
+  </style>
+<link rel="stylesheet" href="styles.2bfda431f025bc4eb090.css"></head>
+<body>
+<app-root class="default-theme">
+  <div class="app-loading">
+    <div class="logo"></div>
+    <div class="spinner">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</app-root>
+<script src="runtime.8a343a446a40f33d8368.js" defer></script><script src="polyfills.8421988d78500dbe4820.js" defer></script><script src="vendor.661752906bc61d8ba34d.js" defer></script><script src="main.cad5d463090c6a409121.js" defer></script></body>
+</html>
