@@ -1,5 +1,5 @@
 [env]
-TERM = "xterm-256color"  # Better compatibility than screen-256color
+TERM = "xterm-256color"
 
 [font]
 size = 20.0
@@ -37,7 +37,9 @@ white = "#c5c9c5"
 [window]
 decorations = "Buttonless"
 option_as_alt = "OnlyLeft"
-padding = { x = 10, y = 10 }  # Add some breathing room
+padding = { x = 10, y = 10 }
+opacity = 0.9  # Adjust between 0.85-0.98 for your preference
+blur = true     # Adds nice blur effect on macOS
 
 [scrolling]
 history = 10000

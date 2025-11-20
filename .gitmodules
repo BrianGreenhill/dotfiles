@@ -1,0 +1,3 @@
+[submodule "ubersicht/Library/Application Support/Übersicht/widgets/simple-bar"]
+	path = ubersicht/Library/Application Support/Übersicht/widgets/simple-bar
+	url = https://github.com/Jean-Tinland/simple-bar.git
