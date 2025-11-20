@@ -104,3 +104,10 @@ echo ""
 if [[ "$needs_backup" == "true" ]]; then
     echo "💡 Old configs backed up to: $backup_dir"
 fi
+
+# Apply macOS settings (optional)
+read -p "Apply macOS system settings? (y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    ./macos-settings.sh
+fi
