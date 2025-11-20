@@ -6,13 +6,13 @@ set -e
 
 if [[ $CODESPACES != "true" ]]; then
     echo "❌ This script is only for GitHub Codespaces"
-    echo "   For local setup, run: brew bundle && stow alacritty nvim tmux zsh zoxide"
+    echo "   For local macOS setup, run: ./setup.sh"
     exit 1
 fi
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo "🚀 Setting up Codespaces dotfiles..."
+echo "☁️  Setting up dotfiles for GitHub Codespaces..."
 
 # Install fzf
 if [ ! -d ~/.fzf ]; then
@@ -40,4 +40,5 @@ ln -sf "$DOTFILES_DIR/nvim/.config/nvim" ~/.config/nvim
 ln -sf "$DOTFILES_DIR/tmux/.config/tmux" ~/.config/tmux
 ln -sf "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
 
+echo ""
 echo "✅ Codespaces setup complete!"
