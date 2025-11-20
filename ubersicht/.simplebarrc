@@ -31,8 +31,8 @@
     "flashspaceServerRefresh": false
   },
   "themes": {
-    "lightTheme": "RosePineDawn",
-    "darkTheme": "RosePineMoon",
+    "lightTheme": "GruvboxLight",
+    "darkTheme": "GruvboxDark",
     "colorMain": "",
     "colorMainAlt": "",
     "colorMinor": "",

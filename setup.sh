@@ -71,6 +71,27 @@ for config in "${configs[@]}"; do
     fi
 done
 
+# Install Übersicht widgets
+if command -v osascript &>/dev/null; then
+    echo "🎨 Setting up Übersicht widgets..."
+
+    WIDGETS_SOURCE="$DOTFILES_DIR/.ubersicht-widgets"
+    WIDGETS_TARGET="$HOME/Library/Application Support/Übersicht/widgets"
+
+    mkdir -p "$WIDGETS_TARGET"
+
+    # Initialize submodules
+    cd "$DOTFILES_DIR"
+    git submodule update --init --recursive
+
+    # Symlink simple-bar
+    if [[ ! -e "$WIDGETS_TARGET/simple-bar" ]]; then
+        ln -sf "$WIDGETS_SOURCE/simple-bar" "$WIDGETS_TARGET/simple-bar"
+        echo "  → Linked simple-bar widget"
+    fi
+fi
+
+
 echo ""
 echo "✅ macOS setup complete!"
 echo ""
