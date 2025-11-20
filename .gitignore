@@ -1,8 +1,22 @@
+# Shell history
 .zsh_history
 .zhistory
 .zcompdump*
 .zsh_sessions
+
+# Plugin directories
 nvim/.config/nvim/plugged
 tmux/.config/tmux/plugins
 iterm2/.config/iterm2/AppSupport
+
+# Generated files
 tags
+*.log
+
+# macOS
+.DS_Store
+
+# Backup files
+*.bak
+*.swp
+*~
