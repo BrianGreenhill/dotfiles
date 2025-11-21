@@ -16,11 +16,11 @@
     "slidingAnimationPace": 0,
     "font": "JetBrains Mono, Monaco, Menlo, monospace",
     "fontSize": "11px",
-    "yabaiPath": "/opt/homebrew/bin/yabai",
-    "aerospacePath": "/opt/homebrew/bin/aerospace",
+    "yabaiPath": "$(which yabai)",
+    "aerospacePath": "$(which aerospace)",
     "flashspacePath": "$(which flashspace)",
     "windowManager": "aerospace",
-    "shell": "sh",
+    "shell": "bash",
     "terminal": "Terminal",
     "disableNotifications": false,
     "enableMissives": false,
@@ -101,8 +101,8 @@
     "stockWidget": false,
     "youtubeMusicWidget": false,
     "musicWidget": false,
-    "mpdWidget": true,
-    "browserTrackWidget": false
+    "mpdWidget": false,
+    "browserTrackWidget": true
   },
   "githubWidgetOptions": {
     "refreshFrequency": 600000,
