@@ -17,7 +17,7 @@
     "font": "JetBrains Mono, Monaco, Menlo, monospace",
     "fontSize": "11px",
     "yabaiPath": "$(which yabai)",
-    "aerospacePath": "$(which aerospace)",
+    "aerospacePath": "/opt/homebrew/bin/aerospace",
     "flashspacePath": "$(which flashspace)",
     "windowManager": "aerospace",
     "shell": "bash",
@@ -31,8 +31,8 @@
     "flashspaceServerRefresh": false
   },
   "themes": {
-    "lightTheme": "GruvboxLight",
-    "darkTheme": "GruvboxDark",
+    "lightTheme": "MacOSLight",
+    "darkTheme": "MacOSDark",
     "colorMain": "",
     "colorMainAlt": "",
     "colorMinor": "",
@@ -269,6 +269,6 @@
     "userWidgetsList": {}
   },
   "customStyles": {
-    "styles": "/* your custom css styles here */"
+    "styles": "    :root {\n      --main: #181616;\n      --main-alt: #181616;\n      --minor: #223249;\n      --accent: #7fb4ca;\n      --red: #c34043;\n      --green: #8a9a7b;\n      --yellow: #dca561;\n      --orange: #ffa066;\n      --blue: #7fb4ca;\n      --magenta: #957fb8;\n      --cyan: #6a9589;\n      --black: #181616;\n      --white: #c5c9c5;\n      --foreground: #c5c9c5;\n      --background: #181616;\n      --transparent-dark: rgba(0,0,0,0.05);\n      --font: \\\"JetBrains Mono\\\", Monaco, Menlo, monospace;\n      --font-size: 11px;\n      --bar-height: 34px;\n      --bar-radius: 6px;\n      --bar-border: 0px solid transparent;\n      --bar-inner-margin: 3px;\n      --item-max-width: 160px;\n      --item-radius: 5px;\n      --item-inner-margin: 3px 7px;\n      --item-outer-margin: 0 0 0 5px;\n      --hover-ring: 0 0 0 2px rgba(255, 255, 255, 0.75);\n      --focus-ring: 0 0 0 2px rgb(255,255,255);\n      --light-shadow: 0 5px 10px rgba(0,0,0,0.24);\n      --foreground-shadow: 0 0 0 1px var(--foreground);\n      --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);\n      --click-effect: rgba(255,255,255,0.3);\n    }\n    .simple-bar--spaces__space,\n    .simple-bar--process {\n      color: #c5c9c5 !important;\n      background: #223249 !important; /* slightly lighter than main, but not too pale */\n    }"
   }
 }
