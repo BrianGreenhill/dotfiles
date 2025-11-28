@@ -1,8 +1,10 @@
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
-# You can use it to add commands that run after AeroSpace startup.
-# Available commands : https://nikitabobko.github.io/AeroSpace/commands
+# Run Sketchybar together with AeroSpace
+# sketchybar has a built-in detection of already running process,
+# so it won't be run twice on AeroSpace restart
+# after-startup-command = ['exec-and-forget sketchybar']
 after-startup-command = []
 
 # Start AeroSpace at login
@@ -12,15 +14,9 @@ start-at-login = false
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
-# simple-bar server
-on-focus-changed = [
-  "exec-and-forget curl http://localhost:7776/aerospace/spaces/refresh",
-]
-
-exec-on-workspace-change = [
-  '/bin/zsh',
-  '-c',
-  'curl "http://localhost:7776/aerospace/spaces/refresh?space=$AEROSPACE_FOCUSED_WORKSPACE"',
+# Notify Sketchybar about workspace change
+exec-on-workspace-change = ['/bin/sh', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
 
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts

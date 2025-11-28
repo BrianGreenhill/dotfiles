@@ -45,7 +45,7 @@ if [[ "$needs_backup" == "true" ]]; then
     echo "💾 Backing up existing configs to $backup_dir"
     mkdir -p "$backup_dir"
 
-    for config in alacritty nvim tmux aerospace; do
+    for config in alacritty nvim tmux aerospace sketchybar; do
         if [[ -e "$HOME/.config/$config" && ! -L "$HOME/.config/$config" ]]; then
             echo "  → Backing up $config..."
             mv "$HOME/.config/$config" "$backup_dir/"
@@ -62,7 +62,7 @@ fi
 echo "🔗 Symlinking configurations..."
 cd "$DOTFILES_DIR"
 
-configs=(aerospace alacritty nvim tmux zsh ubersicht)
+configs=(aerospace alacritty nvim tmux zsh sketchybar)
 
 for config in "${configs[@]}"; do
     if [[ -d "$config" ]]; then
@@ -70,27 +70,6 @@ for config in "${configs[@]}"; do
         stow "$config"
     fi
 done
-
-# Install Übersicht widgets
-if command -v osascript &>/dev/null; then
-    echo "🎨 Setting up Übersicht widgets..."
-
-    WIDGETS_SOURCE="$DOTFILES_DIR/.ubersicht-widgets"
-    WIDGETS_TARGET="$HOME/Library/Application Support/Übersicht/widgets"
-
-    mkdir -p "$WIDGETS_TARGET"
-
-    # Initialize submodules
-    cd "$DOTFILES_DIR"
-    git submodule update --init --recursive
-
-    # Symlink simple-bar
-    if [[ ! -e "$WIDGETS_TARGET/simple-bar" ]]; then
-        ln -sf "$WIDGETS_SOURCE/simple-bar" "$WIDGETS_TARGET/simple-bar"
-        echo "  → Linked simple-bar widget"
-    fi
-fi
-
 
 echo ""
 echo "✅ macOS setup complete!"

@@ -296,6 +296,7 @@ require('lazy').setup {
       vim.g.copilot_no_tab_map = true
     end,
   },
+  'tpope/vim-sleuth',
 }
 
 vim.cmd.colorscheme 'kanagawa'
