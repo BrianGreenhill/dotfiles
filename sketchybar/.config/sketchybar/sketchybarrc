@@ -33,8 +33,8 @@ default=(
 )
 
 sketchybar --default "${default[@]}" \
-           --bar color=$KANAGAWA_BG height=35 \
-           --add event aerospace_workspace_change
+           --bar color=$KANAGAWA_BG height=35 display=1 \
+           --add event aerospace_workspace_change \
 
 # left items
 sketchybar --add item chevron left \
@@ -53,7 +53,7 @@ sketchybar --add item clock right \
            --set volume script="$PLUGIN_DIR/volume.sh" \
            --subscribe volume volume_change \
            --add item wifi right \
-           --set wifi script="$PLUGIN_DIR/wifi.sh" \
+           --set wifi update_freq=60 script="$PLUGIN_DIR/wifi.sh" \
            --subscribe wifi wifi_change \
            --add item battery right \
            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \

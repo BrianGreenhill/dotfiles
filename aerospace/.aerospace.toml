@@ -62,7 +62,7 @@ automatically-unhide-macos-hidden-apps = true
     inner.vertical =   5
     outer.left =       5
     outer.bottom =     5
-    outer.top =        [{ monitor.1 = 40}, 0]
+    outer.top =        [{monitor."Built-in Retina Display" = 14}, {monitor."DELL P3421W" = 40}, 0]
     outer.right =      5
 
 # 'main' binding mode declaration
@@ -73,8 +73,8 @@ automatically-unhide-macos-hidden-apps = true
     # open alacritty terminal with alt + enter
     alt-enter = 'exec-and-forget open -n /Applications/Alacritty.app'
 
-    # open firefox developer edition with alt + w
-    alt-w = 'exec-and-forget open -n /Applications/Firefox\ Developer\ Edition.app'
+    cmd-ctrl-w = 'exec-and-forget "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox" --no-remote --profile "/Users/briangreenhill/Library/Application Support/Firefox/Profiles/hddvzm0e.dev-edition-default-1756365353863"'
+    cmd-ctrl-p = 'exec-and-forget "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox" --no-remote --profile "/Users/briangreenhill/Library/Application Support/Firefox/Profiles/c137dnld.Personal"'
 
     # All possible keys:
     # - Letters.        a, b, c, ..., z
