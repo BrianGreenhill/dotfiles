@@ -2,6 +2,8 @@
 
 Personal development environment configuration for macOS and GitHub Codespaces.
 
+<img width="3438" height="1434" alt="image" src="https://github.com/user-attachments/assets/e0b2d4f7-6ef3-42f4-b95d-a478eeec193a" />
+
 ## What's Included
 
 - **Shell:** Zsh with custom prompt and git integration
