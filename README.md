@@ -8,7 +8,7 @@ Personal development environment configuration for macOS and GitHub Codespaces.
 - **Terminal:** Alacritty with Kanagawa color scheme
 - **Editor:** Neovim with Lazy plugin manager
 - **Multiplexer:** tmux with custom keybindings
-- **Window Manager:** AeroSpace (tiling window manager for macOS)
+- **Window Manager:** Rectangle
 - **Tools:** fzf, ripgrep, bat, zoxide, and more
 
 ## Installation
@@ -39,7 +39,6 @@ Your dotfiles will be installed automatically in every new Codespace.
 
 ```
 dotfiles/
-├── aerospace/        # AeroSpace window manager config
 ├── alacritty/        # Terminal emulator config
 ├── nvim/             # Neovim configuration
 ├── tmux/             # tmux configuration
