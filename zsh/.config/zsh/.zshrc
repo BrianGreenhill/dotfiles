@@ -22,6 +22,9 @@ alias vim='nvim'
 alias v='nvim'
 alias dcp='docker compose ps'
 alias dcd='docker compose down -v'
+alias dcu='docker compose up -d --build'
+alias dc='docker compose'
+alias dcexec='docker compose exec'
 alias k='kubectl'
 alias kg='kubectl get'
 alias kgp='kubectl get pod'
@@ -57,3 +60,5 @@ alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 . ~/.fzf.zsh
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace)

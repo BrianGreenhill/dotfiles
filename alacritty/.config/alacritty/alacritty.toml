@@ -38,7 +38,7 @@ white = "#c5c9c5"
 decorations = "Buttonless"
 option_as_alt = "OnlyLeft"
 padding = { x = 10, y = 10 }
-opacity = 0.9  # Adjust between 0.85-0.98 for your preference
+opacity = 1  # Adjust between 0.85-0.98 for your preference
 blur = true     # Adds nice blur effect on macOS
 
 [scrolling]
