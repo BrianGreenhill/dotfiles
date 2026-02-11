@@ -31,7 +31,7 @@ fi
 
 # Install other tools
 echo "📦 Installing additional tools..."
-sudo apt-get install -y tmux ripgrep bat
+sudo apt-get install -y tmux ripgrep bat || true
 
 # Link configs
 echo "🔗 Linking configs..."
