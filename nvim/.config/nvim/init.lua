@@ -108,19 +108,6 @@ vim.keymap.set('n', '<leader>sd', function()
   fzflua.files { cwd = vim.env.HOME .. '/work/briangreenhill/dotfiles' }
 end, { desc = 'FZF: [S]earch [D]otfiles' })
 
--- Mason (tool installer)
-require('mason').setup()
-require('mason-tool-installer').setup {
-  ensure_installed = {
-    'gopls',
-    'yaml-language-server',
-    'bash-language-server',
-    'lua-language-server',
-    'stylua',
-    'goimports',
-  },
-}
-
 -- LSP
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
@@ -184,7 +171,7 @@ vim.lsp.enable { 'gopls', 'yamlls', 'bashls', 'lua_ls' }
 
 -- Treesitter
 require('nvim-treesitter.config').setup {
-  ensure_installed = { 'go', 'lua', 'yaml', 'bash', 'markdown' },
+  ensure_installed = { 'go', 'lua', 'yaml', 'bash', 'markdown', 'json', 'toml', 'dockerfile' },
   auto_install = true,
   highlight = { enable = true, additional_vim_regex_highlighting = false },
   indent = { enable = true },

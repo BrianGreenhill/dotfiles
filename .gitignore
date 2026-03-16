@@ -12,9 +12,17 @@ iterm2/.config/iterm2/AppSupport
 # Generated files
 tags
 *.log
+*.bin
 
 # macOS
 .DS_Store
+
+# Zsh state
+zsh/.config/zsh/.zsh_history
+zsh/.config/zsh/.zhistory
+zsh/.config/zsh/.zsh_sessions/
+zsh/.config/zsh/.zcompdump*
+zsh/.config/zsh/.zcompcache/
 
 # Backup files
 *.bak

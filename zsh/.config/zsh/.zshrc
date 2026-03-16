@@ -1,14 +1,24 @@
-autoload -Uz compinit && compinit
-parse_git_branch() {
-    git branch --show-current 2> /dev/null | sed 's/^/ (/' | sed 's/$/)/'
-}
+autoload -Uz compinit
+if [[ -z "$ZSH_COMPDUMP" ]]; then
+  ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump"
+fi
+if [[ "$ZSH_COMPDUMP"(#qNmh+24) ]]; then
+  compinit -d "$ZSH_COMPDUMP"
+else
+  compinit -C -d "$ZSH_COMPDUMP"
+fi
 
-parse_git_dirty() {
-    [[ -n $(git status --porcelain 2> /dev/null) ]] && echo "*"
+parse_git_branch() {
+  local info
+  info=$(git status --branch --porcelain=v2 2>/dev/null) || return
+  local branch=$(echo "$info" | sed -n 's/^# branch.head //p')
+  local dirty=""
+  echo "$info" | grep -qE '^[12?!]' && dirty="*"
+  [[ -n "$branch" ]] && echo " (${branch})${dirty}"
 }
 
 setopt PROMPT_SUBST
-PROMPT='%F{blue}%m%f: %F{cyan}%2~%f%F{green}$(parse_git_branch)%F{yellow}$(parse_git_dirty)%f $ '
+PROMPT='%F{blue}%m%f: %F{cyan}%2~%f%F{green}$(parse_git_branch)%f $ '
 autoload -U colors && colors
 bindkey -e
 
@@ -55,10 +65,9 @@ alias gbclean="git branch --merged | grep -v main | xargs git branch -d"
 alias rg="rg --hidden --glob=!.git/"
 alias grep='grep --color=auto'
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
-alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 
-. ~/.fzf.zsh
-eval "$(direnv hook zsh)"
-eval "$(zoxide init zsh)"
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-source <(carapace _carapace)
+command -v carapace &>/dev/null && source <(carapace _carapace)

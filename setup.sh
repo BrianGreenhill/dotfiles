@@ -30,7 +30,7 @@ needs_backup=false
 
 echo "🔍 Checking for existing configurations..."
 
-for config in alacritty nvim tmux; do
+for config in alacritty ghostty nvim tmux; do
     if [[ -e "$HOME/.config/$config" && ! -L "$HOME/.config/$config" ]]; then
         needs_backup=true
         break
@@ -45,7 +45,7 @@ if [[ "$needs_backup" == "true" ]]; then
     echo "💾 Backing up existing configs to $backup_dir"
     mkdir -p "$backup_dir"
 
-    for config in alacritty nvim tmux aerospace; do
+    for config in alacritty nvim tmux; do
         if [[ -e "$HOME/.config/$config" && ! -L "$HOME/.config/$config" ]]; then
             echo "  → Backing up $config..."
             mv "$HOME/.config/$config" "$backup_dir/"
@@ -62,7 +62,7 @@ fi
 echo "🔗 Symlinking configurations..."
 cd "$DOTFILES_DIR"
 
-configs=(aerospace alacritty nvim tmux zsh)
+configs=(alacritty ghostty nvim tmux zsh)
 
 for config in "${configs[@]}"; do
     if [[ -d "$config" ]]; then

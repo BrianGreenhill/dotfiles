@@ -45,6 +45,8 @@ brew "libpcap"
 brew "libtool"
 # Package manager for the Lua programming language
 brew "luarocks"
+# Language server for Lua
+brew "lua-language-server"
 # Run a Kubernetes cluster locally
 brew "minikube"
 # Clean C library for processing UTF-8 Unicode data
@@ -73,6 +75,8 @@ brew "socat"
 brew "sqlc"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# An opinionated Lua code formatter
+brew "stylua"
 # User interface to the TELNET protocol
 brew "telnet"
 # Send macOS User Notifications from the command-line
@@ -89,8 +93,13 @@ brew "vegeta"
 brew "wget"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
+# Language server for YAML files
+brew "yaml-language-server"
+# Language server for Bash
+brew "bash-language-server"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
+cask "ghostty"
 # GPU-accelerated terminal emulator
 cask "alacritty"
 # Enable Windows-like alt-tab
@@ -134,6 +143,7 @@ go "github.com/air-verse/air"
 go "github.com/BrianGreenhill/coachgpt"
 go "github.com/spf13/cobra-cli"
 go "golang.org/x/tools/gopls"
+go "golang.org/x/tools/cmd/goimports"
 go "github.com/box/memsniff"
 go "github.com/golang/mock/mockgen"
 go "github.com/briangreenhill/ssg"

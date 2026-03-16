@@ -33,6 +33,12 @@ fi
 echo "📦 Installing additional tools..."
 sudo apt-get install -y tmux ripgrep bat || true
 
+# Install LSP servers and dev tools
+echo "📦 Installing LSP servers..."
+npm install -g yaml-language-server bash-language-server || true
+go install golang.org/x/tools/gopls@latest || true
+go install golang.org/x/tools/cmd/goimports@latest || true
+
 # Link configs
 echo "🔗 Linking configs..."
 mkdir -p ~/.config

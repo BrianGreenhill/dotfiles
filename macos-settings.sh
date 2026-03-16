@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 echo "🍎 Configuring macOS system settings..."
+set -e
 
-# Close System Preferences to prevent overriding
-osascript -e 'tell application "System Preferences" to quit'
+# Close System Settings to prevent overriding
+osascript -e 'tell application "System Settings" to quit' 2>/dev/null || true
 
 # Faster key repeat
 defaults write NSGlobalDomain KeyRepeat -int 2
@@ -31,6 +32,6 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 
 # Restart affected apps
-killall Finder
+killall Finder 2>/dev/null || true
 
 echo "✅ Done! Some changes require logout/restart."
