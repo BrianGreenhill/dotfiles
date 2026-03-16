@@ -40,5 +40,9 @@ ln -sf "$DOTFILES_DIR/nvim/.config/nvim" ~/.config/nvim
 ln -sf "$DOTFILES_DIR/tmux/.config/tmux" ~/.config/tmux
 ln -sf "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
 
+# Install neovim plugins
+echo "📦 Installing Neovim plugins..."
+bash ~/.config/nvim/plugins.sh
+
 echo ""
 echo "✅ Codespaces setup complete!"

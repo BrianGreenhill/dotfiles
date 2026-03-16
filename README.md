@@ -6,7 +6,7 @@ Personal development environment configuration for macOS and GitHub Codespaces.
 
 - **Shell:** Zsh with custom prompt and git integration
 - **Terminal:** Alacritty with Kanagawa color scheme
-- **Editor:** Neovim with Lazy plugin manager
+- **Editor:** Neovim with native package management
 - **Multiplexer:** tmux with custom keybindings
 - **Window Manager:** Rectangle
 - **Tools:** fzf, ripgrep, bat, zoxide, and more
@@ -63,11 +63,25 @@ dotfiles/
 - **Kanagawa color scheme**
 
 ### Neovim
-- Lazy.nvim plugin manager
+- No plugin manager — uses native packages (`pack/plugins/start/`)
 - Kanagawa Dragon theme
-- LSP support with Mason
+- LSP via `vim.lsp.config` (nvim 0.11+)
 - Treesitter syntax highlighting
+- blink.cmp (Rust-powered completion)
 - Fzf search integration
+
+#### Neovim Plugins
+
+Plugins are managed by a shell script, not a plugin manager.
+
+```bash
+~/.config/nvim/plugins.sh           # Install missing plugins
+~/.config/nvim/plugins.sh update    # Update all plugins
+```
+
+To add a plugin, add `owner/repo` to the `plugins` array in `plugins.sh` and re-run it.
+
+Plugins auto-install on first launch if the pack directory doesn't exist.
 
 ## Updating
 
@@ -76,6 +90,11 @@ dotfiles/
 cd ~/.dotfiles
 brew bundle dump --force  # Update Brewfile with current packages
 brew bundle                # Install/update packages
+```
+
+### Update Neovim plugins
+```bash
+~/.config/nvim/plugins.sh update
 ```
 
 ### Update configs

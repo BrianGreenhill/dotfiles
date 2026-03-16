@@ -77,7 +77,7 @@ echo ""
 echo "📝 Next steps:"
 echo "  1. Restart your terminal (or run: exec zsh)"
 echo "  2. Open tmux and press Ctrl-a + I to install plugins"
-echo "  3. Open Neovim - plugins will install automatically"
+echo "  3. Run ~/.config/nvim/plugins.sh to install Neovim plugins"
 echo ""
 
 if [[ "$needs_backup" == "true" ]]; then
