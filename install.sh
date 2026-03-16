@@ -22,11 +22,10 @@ if [ ! -d ~/.fzf ]; then
 fi
 
 # Install neovim
-if ! command -v nvim &>/dev/null; then
+if ! command -v nvim &>/dev/null || [[ "$(nvim --version | head -1)" < "NVIM v0.11" ]]; then
     echo "📦 Installing neovim..."
-    sudo add-apt-repository ppa:neovim-ppa/unstable -y
-    sudo apt-get update -y
-    sudo apt-get install neovim -y
+    curl -sfL https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz \
+        | sudo tar xz -C /usr/local --strip-components=1
 fi
 
 # Install other tools
