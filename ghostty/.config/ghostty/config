@@ -45,3 +45,6 @@ command = /bin/zsh -l
 
 # Scrollback
 scrollback-limit = 10000
+
+# Ensure Shift+Click is handled by Ghostty, not forwarded to tmux
+mouse-shift-capture = false
