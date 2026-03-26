@@ -2,6 +2,8 @@
 
 set -e
 
+DOTFILES_DIR=${DOTFILES_DIR:-"$HOME/work/briangreenhill/dotfiles"}
+
 function help() {
     echo ' slowman - a slow but powerful pokemon'
     echo ""
@@ -33,7 +35,8 @@ function commit() {
 
 case $1 in
     dot)
-        commit "$HOME/work/briangreenhill/dotfiles"
+        echo $DOTFILES_DIR
+        commit "$DOTFILES_DIR"
         echo "dotfiles commit done..."
         ;;
     *)
