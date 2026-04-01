@@ -66,6 +66,8 @@ alias rg="rg --hidden --glob=!.git/"
 alias grep='grep --color=auto'
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
