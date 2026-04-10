@@ -2,6 +2,8 @@
 font-family = JetBrainsMono Nerd Font
 font-size = 20
 font-thicken = true
+font-feature = -liga
+font-feature = -calt
 
 # Kanagawa Dragon theme
 background = #181616
