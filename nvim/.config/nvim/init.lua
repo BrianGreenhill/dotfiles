@@ -59,22 +59,10 @@ statusline.section_location = function()
   return '%2l:%-2v'
 end
 
--- Completion (blink.cmp)
-require('blink.cmp').setup {
-  keymap = {
-    preset = 'default',
-    ['<C-y>'] = { 'select_and_accept' },
-    ['<C-space>'] = { 'show' },
-  },
-  completion = {
-    documentation = { auto_show = true, auto_show_delay_ms = 200 },
-    list = { selection = { preselect = true, auto_insert = false } },
-    menu = { auto_show = true },
-  },
-  cmdline = { enabled = true },
-  sources = {
-    default = { 'lsp', 'path', 'buffer' },
-  },
+-- Completion (mini.completion)
+require('mini.completion').setup {
+  delay = { completion = 100, info = 100, signature = 50 },
+  lsp_completion = { source_func = 'omnifunc', auto_setup = true },
 }
 
 -- Fuzzy finder (fzf-lua)
