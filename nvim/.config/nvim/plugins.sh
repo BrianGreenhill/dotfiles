@@ -7,6 +7,7 @@ mkdir -p "$PACK_DIR"
 
 plugins=(
   "echasnovski/mini.nvim"
+  "saghen/blink.lib"
   "saghen/blink.cmp"
   "ibhagwan/fzf-lua"
   "nvim-treesitter/nvim-treesitter"
