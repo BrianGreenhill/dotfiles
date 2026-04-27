@@ -68,8 +68,30 @@ alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
+# Cache a command's init output, regenerating when the binary updates
+_cached_eval() {
+    local cmd=$1
+    local cmd_path="${commands[$cmd]:-$(command -v "$cmd" 2>/dev/null)}" || return
+    shift
+    local cache_key="${cmd}__${(j:_:)@}"
+    local cache_file="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/${cache_key}.zsh"
+    if [[ ! -f "$cache_file" || "$cmd_path" -nt "$cache_file" ]]; then
+        mkdir -p "${cache_file:h}"
+        local tmp_file="${cache_file}.tmp.$$"
+        if "$cmd" "$@" > "$tmp_file" 2>/dev/null; then
+            mv "$tmp_file" "$cache_file"
+        else
+            rm -f "$tmp_file"
+            # Fallback to direct eval if caching fails
+            eval "$("$cmd" "$@")"
+            return
+        fi
+    fi
+    source "$cache_file"
+}
+
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
-command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+command -v direnv &>/dev/null && _cached_eval direnv hook zsh
+command -v zoxide &>/dev/null && _cached_eval zoxide init zsh
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-command -v carapace &>/dev/null && source <(carapace _carapace)
+command -v carapace &>/dev/null && _cached_eval carapace _carapace
