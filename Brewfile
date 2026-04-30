@@ -1,6 +1,3 @@
-tap "koekeishiya/formulae"
-# CLI tool for working with Architecture Decision Records
-brew "adr-tools"
 # Automatic configure script builder
 brew "autoconf"
 # Tool for generating GNU Standards-compliant Makefiles
@@ -9,8 +6,6 @@ brew "automake"
 brew "openssl@3"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
-# Multi-shell multi-command argument completer
-brew "carapace"
 # Cross-platform make
 brew "cmake"
 # GNU File, Shell, and Text utilities
@@ -59,8 +54,6 @@ brew "zstd"
 brew "nmap"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
-# Prometheus exporter for machine metrics
-brew "node_exporter"
 # Highly capable, feature-rich programming language
 brew "perl"
 # Package compiler and linker metadata toolkit
@@ -85,8 +78,6 @@ brew "terminal-notifier"
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
-# Maintained ctags implementation
-brew "universal-ctags"
 # HTTP load testing tool and library
 brew "vegeta"
 # Internet file retriever
@@ -99,6 +90,7 @@ brew "yaml-language-server"
 brew "bash-language-server"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
+cask "1password"
 cask "ghostty"
 # GPU-accelerated terminal emulator
 cask "alacritty"
@@ -111,12 +103,8 @@ cask "bettertouchtool"
 # Web browser
 cask "firefox@developer-edition"
 cask "font-jetbrains-mono-nerd-font"
-# Tools to protect your files
-cask "gpg-suite-no-mail"
 # Utility to hide menu bar items
 cask "hiddenbar"
-# Terminal emulator as alternative to Apple's Terminal app
-cask "iterm2"
 # Menu bar calendar
 cask "itsycal"
 # Provides access to camera controls
@@ -125,16 +113,12 @@ cask "logitech-camera-settings"
 cask "logitune"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
-# Knowledge base that works on top of a local folder of plain text Markdown files
-cask "obsidian"
 # Replacement for Docker Desktop
 cask "orbstack"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # System monitor for the menu bar
 cask "stats"
-# Development environment
-cask "vagrant"
 # Native desktop client for WhatsApp
 cask "whatsapp"
 # Network protocol analyzer
@@ -142,6 +126,5 @@ cask "wireshark-app"
 go "github.com/spf13/cobra-cli"
 go "golang.org/x/tools/gopls"
 go "golang.org/x/tools/cmd/goimports"
-go "github.com/golang/mock/mockgen"
 go "github.com/briangreenhill/ssg"
 go "honnef.co/go/tools/cmd/staticcheck"
