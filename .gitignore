@@ -17,6 +17,10 @@ tags
 # macOS
 .DS_Store
 
+# GnuPG — never commit key material, only config
+gnupg/.gnupg/*
+!gnupg/.gnupg/scdaemon.conf
+
 # Zsh state
 zsh/.config/zsh/.zsh_history
 zsh/.config/zsh/.zhistory

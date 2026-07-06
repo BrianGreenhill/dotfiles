@@ -7,10 +7,8 @@ fi
 if command -v gpg &>/dev/null; then
     [[ -t 0 ]] && export GPG_TTY=$(tty)
     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket 2>/dev/null)"
-    # Skip slow gpgconf --launch (~400ms) when agent is already healthy
-    if ! gpg-connect-agent /bye &>/dev/null; then
-        gpgconf --launch gpg-agent 2>/dev/null || true
-    fi
+    # gpg-agent auto-launches on first use; don't block shell startup on
+    # scdaemon/YubiKey enumeration (a cold ping can stall for seconds).
 fi
 
 export PATH=$HOME/bin:$HOME/.local/bin:$PATH
