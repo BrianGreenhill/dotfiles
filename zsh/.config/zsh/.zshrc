@@ -8,17 +8,59 @@ else
   compinit -C -d "$ZSH_COMPDUMP"
 fi
 
-parse_git_branch() {
-  local info
-  info=$(git status --branch --porcelain=v2 2>/dev/null) || return
-  local branch=$(echo "$info" | sed -n 's/^# branch.head //p')
-  local dirty=""
-  echo "$info" | grep -qE '^[12?!]' && dirty="*"
-  [[ -n "$branch" ]] && echo " (${branch})${dirty}"
+# Git prompt: branch name is resolved synchronously (cheap, no work-tree
+# scan) while the dirty indicator is computed asynchronously so a slow
+# `git status` in a large repo never blocks the prompt (e.g. a new tmux tab).
+typeset -g _prompt_git_branch=''
+typeset -g _prompt_git_dirty=''
+typeset -g _prompt_git_async_fd=-1
+
+_prompt_git_branch_name() {
+  _prompt_git_branch=''
+  git rev-parse --is-inside-work-tree &>/dev/null || { _prompt_git_dirty=''; return }
+  local ref
+  ref=$(git symbolic-ref --short HEAD 2>/dev/null) \
+    || ref=$(git rev-parse --short HEAD 2>/dev/null) \
+    || return
+  _prompt_git_branch=$ref
 }
 
+_prompt_git_async_done() {
+  local fd=$1 result=''
+  IFS= read -r result <&$fd
+  zle -F $fd 2>/dev/null
+  exec {fd}<&- 2>/dev/null
+  _prompt_git_async_fd=-1
+  if [[ $result != $_prompt_git_dirty ]]; then
+    _prompt_git_dirty=$result
+    zle reset-prompt 2>/dev/null
+  fi
+}
+
+_prompt_git_async_start() {
+  if (( _prompt_git_async_fd >= 0 )); then
+    zle -F $_prompt_git_async_fd 2>/dev/null
+    exec {_prompt_git_async_fd}<&- 2>/dev/null
+    _prompt_git_async_fd=-1
+  fi
+  [[ -n $_prompt_git_branch ]] || { _prompt_git_dirty=''; return }
+  exec {_prompt_git_async_fd}< <(
+    if [[ -n $(git status --porcelain --ignore-submodules=dirty 2>/dev/null) ]]; then
+      print -r -- '*'
+    fi
+  )
+  zle -F $_prompt_git_async_fd _prompt_git_async_done
+}
+
+_prompt_git_precmd() {
+  _prompt_git_branch_name
+  _prompt_git_async_start
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _prompt_git_precmd
+
 setopt PROMPT_SUBST
-PROMPT='%F{blue}%m%f: %F{cyan}%2~%f%F{green}$(parse_git_branch)%f $ '
+PROMPT='%F{blue}%m%f: %F{cyan}%2~%f%F{green}${_prompt_git_branch:+ (${_prompt_git_branch})${_prompt_git_dirty}}%f $ '
 autoload -U colors && colors
 bindkey -e
 
