@@ -62,7 +62,9 @@ fi
 echo "🔗 Symlinking configurations..."
 cd "$DOTFILES_DIR"
 
-configs=(alacritty ghostty nvim tmux zsh bin gnupg)
+mkdir -p "$HOME/.copilot/skills"
+
+configs=(alacritty ghostty nvim tmux zsh bin gnupg copilot)
 
 for config in "${configs[@]}"; do
     if [[ -d "$config" ]]; then

@@ -10,6 +10,7 @@ Personal development environment configuration for macOS and GitHub Codespaces.
 - **Multiplexer:** tmux with custom keybindings
 - **Window Manager:** Rectangle
 - **Tools:** fzf, ripgrep, bat, zoxide, and more
+- **Copilot:** Custom Copilot CLI skills
 
 ## Installation
 
@@ -45,6 +46,7 @@ dotfiles/
 ├── nvim/             # Neovim configuration
 ├── tmux/             # tmux configuration
 ├── zsh/              # Zsh shell configuration
+├── copilot/          # Copilot CLI custom skills
 ├── install.sh        # Codespaces installer (auto-runs)
 ├── setup.sh          # macOS installer
 └── Brewfile          # Homebrew packages
