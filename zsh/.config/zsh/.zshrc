@@ -60,7 +60,7 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd _prompt_git_precmd
 
 setopt PROMPT_SUBST
-PROMPT='%F{blue}%m%f: %F{cyan}%2~%f%F{green}${_prompt_git_branch:+ (${_prompt_git_branch})${_prompt_git_dirty}}%f $ '
+PROMPT='%F{yellow}[%D{%H:%M:%S}]%f %F{blue}%m%f: %F{cyan}%2~%f%F{green}${_prompt_git_branch:+ (${_prompt_git_branch})${_prompt_git_dirty}}%f $ '
 autoload -U colors && colors
 bindkey -e
 
