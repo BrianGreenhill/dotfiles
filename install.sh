@@ -20,6 +20,10 @@ mkdir -p ~/.config
 ln -sf "$DOTFILES_DIR/nvim/.config/nvim" ~/.config/nvim
 ln -sf "$DOTFILES_DIR/tmux/.config/tmux" ~/.config/tmux
 ln -sf "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
+mkdir -p ~/.copilot/skills
+for skill in "$DOTFILES_DIR"/copilot/.copilot/skills/*; do
+    ln -sfn "$skill" ~/.copilot/skills/"$(basename "$skill")"
+done
 
 # Run all independent installs in parallel
 echo "📦 Installing tools in parallel..."
