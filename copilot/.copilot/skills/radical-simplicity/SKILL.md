@@ -22,7 +22,10 @@ Stop at the first option that works:
 
 ## Rules
 
-- Fix root cause, not symptoms.
+- Address contributing factors, not only symptoms.
+- Use "contributing factors" for causal analysis in every forum, including
+  documentation, code comments, reviews, issues, pull requests, and incident
+  reports; reject singular-cause terminology.
 - Delete complexity before adding code.
 - No speculative abstractions, dependencies, config, or scaffolding.
 - Fewest files and shortest clear diff wins.
