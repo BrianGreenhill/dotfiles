@@ -1,15 +1,16 @@
 ---
-name: github-codespace-agent
+name: codespace-copilot-agent
 description: >-
-  Work on the github/github repository in a GitHub Codespace using a Copilot
-  CLI agent. Use for any implementation, debugging, review-fix, or validation
-  task in github/github. Never create or use a local git worktree.
+  Work on a repository in a GitHub Codespace using a Copilot CLI agent. Use
+  when a task must stay in Codespaces or should be delegated to Copilot inside
+  the remote development environment. Never create a local git worktree.
 allowed-tools: Bash
 ---
 
-# github/github Codespace Agent Workflow
+# Codespace Copilot Agent Workflow
 
-Use this workflow for repository changes in `github/github`.
+Use this workflow for repository changes that should be performed in a GitHub
+Codespace.
 
 ## Invariants
 
@@ -24,15 +25,15 @@ Use this workflow for repository changes in `github/github`.
 1. Inspect the issue, PR, review, branch, and current checks with `gh`.
 2. List existing Codespaces with `gh codespace list`.
 3. Reuse a suitable stopped Codespace only when it already belongs to the same
-   branch and task; otherwise create a fresh Codespace for `github/github` on
-   the target branch.
+   repository, branch, and task; otherwise create a fresh Codespace on the
+   target branch.
 4. Start the Codespace and verify its branch and clean working tree.
 5. Run Copilot CLI non-interactively inside the Codespace:
 
    ```sh
    gh codespace ssh -c <codespace> -- \
-     copilot -C /workspaces/github --allow-all-tools --allow-all-paths \
-       --allow-all-urls --autopilot -p '<complete task prompt>'
+     copilot -C /workspaces/<repository> --allow-all-tools \
+       --autopilot -p '<complete task prompt>'
    ```
 
    Include the PR and review context, requested behavior, constraints,
@@ -48,7 +49,7 @@ Use this workflow for repository changes in `github/github`.
 
 ## Safety
 
-- Never use `/worktree`, `git worktree`, or a local checkout for `github/github`.
+- Never use `/worktree`, `git worktree`, or a local checkout for the target repository.
 - Never print, persist, or transfer access tokens.
 - Never force-push unless the user explicitly requests it.
 - Do not bypass hooks or tests.
