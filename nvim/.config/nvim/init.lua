@@ -50,8 +50,8 @@ if vim.fn.isdirectory(pack_dir) == 0 then
   vim.cmd 'packloadall'
 end
 
--- Colorscheme
-require('kanagawa').setup { theme = 'dragon', transparent = true }
+-- Colorscheme (kanagawa picks the theme from `background` before `theme`)
+require('kanagawa').setup { theme = 'dragon', background = { dark = 'dragon' }, transparent = true }
 vim.cmd.colorscheme 'kanagawa'
 vim.o.background = 'dark'
 vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
@@ -103,17 +103,16 @@ vim.keymap.set('n', '<leader>sd', function()
   fzflua.files { cwd = vim.env.HOME .. '/work/briangreenhill/dotfiles' }
 end, { desc = 'FZF: [S]earch [D]otfiles' })
 
--- LSP
+-- LSP (also built in: grn rename, gra code action, grt type definition)
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
   callback = function(event)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = event.buf, desc = 'LSP: Hover' })
-    vim.keymap.set('n', 'rn', vim.lsp.buf.rename, { buffer = event.buf, desc = 'LSP: [R]e[n]ame' })
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = event.buf, desc = 'LSP: [C]ode [A]ction' })
     vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float, { buffer = event.buf, desc = 'LSP: [D]iagnostic [H]elp' })
     vim.keymap.set('n', 'gd', fzflua.lsp_definitions, { buffer = event.buf, desc = 'LSP: [G]oto [D]efinition' })
-    vim.keymap.set('n', 'gr', fzflua.lsp_references, { buffer = event.buf, desc = 'LSP: [G]oto [R]eferences' })
-    vim.keymap.set('n', 'gi', fzflua.lsp_implementations, { buffer = event.buf, desc = 'LSP: [G]oto [I]mplementations' })
+    vim.keymap.set('n', 'grr', fzflua.lsp_references, { buffer = event.buf, desc = 'LSP: [G]oto [R]eferences' })
+    vim.keymap.set('n', 'gri', fzflua.lsp_implementations, { buffer = event.buf, desc = 'LSP: [G]oto [I]mplementations' })
   end,
 })
 
@@ -181,7 +180,7 @@ require('conform').setup {
   },
   formatters_by_ft = {
     lua = { 'stylua' },
-    go = { 'gofmt', 'goimports' },
+    go = { 'goimports' }, -- goimports also does gofmt's formatting
     ['*'] = { 'trim_whitespace', 'trim_newlines' },
   },
 }
