@@ -2,7 +2,15 @@ autoload -Uz compinit
 if [[ -z "$ZSH_COMPDUMP" ]]; then
   ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump"
 fi
-if [[ "$ZSH_COMPDUMP"(#qNmh+24) ]]; then
+# Full rebuild + security audit only when the dump is missing or >24h old.
+# (#q) qualifiers need EXTENDED_GLOB and don't expand inside [[ ]], so glob
+# into an array instead.
+() {
+  setopt local_options extended_glob
+  local -a stale=( "$ZSH_COMPDUMP"(#qNmh+24) )
+  [[ ! -f "$ZSH_COMPDUMP" || -n $stale ]]
+}
+if (( $? == 0 )); then
   compinit -d "$ZSH_COMPDUMP"
 else
   compinit -C -d "$ZSH_COMPDUMP"
@@ -17,11 +25,15 @@ typeset -g _prompt_git_async_fd=-1
 
 _prompt_git_branch_name() {
   _prompt_git_branch=''
-  git rev-parse --is-inside-work-tree &>/dev/null || { _prompt_git_dirty=''; return }
+  # One git fork in the common cases: symbolic-ref exits 0 on a branch,
+  # 1 on a detached HEAD, and 128 outside a repo.
   local ref
-  ref=$(git symbolic-ref --short HEAD 2>/dev/null) \
-    || ref=$(git rev-parse --short HEAD 2>/dev/null) \
-    || return
+  ref=$(git symbolic-ref --short -q HEAD 2>/dev/null)
+  case $? in
+    0) ;;
+    1) ref=$(git rev-parse --short HEAD 2>/dev/null) || return ;;
+    *) _prompt_git_dirty=''; return ;;
+  esac
   _prompt_git_branch=$ref
 }
 
@@ -137,3 +149,20 @@ command -v direnv &>/dev/null && _cached_eval direnv hook zsh
 command -v zoxide &>/dev/null && _cached_eval zoxide init zsh
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 command -v carapace &>/dev/null && _cached_eval carapace _carapace
+
+# Select and connect to a GitHub Codespace through OpenSSH.
+cssh() {
+  local name
+
+  name=$(
+    gh codespace list --limit 100 \
+      --json name,displayName,repository,state \
+      --jq '.[] | [.displayName, .repository, .state, .name] | @tsv' |
+      fzf --delimiter=$'\t' \
+        --with-nth=1,2,3 \
+        --header='Codespace / repository / state' |
+      cut -f4
+  )
+
+  [[ -n "$name" ]] && ssh "cs-$name"
+}

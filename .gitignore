@@ -28,6 +28,9 @@ zsh/.config/zsh/.zsh_sessions/
 zsh/.config/zsh/.zcompdump*
 zsh/.config/zsh/.zcompcache/
 
+# Installer-managed symlinks that land in stowed dirs
+bin/.local/bin/claude
+
 # Backup files
 *.bak
 *.swp
