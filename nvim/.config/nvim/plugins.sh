@@ -63,10 +63,16 @@ for i in "${!pids[@]}"; do
   fi
 done
 
-# Update treesitter parsers after plugin update
-if [ "$action" = "update" ]; then
-  echo "Updating treesitter parsers..."
-  nvim --headless -c 'TSUpdateSync' -c 'qall' 2>/dev/null || echo "  ⚠ TSUpdate failed (run :TSUpdate manually)"
+# Install missing treesitter parsers (no-op if present); update them on `update`.
+# Building parsers needs the tree-sitter CLI (brew "tree-sitter-cli").
+parsers="'go', 'lua', 'yaml', 'bash', 'markdown', 'markdown_inline', 'json', 'toml', 'dockerfile'"
+if ! command -v tree-sitter >/dev/null; then
+  echo "⚠ tree-sitter CLI not found; skipping parsers (brew install tree-sitter-cli)"
+else
+  echo "Installing treesitter parsers..."
+  ts="local ts = require('nvim-treesitter'); ts.install({ $parsers }):wait(300000)"
+  [ "$action" = "update" ] && ts="$ts; ts.update():wait(300000)"
+  nvim --headless -c "lua $ts" -c 'qall' || echo "  ⚠ parser install failed (run :TSInstall manually)"
 fi
 
 echo "Done."

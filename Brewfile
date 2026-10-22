@@ -46,6 +46,8 @@ brew "minikube"
 brew "utf8proc"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Parser generator tool (builds nvim-treesitter parsers)
+brew "tree-sitter-cli"
 # Zstandard is a real-time compression algorithm
 brew "zstd"
 # Port scanning utility for large networks

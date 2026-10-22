@@ -27,6 +27,12 @@ vim.opt.updatetime = 250
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
+-- No plugins here use the remote-plugin providers
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 vim.diagnostic.config {
   virtual_text = { spacing = 4, prefix = '●' },
   signs = true,
@@ -155,13 +161,16 @@ vim.lsp.config('lua_ls', {
 
 vim.lsp.enable { 'gopls', 'yamlls', 'bashls', 'lua_ls' }
 
--- Treesitter
-require('nvim-treesitter.config').setup {
-  ensure_installed = { 'go', 'lua', 'yaml', 'bash', 'markdown', 'json', 'toml', 'dockerfile' },
-  auto_install = true,
-  highlight = { enable = true, additional_vim_regex_highlighting = false },
-  indent = { enable = true },
-}
+-- Treesitter: parsers are installed by plugins.sh; enable highlighting and
+-- indent for any filetype that has one.
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('treesitter', { clear = true }),
+  callback = function(event)
+    if pcall(vim.treesitter.start, event.buf) then
+      vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+  end,
+})
 
 -- Formatting (conform.nvim)
 require('conform').setup {
