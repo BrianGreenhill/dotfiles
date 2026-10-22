@@ -1,4 +1,5 @@
 local vim = vim -- luacheck: ignore
+vim.loader.enable() -- cache compiled Lua modules across startups
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.opt.number = true

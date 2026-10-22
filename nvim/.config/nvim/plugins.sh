@@ -21,6 +21,20 @@ action="${1:-install}"
 pids=()
 names=()
 
+# Remove plugins no longer listed above; anything in start/ loads on every launch.
+for dir in "$PACK_DIR"/*/; do
+  [ -d "$dir" ] || continue
+  name="$(basename "$dir")"
+  listed=0
+  for plugin in "${plugins[@]}"; do
+    [ "${plugin##*/}" = "$name" ] && listed=1 && break
+  done
+  if [ "$listed" = 0 ]; then
+    rm -rf "${PACK_DIR:?}/$name"
+    echo "✗ $name (removed)"
+  fi
+done
+
 for plugin in "${plugins[@]}"; do
   name="${plugin##*/}"
   dir="$PACK_DIR/$name"
