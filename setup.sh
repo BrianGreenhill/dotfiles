@@ -30,7 +30,7 @@ needs_backup=false
 
 echo "🔍 Checking for existing configurations..."
 
-for config in alacritty ghostty nvim tmux; do
+for config in alacritty nvim tmux; do
     if [[ -e "$HOME/.config/$config" && ! -L "$HOME/.config/$config" ]]; then
         needs_backup=true
         break
@@ -64,7 +64,7 @@ cd "$DOTFILES_DIR"
 
 mkdir -p "$HOME/.copilot/skills"
 
-configs=(alacritty ghostty nvim tmux zsh bin gnupg copilot)
+configs=(alacritty nvim tmux zsh bin gnupg copilot)
 
 for config in "${configs[@]}"; do
     if [[ -d "$config" ]]; then

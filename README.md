@@ -5,7 +5,7 @@ Personal development environment configuration for macOS and GitHub Codespaces.
 ## What's Included
 
 - **Shell:** Zsh with custom prompt and git integration
-- **Terminal:** Ghostty / Alacritty with Kanagawa color scheme
+- **Terminal:** Alacritty with Kanagawa color scheme
 - **Editor:** Neovim with native package management
 - **Multiplexer:** tmux with custom keybindings
 - **Window Manager:** Rectangle
@@ -41,7 +41,6 @@ Your dotfiles will be installed automatically in every new Codespace.
 ```
 dotfiles/
 ├── alacritty/        # Alacritty terminal config
-├── ghostty/          # Ghostty terminal config
 ├── bin/              # Personal scripts
 ├── nvim/             # Neovim configuration
 ├── tmux/             # tmux configuration
@@ -109,4 +108,4 @@ Edit files in `~/.dotfiles` - changes are reflected immediately via symlinks.
 Key tools installed:
 - **CLI:** bat, fd, ripgrep, fzf, zoxide, tree, jq, yq
 - **Dev:** neovim, tmux, git, gh, node, go
-- **Apps:** Ghostty, Alacritty, OrbStack
+- **Apps:** Alacritty, OrbStack

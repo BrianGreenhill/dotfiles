@@ -91,7 +91,6 @@ brew "bash-language-server"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
 cask "1password"
-cask "ghostty"
 # GPU-accelerated terminal emulator
 cask "alacritty"
 # Enable Windows-like alt-tab
