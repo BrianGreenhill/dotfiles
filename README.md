@@ -18,8 +18,8 @@ Personal development environment configuration for macOS and GitHub Codespaces.
 
 ```bash
 # Clone the repository
-git clone https://github.com/BrianGreenhill/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
+git clone https://github.com/BrianGreenhill/dotfiles.git ~/work/briangreenhill/dotfiles
+cd ~/work/briangreenhill/dotfiles
 
 # Run the setup script
 ./setup.sh
@@ -45,6 +45,7 @@ dotfiles/
 ├── nvim/             # Neovim configuration
 ├── tmux/             # tmux configuration
 ├── zsh/              # Zsh shell configuration
+├── gnupg/            # GnuPG smartcard config
 ├── copilot/          # Copilot CLI custom skills
 ├── install.sh        # Codespaces installer (auto-runs)
 ├── setup.sh          # macOS installer
@@ -70,7 +71,7 @@ dotfiles/
 - Kanagawa Dragon theme
 - LSP via `vim.lsp.config` (nvim 0.11+)
 - Treesitter syntax highlighting
-- blink.cmp (Rust-powered completion)
+- mini.completion (LSP completion)
 - Fzf search integration
 
 #### Neovim Plugins
@@ -90,7 +91,7 @@ Plugins auto-install on first launch if the pack directory doesn't exist.
 
 ### Update Homebrew packages
 ```bash
-cd ~/.dotfiles
+cd ~/work/briangreenhill/dotfiles
 brew bundle dump --force  # Update Brewfile with current packages
 brew bundle                # Install/update packages
 ```
@@ -101,7 +102,7 @@ brew bundle                # Install/update packages
 ```
 
 ### Update configs
-Edit files in `~/.dotfiles` - changes are reflected immediately via symlinks.
+Edit files in `~/work/briangreenhill/dotfiles` - changes are reflected immediately via symlinks.
 
 ## Tools Overview
 
@@ -109,3 +110,12 @@ Key tools installed:
 - **CLI:** bat, fd, ripgrep, fzf, zoxide, tree, jq, yq
 - **Dev:** neovim, tmux, git, gh, node, go
 - **Apps:** Alacritty, OrbStack
+
+## Testing
+
+```bash
+bash tests/installers.sh
+```
+
+Installer regression tests use disposable homes and mocked installation commands;
+they do not download packages or change your configuration.

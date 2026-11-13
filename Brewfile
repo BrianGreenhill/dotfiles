@@ -1,15 +1,13 @@
-# Automatic configure script builder
-brew "autoconf"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@3"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Cross-platform make
 brew "cmake"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# Multi-shell multi-command argument completer
+brew "carapace"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Simple, fast and user-friendly alternative to find
@@ -20,6 +18,10 @@ brew "fzf"
 brew "gh"
 # Distributed revision control system
 brew "git"
+# GNU Pretty Good Privacy (PGP) package
+brew "gnupg"
+# Pinentry for GPG on Mac
+brew "pinentry-mac"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Update of iperf: measures TCP, UDP, and SCTP bandwidth
@@ -30,8 +32,6 @@ brew "jq"
 brew "krew"
 # Template-free customization of Kubernetes YAML manifests
 brew "kustomize"
-# Asynchronous event library
-brew "libevent"
 # Portable library for network traffic capture
 brew "libpcap"
 # Generic library support script
@@ -42,22 +42,16 @@ brew "luarocks"
 brew "lua-language-server"
 # Run a Kubernetes cluster locally
 brew "minikube"
-# Clean C library for processing UTF-8 Unicode data
-brew "utf8proc"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Parser generator tool (builds nvim-treesitter parsers)
 brew "tree-sitter-cli"
-# Zstandard is a real-time compression algorithm
-brew "zstd"
 # Port scanning utility for large networks
 brew "nmap"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
 # Highly capable, feature-rich programming language
 brew "perl"
-# Package compiler and linker metadata toolkit
-brew "pkgconf"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Declarative pure-SQL schema management for MySQL and MariaDB

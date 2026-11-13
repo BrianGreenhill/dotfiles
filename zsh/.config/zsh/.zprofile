@@ -18,7 +18,7 @@ if command -v gpg &>/dev/null; then
     # scdaemon/YubiKey enumeration (a cold ping can stall for seconds).
 fi
 
-export PATH=$HOME/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.krew/bin:$PATH
 export PATH="$GOBIN:$PATH"
 

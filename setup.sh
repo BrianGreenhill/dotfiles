@@ -24,45 +24,26 @@ if ! command -v stow &>/dev/null; then
     exit 1
 fi
 
-# Backup existing configs
+# Back up real files/dirs that stow would otherwise conflict with
 backup_dir="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
-needs_backup=false
 
 echo "🔍 Checking for existing configurations..."
 
-for config in alacritty nvim tmux; do
-    if [[ -e "$HOME/.config/$config" && ! -L "$HOME/.config/$config" ]]; then
-        needs_backup=true
-        break
+for path in .config/alacritty .config/nvim .config/tmux .config/zsh .zshenv; do
+    if [[ -e "$HOME/$path" && ! -L "$HOME/$path" ]]; then
+        mkdir -p "$backup_dir"
+        echo "  → Backing up ~/$path to $backup_dir"
+        mv "$HOME/$path" "$backup_dir/"
     fi
 done
-
-if [[ -e "$HOME/.zshrc" && ! -L "$HOME/.zshrc" ]]; then
-    needs_backup=true
-fi
-
-if [[ "$needs_backup" == "true" ]]; then
-    echo "💾 Backing up existing configs to $backup_dir"
-    mkdir -p "$backup_dir"
-
-    for config in alacritty nvim tmux; do
-        if [[ -e "$HOME/.config/$config" && ! -L "$HOME/.config/$config" ]]; then
-            echo "  → Backing up $config..."
-            mv "$HOME/.config/$config" "$backup_dir/"
-        fi
-    done
-
-    if [[ -e "$HOME/.zshrc" && ! -L "$HOME/.zshrc" ]]; then
-        echo "  → Backing up .zshrc..."
-        mv "$HOME/.zshrc" "$backup_dir/"
-    fi
-fi
 
 # Stow all configs
 echo "🔗 Symlinking configurations..."
 cd "$DOTFILES_DIR"
 
-mkdir -p "$HOME/.copilot/skills"
+# Pre-create dirs other tools also write to, so stow links files inside them
+# instead of symlinking the whole dir into this repo.
+mkdir -p "$HOME/.copilot/skills" "$HOME/.local/bin"
 
 configs=(alacritty nvim tmux zsh bin gnupg copilot)
 
@@ -79,10 +60,10 @@ echo ""
 echo "📝 Next steps:"
 echo "  1. Restart your terminal (or run: exec zsh)"
 echo "  2. Open tmux and press Ctrl-a + I to install plugins"
-echo "  3. Run ~/.config/nvim/plugins.sh to install Neovim plugins"
+echo "  3. Open nvim (plugins install automatically on first launch)"
 echo ""
 
-if [[ "$needs_backup" == "true" ]]; then
+if [[ -d "$backup_dir" ]]; then
     echo "💡 Old configs backed up to: $backup_dir"
 fi
 

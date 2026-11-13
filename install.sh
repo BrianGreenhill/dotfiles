@@ -2,7 +2,7 @@
 
 # This script is for GitHub Codespaces only
 
-set -e
+set -e -o pipefail
 
 if [[ $CODESPACES != "true" ]]; then
     echo "❌ This script is only for GitHub Codespaces"
@@ -17,12 +17,26 @@ echo "☁️  Setting up dotfiles for GitHub Codespaces..."
 # Link configs first (instant, unblocks plugin install early)
 echo "🔗 Linking configs..."
 mkdir -p ~/.config
-ln -sf "$DOTFILES_DIR/nvim/.config/nvim" ~/.config/nvim
-ln -sf "$DOTFILES_DIR/tmux/.config/tmux" ~/.config/tmux
-ln -sf "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
+backup_dir=""
+link_config() {
+    local source="$1" path="$2" destination="$HOME/$2"
+    if [[ -e "$destination" && ! -L "$destination" ]]; then
+        if [[ -z "$backup_dir" ]]; then
+            backup_dir="$(mktemp -d "$HOME/.config-backup-XXXXXXXX")"
+        fi
+        mkdir -p "$backup_dir/$(dirname "$path")"
+        mv "$destination" "$backup_dir/$path"
+        echo "  → Backed up ~/$path to $backup_dir/$path"
+    fi
+    ln -sfn "$source" "$destination"
+}
+link_config "$DOTFILES_DIR/nvim/.config/nvim" .config/nvim
+link_config "$DOTFILES_DIR/tmux/.config/tmux" .config/tmux
+link_config "$DOTFILES_DIR/zsh/.config/zsh" .config/zsh
+link_config "$DOTFILES_DIR/zsh/.zshenv" .zshenv
 mkdir -p ~/.copilot/skills
 for skill in "$DOTFILES_DIR"/copilot/.copilot/skills/*; do
-    ln -sfn "$skill" ~/.copilot/skills/"$(basename "$skill")"
+    link_config "$skill" ".copilot/skills/$(basename "$skill")"
 done
 
 # Run all independent installs in parallel
@@ -31,13 +45,14 @@ echo "📦 Installing tools in parallel..."
 install_fzf() {
     if [ ! -d ~/.fzf ]; then
         git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-        ~/.fzf/install --all --no-update-rc >/dev/null 2>&1
+        ~/.fzf/install --all --no-update-rc >/dev/null
     fi
     echo "  ✓ fzf"
 }
 
 install_neovim() {
-    if ! command -v nvim &>/dev/null || [[ "$(nvim --version | head -1)" < "NVIM v0.11" ]]; then
+    if ! command -v nvim &>/dev/null || ! nvim --headless -u NONE -i NONE -n \
+        -c 'if !has("nvim-0.11") | cquit | endif' -c 'qall'; then
         curl -sfL https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz \
             | sudo tar xz -C /usr/local --strip-components=1
     fi
@@ -45,29 +60,35 @@ install_neovim() {
 }
 
 install_apt_packages() {
-    sudo apt-get install -y --no-install-recommends tmux ripgrep bat >/dev/null 2>&1 || true
+    sudo apt-get install -y --no-install-recommends tmux ripgrep bat
     echo "  ✓ apt packages"
 }
 
 install_npm_tools() {
-    npm install -g --silent yaml-language-server bash-language-server >/dev/null 2>&1 || true
+    npm install -g yaml-language-server bash-language-server
     echo "  ✓ npm LSP servers"
 }
 
 install_go_tools() {
-    go install golang.org/x/tools/gopls@latest &
-    go install golang.org/x/tools/cmd/goimports@latest &
-    wait
+    local gopls_pid goimports_pid failed=0
+    go install golang.org/x/tools/gopls@latest & gopls_pid=$!
+    go install golang.org/x/tools/cmd/goimports@latest & goimports_pid=$!
+    wait "$gopls_pid" || failed=1
+    wait "$goimports_pid" || failed=1
+    if [[ "$failed" -ne 0 ]]; then
+        echo "  ✗ go tools" >&2
+        return 1
+    fi
     echo "  ✓ go tools"
 }
 
 install_nvim_plugins() {
+    install_neovim
     bash ~/.config/nvim/plugins.sh
 }
 
 pids=()
 install_fzf & pids+=($!)
-install_neovim & pids+=($!)
 install_apt_packages & pids+=($!)
 install_npm_tools & pids+=($!)
 install_go_tools & pids+=($!)
@@ -84,3 +105,4 @@ if [ "$failed" -eq 1 ]; then
 else
     echo "✅ Codespaces setup complete!"
 fi
+exit "$failed"

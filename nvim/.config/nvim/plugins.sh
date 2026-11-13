@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Installs/updates neovim plugins using native packages (pack/plugins/start/)
-set -e
+set -e -o pipefail
 
 PACK_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/pack/plugins/start"
 mkdir -p "$PACK_DIR"
@@ -72,7 +72,15 @@ else
   echo "Installing treesitter parsers..."
   ts="local ts = require('nvim-treesitter'); ts.install({ $parsers }):wait(300000)"
   [ "$action" = "update" ] && ts="$ts; ts.update():wait(300000)"
-  nvim --headless -c "lua $ts" -c 'qall' || echo "  ⚠ parser install failed (run :TSInstall manually)"
+  if ! nvim --headless -c "lua $ts" -c 'if v:errmsg != "" | cquit | endif' -c 'qall'; then
+    echo "  ⚠ parser install failed (run :TSInstall manually)" >&2
+    failed=1
+  fi
 fi
 
-echo "Done."
+if [ "$failed" -eq 0 ]; then
+  echo "Done."
+else
+  echo "Plugin setup failed." >&2
+fi
+exit "$failed"

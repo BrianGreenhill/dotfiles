@@ -29,6 +29,7 @@ function commit() {
     _changes_made
     git add .
     git commit -m "[automated] sync from commit.sh"
+    git pull --rebase origin main
     git push origin main
     popd
 }
